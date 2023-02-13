@@ -1,0 +1,50 @@
+name: attendance
+version: 1.0.0+1
+publish_to: none
+description: A software for Remark HB that helps employee attendance.
+environment: 
+  sdk: '>=2.19.2 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.2
+  location: ^4.4.0
+  geocoding: ^2.0.5
+  cached_network_image: ^3.2.3
+  zoom_tap_animation: ^1.1.0
+  font_awesome_flutter: ^10.3.0
+  intl: ^0.18.0
+
+  get: 4.6.5
+  flutter: 
+    sdk: flutter
+
+dev_dependencies: 
+  # flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.11.0
+  flutter_test: 
+    sdk: flutter
+
+flutter:
+  assets:
+    - assets/logo/
+    - assets/images/
+
+  uses-material-design: true
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/remark.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/logo/remark.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/logo/remark.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/logo/remark.png"
