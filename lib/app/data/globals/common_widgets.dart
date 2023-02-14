@@ -4,10 +4,11 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class COMMONWIDGET {
-  static loginInput(
-      {required String hinttext,
-      required TextEditingController controller,
-      required bool obsecure}) {
+  static loginInput({
+    required String hinttext,
+    required TextEditingController controller,
+    required bool obsecure,
+  }) {
     return TextField(
       controller: controller,
       obscureText: obsecure,
@@ -27,6 +28,37 @@ class COMMONWIDGET {
             Icons.email,
             color: AppColors.mainBlue,
           )),
+    );
+  }
+
+  static generalTextBox(
+      {required String hinttext,
+      required TextEditingController controller,
+      required bool obsecure,
+      TextInputType? keyboardType,
+      int? maxline}) {
+    return TextField(
+      controller: controller,
+      obscureText: obsecure,
+      maxLines: maxline ?? 1,
+      keyboardType: keyboardType ?? TextInputType.text,
+      decoration: InputDecoration(
+        hintText: hinttext,
+        hintStyle: TextStyle(
+          color: Colors.black,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            color: AppColors.greyColor,
+            width: 1,
+          ),
+        ),
+        // prefixIcon: Icon(
+        //   Icons.email,
+        //   color: AppColors.mainBlue,
+        // )
+      ),
     );
   }
 
