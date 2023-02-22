@@ -8,6 +8,10 @@ abstract class Routes {
   static const LOGINSCREEN = _Paths.LOGINSCREEN;
   static const ATTENDANCESCREEN = _Paths.ATTENDANCESCREEN;
   static const LEAVESCREEN = _Paths.LEAVESCREEN;
+  static const APPROVALSCREEN = _Paths.APPROVALSCREEN;
+  static const PAYMENTSCREEN = _Paths.PAYMENTSCREEN;
+  static const MANAGEMENT = _Paths.MANAGEMENT;
+  static const MOVEMENTSCREEN = _Paths.MOVEMENTSCREEN;
 }
 
 abstract class _Paths {
@@ -17,4 +21,8 @@ abstract class _Paths {
   static const LOGINSCREEN = '/loginscreen';
   static const ATTENDANCESCREEN = '/attendancescreen';
   static const LEAVESCREEN = '/leavescreen';
+  static const APPROVALSCREEN = '/approvalscreen';
+  static const PAYMENTSCREEN = '/paymentscreen';
+  static const MANAGEMENT = '/management';
+  static const MOVEMENTSCREEN = '/movementscreen';
 }

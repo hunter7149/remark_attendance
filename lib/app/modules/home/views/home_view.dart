@@ -58,47 +58,44 @@ class HomeView extends GetView<HomeController> {
               height: 20,
             ),
             //-------------------Profile Section-----------------//
-            Expanded(
-              flex: 1,
-              child: Container(
-                width: double.maxFinite,
-                // height: 400,
-                padding: EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
+            Container(
+              width: double.maxFinite,
+              // height: 400,
+              padding: EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(10),
 
-                  // border: Border.all(width: 0.5, color: Colors.grey.shade400)
-                ),
-                child: Column(children: [
-                  Container(
-                    child: Image.asset(
-                      'assets/logo/user.png',
-                      height: 100,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    "Mohammad Khalid Bin Oalid",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.grey.shade700,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "IT executive (Software)",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w400),
-                  )
-                ]),
+                // border: Border.all(width: 0.5, color: Colors.grey.shade400)
               ),
+              child: Column(children: [
+                Container(
+                  child: Image.asset(
+                    'assets/logo/user.png',
+                    height: 100,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Mohammad Khalid Bin Oalid",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.grey.shade700,
+                      fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "IT executive (Software)",
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey.shade600,
+                      fontWeight: FontWeight.w400),
+                )
+              ]),
             ),
             SizedBox(
               height: 10,
@@ -113,35 +110,56 @@ class HomeView extends GetView<HomeController> {
 
             //------------------Option Section--------------------//
             Expanded(
-              flex: 2,
-              child: SingleChildScrollView(
-                child: Container(
-                  // height: MediaQuery.of(context).size.height / 1.5,
-                  child: GridView.count(
-                      //scrollDirection: Axis.vertical,
-                      crossAxisCount: 2,
-                      childAspectRatio: (0.88),
-                      shrinkWrap: true,
-                      children: [
-                        menuItem(
-                            icon: FontAwesomeIcons.clock,
-                            color: Colors.teal,
-                            valid: true,
-                            title: "Attendance",
-                            function: () {
-                              Get.toNamed(Routes.ATTENDANCESCREEN);
-                            }),
-                        menuItem(
-                            icon: FontAwesomeIcons.calendarDays,
-                            color: Colors.deepOrange,
-                            title: "Leaves",
-                            valid: true,
-                            function: () async {
-                              Get.toNamed(Routes.LEAVESCREEN);
-                            }),
-                      ]),
-                ),
+              flex: 3,
+              child: Container(
+                // height: MediaQuery.of(context).size.height / 1.5,
+                child: GridView.count(
+                    //scrollDirection: Axis.vertical,
+                    crossAxisCount: 2,
+                    childAspectRatio: (0.88),
+                    shrinkWrap: true,
+                    children: [
+                      menuItem(
+                          icon: FontAwesomeIcons.clock,
+                          color: Colors.blue,
+                          valid: true,
+                          title: "Attendance",
+                          notification: false,
+                          function: () {
+                            Get.toNamed(Routes.MANAGEMENT);
+                          }),
+                      // menuItem(
+                      //     icon: FontAwesomeIcons.calendarDays,
+                      //     color: Colors.deepOrange,
+                      //     title: "Leaves",
+                      //     valid: true,
+                      //     notification: false,
+                      //     function: () async {
+                      //       Get.toNamed(Routes.LEAVESCREEN);
+                      //     }),
+                      // menuItem(
+                      //     icon: FontAwesomeIcons.bell,
+                      //     color: Colors.indigo,
+                      //     notification: true,
+                      //     title: "Approval notification",
+                      //     valid: true,
+                      //     function: () async {
+                      //       Get.toNamed(Routes.APPROVALSCREEN);
+                      //     }),
+                      menuItem(
+                          icon: Icons.payments,
+                          color: Colors.green,
+                          notification: false,
+                          title: "Payments",
+                          valid: true,
+                          function: () async {
+                            Get.toNamed(Routes.PAYMENTSCREEN);
+                          }),
+                    ]),
               ),
+            ),
+            SizedBox(
+              height: 10,
             )
           ]),
         )));
@@ -152,7 +170,8 @@ class HomeView extends GetView<HomeController> {
       required MaterialColor color,
       required String title,
       required VoidCallback function,
-      required bool valid}) {
+      required bool valid,
+      required bool notification}) {
     return ZoomTapAnimation(
       onTap: valid ? function : () {},
       child: Container(
@@ -167,27 +186,50 @@ class HomeView extends GetView<HomeController> {
         decoration: BoxDecoration(
             color: valid ? color.shade100 : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(15)),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: valid ? color.shade200 : Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(100)),
-              padding: EdgeInsets.all(15),
-              child: Icon(
-                icon,
-                size: 50,
-                color: valid ? color.shade500 : Colors.grey.shade500,
+            Positioned(
+              top: 0,
+              left: 0,
+              bottom: 0,
+              right: 0,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        color: valid ? color.shade200 : Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(100)),
+                    padding: EdgeInsets.all(15),
+                    child: Icon(
+                      icon,
+                      size: 50,
+                      color: valid ? color.shade500 : Colors.grey.shade500,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: valid ? color.shade500 : Colors.grey.shade500,
+                        fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
             ),
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 18,
-                  color: valid ? color.shade500 : Colors.grey.shade500,
-                  fontWeight: FontWeight.w500),
-            )
+            Positioned(
+                right: 10,
+                top: 10,
+                child: Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                      color:
+                          notification ? Colors.pink.shade600 : color.shade100,
+                      borderRadius: BorderRadius.circular(100)),
+                ))
           ],
         ),
       ),

@@ -40,9 +40,9 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Current Staus",
+                              "Attendance status",
                               style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Colors.grey.shade900,
                                   fontWeight: FontWeight.w400),
                             ),
@@ -65,7 +65,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                     ? "Checked in"
                                     : "Not checked in",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     color: Colors.grey.shade100,
                                     fontWeight: FontWeight.w700),
                               ),

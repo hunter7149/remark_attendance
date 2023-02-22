@@ -1,5 +1,8 @@
+import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import '../../../api/repository/repository.dart';
 
 class LoginscreenController extends GetxController {
   TextEditingController email = TextEditingController();
@@ -9,9 +12,21 @@ class LoginscreenController extends GetxController {
     obsecure.value = !obsecure.value;
   }
 
+  dynamic data;
+  requestTestData() async {
+    await Repository().requestLogin(map: {}).then((value) {
+      data = value;
+      print(value);
+      if (data["status"] == 1) {
+        Get.offNamed(Routes.HOME);
+      }
+    });
+  }
+
   @override
   void onInit() {
     super.onInit();
+    requestTestData();
   }
 
   @override

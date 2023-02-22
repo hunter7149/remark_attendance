@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/approvalscreen/bindings/approvalscreen_binding.dart';
+import '../modules/approvalscreen/views/approvalscreen_view.dart';
 import '../modules/attendancescreen/bindings/attendancescreen_binding.dart';
 import '../modules/attendancescreen/views/attendancescreen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -8,6 +10,12 @@ import '../modules/leavescreen/bindings/leavescreen_binding.dart';
 import '../modules/leavescreen/views/leavescreen_view.dart';
 import '../modules/loginscreen/bindings/loginscreen_binding.dart';
 import '../modules/loginscreen/views/loginscreen_view.dart';
+import '../modules/management/bindings/management_binding.dart';
+import '../modules/management/views/management_view.dart';
+import '../modules/movementscreen/bindings/movementscreen_binding.dart';
+import '../modules/movementscreen/views/movementscreen_view.dart';
+import '../modules/paymentscreen/bindings/paymentscreen_binding.dart';
+import '../modules/paymentscreen/views/paymentscreen_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
 
@@ -43,6 +51,26 @@ class AppPages {
       name: _Paths.LEAVESCREEN,
       page: () => const LeavescreenView(),
       binding: LeavescreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPROVALSCREEN,
+      page: () => const ApprovalscreenView(),
+      binding: ApprovalscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAYMENTSCREEN,
+      page: () => const PaymentscreenView(),
+      binding: PaymentscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANAGEMENT,
+      page: () => const ManagementView(),
+      binding: ManagementBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOVEMENTSCREEN,
+      page: () => const MovementscreenView(),
+      binding: MovementscreenBinding(),
     ),
   ];
 }
