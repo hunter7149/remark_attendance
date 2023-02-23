@@ -502,60 +502,127 @@ class LeavescreenView extends GetView<LeavescreenController> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            child: Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "Tap date to change date",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w400,
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Start date: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
                                       color: Colors.grey.shade900,
-                                    ),
-                                  ),
-                                ],
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                          ),
-                          Container(
-                            // alignment: Alignment.center,
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(5),
-                            // height: 130,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    width: 0.7, color: Colors.grey.shade600),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: DateTimePicker(
-                              // icon: Icon(Icons.edit),
-                              textAlign: TextAlign.center,
-                              use24HourFormat: false,
-                              initialValue: controller.dateTime.toString(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2100),
-                              // dateLabelText: 'Date',
-                              onChanged: (val) {
-                                controller.dateTime = DateTime.parse(val);
-                                print(controller.dateTime);
-                              },
-                              validator: (val) {
-                                print(val);
-                                return null;
-                              },
-                              onSaved: (val) {
-                                controller.dateTime = DateTime.parse(val!);
-                                print(controller.dateTime);
-                              },
-                            ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  // alignment: Alignment.center,
+                                  margin: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(5),
+                                  // height: 130,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 0.7,
+                                          color: Colors.grey.shade600),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DateTimePicker(
+                                    // icon: Icon(Icons.edit),
+                                    textAlign: TextAlign.center,
+                                    use24HourFormat: false,
+                                    initialValue:
+                                        controller.startDate.toString(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    // dateLabelText: 'Date',
+                                    onChanged: (val) {
+                                      controller.startDate =
+                                          DateTime.parse(val);
+                                      print(controller.startDate);
+                                    },
+                                    validator: (val) {
+                                      print(val);
+                                      return null;
+                                    },
+                                    onSaved: (val) {
+                                      controller.startDate =
+                                          DateTime.parse(val!);
+                                      print(controller.startDate);
+                                    },
+                                  ),
 
-                            //  CupertinoDatePicker(
-                            //   mode: CupertinoDatePickerMode.date,
-                            //   initialDateTime: controller.dateTime,
-                            //   onDateTimeChanged: (DateTime newDateTime) {
-                            //     controller.dateTime = newDateTime;
-                            //     print(controller.dateTime);
-                            //   },
-                            // ),
+                                  //  CupertinoDatePicker(
+                                  //   mode: CupertinoDatePickerMode.date,
+                                  //   initialDateTime: controller.dateTime,
+                                  //   onDateTimeChanged: (DateTime newDateTime) {
+                                  //     controller.dateTime = newDateTime;
+                                  //     print(controller.dateTime);
+                                  //   },
+                                  // ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "End date: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  // alignment: Alignment.center,
+                                  margin: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(5),
+                                  // height: 130,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 0.7,
+                                          color: Colors.grey.shade600),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DateTimePicker(
+                                    // icon: Icon(Icons.edit),
+                                    textAlign: TextAlign.center,
+                                    use24HourFormat: false,
+                                    initialValue: controller.endDate.toString(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    // dateLabelText: 'Date',
+                                    onChanged: (val) {
+                                      controller.endDate = DateTime.parse(val);
+                                      controller.daysCounter();
+                                      print(controller.endDate);
+                                    },
+                                    validator: (val) {
+                                      print(val);
+                                      return null;
+                                    },
+                                    onSaved: (val) {
+                                      controller.endDate = DateTime.parse(val!);
+                                      print(controller.endDate);
+                                    },
+                                  ),
+
+                                  //  CupertinoDatePicker(
+                                  //   mode: CupertinoDatePickerMode.date,
+                                  //   initialDateTime: controller.dateTime,
+                                  //   onDateTimeChanged: (DateTime newDateTime) {
+                                  //     controller.dateTime = newDateTime;
+                                  //     print(controller.dateTime);
+                                  //   },
+                                  // ),
+                                ),
+                              ),
+                            ],
                           ),
                           Obx(() {
                             return Container(
@@ -645,7 +712,10 @@ class LeavescreenView extends GetView<LeavescreenController> {
                             child: InkWell(
                           onTap: () {
                             Get.back();
-                            print("New date time : ${controller.dateTime}");
+                            print(
+                                "New start date time : ${controller.startDate}");
+                            print(
+                                "New end date time : ${controller.startDate}");
                             controller.requestApplication();
                             // controller.addtoOfflineData(
                             //     data: data, date: controller.dateTime);
@@ -654,7 +724,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                           child: Container(
                             height: 40,
                             decoration: BoxDecoration(
-                                color: Colors.green.shade500,
+                                color: AppColors.modernGreen,
                                 borderRadius: BorderRadius.circular(10)),
                             alignment: Alignment.center,
                             child: Text("SAVE",

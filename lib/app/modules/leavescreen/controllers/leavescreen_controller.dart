@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class LeavescreenController extends GetxController {
-  DateTime dateTime = DateTime.now();
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(Duration(days: 1));
   TextEditingController numberOfDays = TextEditingController(text: "1");
   TextEditingController reasonOfLeave = TextEditingController();
   RxMap<String, dynamic> leaveApplication = <String, dynamic>{}.obs;
@@ -28,19 +29,26 @@ class LeavescreenController extends GetxController {
     update();
   }
 
+  daysCounter() {
+    Duration difference = endDate.difference(startDate);
+    int daysBetween = difference.inDays;
+    numberOfDays.text = daysBetween.toString();
+    update();
+  }
+
   requestApplication() {
     int days = int.tryParse(numberOfDays.text.toString()) ?? 1;
     leaveApplication.value = {
       "type": "${dropdownLeaveTypeValue.value}",
       "start_date":
-          "${DateFormat('MM/dd/yyyy').format(dateTime).toString().split(" ")[0]}",
+          "${DateFormat('MM/dd/yyyy').format(startDate).toString().split(" ")[0]}",
       "days": "${days}",
       "reasonOfLeave": "${reasonOfLeave.text}",
       "status": "pending",
       "applicationDate":
           "${DateFormat('MM/dd/yyyy').format(DateTime.now()).toString().split(" ")[0]}"
     };
-    dateTime = DateTime.now();
+    startDate = DateTime.now();
     numberOfDays.text = "1";
     reasonOfLeave.text = "";
     update();
