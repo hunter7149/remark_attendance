@@ -376,7 +376,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                   },
                   child: Container(
                     height: 60,
-                    color: AppColors.mainBlue,
+                    color: Color(0xff25ae7a),
                     child: Center(
                       child: Text(
                         "Apply for leave",

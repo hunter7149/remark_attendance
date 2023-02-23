@@ -68,34 +68,84 @@ class HomeView extends GetView<HomeController> {
 
                 // border: Border.all(width: 0.5, color: Colors.grey.shade400)
               ),
-              child: Column(children: [
-                Container(
-                  child: Image.asset(
-                    'assets/logo/user.png',
-                    height: 100,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Mohammad Khalid Bin Oalid",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.grey.shade700,
-                      fontWeight: FontWeight.w500),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "IT executive (Software)",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey.shade600,
-                      fontWeight: FontWeight.w400),
-                )
-              ]),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        'assets/logo/user.png',
+                        height: 100,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Mohammad Khalid Bin Oalid",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade700,
+                              fontWeight: FontWeight.w500),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "IT executive (Software)",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "IT Department",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Reporting to:Amit Kumar",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "01303146132",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "khalid.oalid@remarkhb.com",
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey.shade600,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    )
+                  ]),
             ),
             SizedBox(
               height: 10,
@@ -126,35 +176,35 @@ class HomeView extends GetView<HomeController> {
                           title: "Attendance",
                           notification: false,
                           function: () {
-                            Get.toNamed(Routes.MANAGEMENT);
+                            Get.toNamed(Routes.ATTENDANCESCREEN);
                           }),
-                      // menuItem(
-                      //     icon: FontAwesomeIcons.calendarDays,
-                      //     color: Colors.deepOrange,
-                      //     title: "Leaves",
-                      //     valid: true,
-                      //     notification: false,
-                      //     function: () async {
-                      //       Get.toNamed(Routes.LEAVESCREEN);
-                      //     }),
-                      // menuItem(
-                      //     icon: FontAwesomeIcons.bell,
-                      //     color: Colors.indigo,
-                      //     notification: true,
-                      //     title: "Approval notification",
-                      //     valid: true,
-                      //     function: () async {
-                      //       Get.toNamed(Routes.APPROVALSCREEN);
-                      //     }),
                       menuItem(
-                          icon: Icons.payments,
-                          color: Colors.green,
+                          icon: FontAwesomeIcons.calendarDays,
+                          color: Colors.deepOrange,
+                          title: "Leaves",
+                          valid: true,
                           notification: false,
-                          title: "Payments",
+                          function: () async {
+                            Get.toNamed(Routes.LEAVESCREEN);
+                          }),
+                      menuItem(
+                          icon: FontAwesomeIcons.tasks,
+                          color: Colors.indigo,
+                          notification: true,
+                          title: "Tasks",
                           valid: true,
                           function: () async {
-                            Get.toNamed(Routes.PAYMENTSCREEN);
+                            Get.toNamed(Routes.TASKSCREEN);
                           }),
+                      // menuItem(
+                      //     icon: Icons.payments,
+                      //     color: Colors.green,
+                      //     notification: false,
+                      //     title: "Payments",
+                      //     valid: true,
+                      //     function: () async {
+                      //       Get.toNamed(Routes.PAYMENTSCREEN);
+                      //     }),
                     ]),
               ),
             ),

@@ -18,6 +18,8 @@ import '../modules/paymentscreen/bindings/paymentscreen_binding.dart';
 import '../modules/paymentscreen/views/paymentscreen_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
+import '../modules/taskscreen/bindings/taskscreen_binding.dart';
+import '../modules/taskscreen/views/taskscreen_view.dart';
 
 part 'app_routes.dart';
 
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.MOVEMENTSCREEN,
       page: () => const MovementscreenView(),
       binding: MovementscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.TASKSCREEN,
+      page: () => const TaskscreenView(),
+      binding: TaskscreenBinding(),
     ),
   ];
 }

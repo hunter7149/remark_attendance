@@ -12,6 +12,7 @@ abstract class Routes {
   static const PAYMENTSCREEN = _Paths.PAYMENTSCREEN;
   static const MANAGEMENT = _Paths.MANAGEMENT;
   static const MOVEMENTSCREEN = _Paths.MOVEMENTSCREEN;
+  static const TASKSCREEN = _Paths.TASKSCREEN;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const PAYMENTSCREEN = '/paymentscreen';
   static const MANAGEMENT = '/management';
   static const MOVEMENTSCREEN = '/movementscreen';
+  static const TASKSCREEN = '/taskscreen';
 }
