@@ -60,7 +60,8 @@ class AttendancescreenController extends GetxController {
       "lattitude": "${lattitude.value}",
       "longitude": "${longitude.value}"
     });
-
+    print(longitude);
+    print(lattitude);
     attendanceHistory.refresh();
     Get.closeAllSnackbars();
     Get.snackbar("Checked out", "Checked out at ${lastCheckOut.value}",
