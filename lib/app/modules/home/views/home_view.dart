@@ -1,3 +1,4 @@
+import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -63,7 +64,8 @@ class HomeView extends GetView<HomeController> {
               // height: 400,
               padding: EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
+                color: AppColors.modernBlue,
+                // color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
 
                 // border: Border.all(width: 0.5, color: Colors.grey.shade400)
@@ -90,7 +92,7 @@ class HomeView extends GetView<HomeController> {
                           "Mohammad Khalid Bin Oalid",
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.grey.shade700,
+                              color: Colors.grey.shade100,
                               fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
@@ -100,37 +102,37 @@ class HomeView extends GetView<HomeController> {
                           "IT executive (Software)",
                           style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey.shade600,
+                              color: Colors.grey.shade100,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          "IT Department",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Reporting to:Amit Kumar",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        // Text(
+                        //   "IT Department",
+                        //   style: TextStyle(
+                        //       fontSize: 12,
+                        //       color: Colors.grey.shade100,
+                        //       fontWeight: FontWeight.w400),
+                        // ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
+                        // Text(
+                        //   "Reporting to:Amit Kumar",
+                        //   style: TextStyle(
+                        //       fontSize: 12,
+                        //       color: Colors.grey.shade100,
+                        //       fontWeight: FontWeight.w400),
+                        // ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
                         Text(
                           "01303146132",
                           style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey.shade600,
+                              color: Colors.grey.shade100,
                               fontWeight: FontWeight.w400),
                         ),
                         SizedBox(
@@ -140,7 +142,7 @@ class HomeView extends GetView<HomeController> {
                           "khalid.oalid@remarkhb.com",
                           style: TextStyle(
                               fontSize: 12,
-                              color: Colors.grey.shade600,
+                              color: Colors.grey.shade100,
                               fontWeight: FontWeight.w400),
                         ),
                       ],

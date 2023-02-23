@@ -185,7 +185,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               child: COMMONWIDGET.button(
                                   height: 50,
                                   title: "Check Out",
-                                  backgroudcolor: Colors.red.shade600,
+                                  backgroudcolor: Colors.red.shade400,
                                   funtion: () {
                                     controller.requestCheckOut();
                                   }),
