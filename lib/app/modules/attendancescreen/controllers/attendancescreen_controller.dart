@@ -25,17 +25,33 @@ class AttendancescreenController extends GetxController {
   }
 
   //-------------Function for updating history of attendance-----------//
-  RxList<Map<String, dynamic>> attendanceHistory = <Map<String, dynamic>>[].obs;
+  RxList<Map<String, dynamic>> attendanceHistory = <Map<String, dynamic>>[
+    {
+      "activity": "Check In",
+      "intime":
+          DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
+      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
+          .format(DateTime.now().add(Duration(hours: 6)))
+          .toString(),
+      "lattitude": "0.0",
+      "longitude": "0.0",
+      "status": "Attended",
+    }
+  ].obs;
   requestCheckIn() {
     isCheckedInUpdater(value: true);
     lastCheckInUpdater(
         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
     attendanceHistory.add({
       "activity": "Check In",
-      "time":
+      "intime":
           DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
+      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
+          .format(DateTime.now().add(Duration(hours: 6)))
+          .toString(),
       "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}"
+      "longitude": "${longitude.value}",
+      "status": "Attended",
     });
     Get.closeAllSnackbars();
     Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
@@ -55,10 +71,14 @@ class AttendancescreenController extends GetxController {
         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
     attendanceHistory.add({
       "activity": "Check Out",
-      "time":
+      "intime":
           DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
+      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
+          .format(DateTime.now().add(Duration(hours: 6)))
+          .toString(),
       "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}"
+      "longitude": "${longitude.value}",
+      "status": "Attended",
     });
     print(longitude);
     print(lattitude);

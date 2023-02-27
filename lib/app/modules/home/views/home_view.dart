@@ -1,4 +1,5 @@
 import 'package:attendance/app/data/globals/app_colors.dart';
+import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,19 +37,19 @@ class HomeView extends GetView<HomeController> {
           ),
           centerTitle: true,
           actions: [
-            Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(7),
-              decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(100),
-                  // border: Border.all(width: 0.7, color: Colors.grey.shade600)
-                  ),
-              child: Icon(
-                FontAwesomeIcons.bell,
-                color: Colors.grey.shade700,
-                size: 20,
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.all(10),
+            //   padding: EdgeInsets.all(7),
+            //   decoration: BoxDecoration(
+            //       // borderRadius: BorderRadius.circular(100),
+            //       // border: Border.all(width: 0.7, color: Colors.grey.shade600)
+            //       ),
+            //   child: Icon(
+            //     FontAwesomeIcons.bell,
+            //     color: Colors.grey.shade700,
+            //     size: 20,
+            //   ),
+            // ),
           ],
         ),
         body: SafeArea(
@@ -70,84 +71,122 @@ class HomeView extends GetView<HomeController> {
 
                 // border: Border.all(width: 0.5, color: Colors.grey.shade400)
               ),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      child: Image.asset(
-                        'assets/logo/user.png',
-                        height: 100,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "Mohammad Khalid Bin Oalid",
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.grey.shade100,
-                              fontWeight: FontWeight.w500),
+                        Container(
+                          child: Image.asset(
+                            'assets/logo/user.png',
+                            height: 100,
+                          ),
                         ),
                         SizedBox(
-                          height: 5,
+                          width: 10,
                         ),
-                        Text(
-                          "IT executive (Software)",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade100,
-                              fontWeight: FontWeight.w400),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              controller.userProfile["personal"]["empName"],
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "IT executive (Software)",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            // Text(
+                            //   "IT Department",
+                            //   style: TextStyle(
+                            //       fontSize: 12,
+                            //       color: Colors.grey.shade100,
+                            //       fontWeight: FontWeight.w400),
+                            // ),
+                            // SizedBox(
+                            //   height: 5,
+                            // ),
+                            // Text(
+                            //   "Reporting to:Amit Kumar",
+                            //   style: TextStyle(
+                            //       fontSize: 12,
+                            //       color: Colors.grey.shade100,
+                            //       fontWeight: FontWeight.w400),
+                            // ),
+                            // SizedBox(
+                            //   height: 5,
+                            // ),
+                            Text(
+                              "01303146132",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "khalid.oalid@remarkhb.com",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        )
+                      ]),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ZoomTapAnimation(
+                        onLongTap: () {
+                          Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                              arguments: controller.userProfile);
+                        },
+                        onTap: () {
+                          Get.toNamed(Routes.PROFILEEDITSCREEN,
+                              arguments: controller.userProfile);
+                        },
+                        child: Container(
+                          height: 40,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              color: AppColors.modernCoral,
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Center(
+                            child: Text(
+                              "Details",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        // Text(
-                        //   "IT Department",
-                        //   style: TextStyle(
-                        //       fontSize: 12,
-                        //       color: Colors.grey.shade100,
-                        //       fontWeight: FontWeight.w400),
-                        // ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        // Text(
-                        //   "Reporting to:Amit Kumar",
-                        //   style: TextStyle(
-                        //       fontSize: 12,
-                        //       color: Colors.grey.shade100,
-                        //       fontWeight: FontWeight.w400),
-                        // ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        Text(
-                          "01303146132",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade100,
-                              fontWeight: FontWeight.w400),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "khalid.oalid@remarkhb.com",
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade100,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ],
-                    )
-                  ]),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 10,

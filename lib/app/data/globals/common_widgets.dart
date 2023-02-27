@@ -62,6 +62,41 @@ class COMMONWIDGET {
     );
   }
 
+  static commonTextEdit(
+      {required String hinttext,
+      required TextEditingController controller,
+      required bool obsecure,
+      TextInputType? keyboardType,
+      int? maxline}) {
+    return TextField(
+      style: TextStyle(color: Colors.black),
+      controller: controller,
+      obscureText: obsecure,
+      maxLines: maxline ?? 1,
+      keyboardType: keyboardType ?? TextInputType.text,
+      decoration: InputDecoration(
+        hintText: hinttext,
+        hintStyle: TextStyle(
+          color: Colors.black,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            width: 1,
+            color: Colors.grey.shade100,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(
+            width: 1,
+            color: Colors.blue.shade200,
+          ),
+        ),
+      ),
+    );
+  }
+
   static button(
       {required String title,
       required VoidCallback funtion,

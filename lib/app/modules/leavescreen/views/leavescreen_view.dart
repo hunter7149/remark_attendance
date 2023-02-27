@@ -37,73 +37,74 @@ class LeavescreenView extends GetView<LeavescreenController> {
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-                    width: double.maxFinite,
-                    // height: 400,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(10),
+                  // Container(
+                  //   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+                  //   width: double.maxFinite,
+                  //   // height: 400,
+                  //   padding: EdgeInsets.all(10),
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.grey.shade100,
+                  //     borderRadius: BorderRadius.circular(10),
 
-                      // border: Border.all(width: 0.5, color: Colors.grey.shade400)
-                    ),
-                    child: Column(children: [
-                      Container(
-                        child: Image.asset(
-                          'assets/logo/user.png',
-                          height: 100,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Mohammad Khalid Bin Oalid",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "IT executive (Software)",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Employee Id: 662",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey.shade600,
-                            fontWeight: FontWeight.w400),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          leaveCountView(
-                              title: "Total leave", enjoyed: "06", total: "26"),
-                          leaveCountView(
-                              title: "Sick leave", enjoyed: "02", total: "13"),
-                          leaveCountView(
-                              title: "Casual leave", enjoyed: "04", total: "13")
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      )
-                    ]),
-                  ),
+                  //     // border: Border.all(width: 0.5, color: Colors.grey.shade400)
+                  //   ),
+                  //   child: Column(children: [
+                  //     Container(
+                  //       child: Image.asset(
+                  //         'assets/logo/user.png',
+                  //         height: 100,
+                  //       ),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 10,
+                  //     ),
+                  //     Text(
+                  //       "Mohammad Khalid Bin Oalid",
+                  //       style: TextStyle(
+                  //           fontSize: 20,
+                  //           color: Colors.grey.shade700,
+                  //           fontWeight: FontWeight.w500),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 5,
+                  //     ),
+                  //     Text(
+                  //       "IT executive (Software)",
+                  //       style: TextStyle(
+                  //           fontSize: 16,
+                  //           color: Colors.grey.shade600,
+                  //           fontWeight: FontWeight.w400),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 5,
+                  //     ),
+                  //     Text(
+                  //       "Employee Id: 662",
+                  //       style: TextStyle(
+                  //           fontSize: 16,
+                  //           color: Colors.grey.shade600,
+                  //           fontWeight: FontWeight.w400),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 20,
+                  //     ),
+                  //     Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //       children: [
+                  //         leaveCountView(
+                  //             title: "Total leave", enjoyed: "06", total: "26"),
+                  //         leaveCountView(
+                  //             title: "Sick leave", enjoyed: "02", total: "13"),
+                  //         leaveCountView(
+                  //             title: "Casual leave", enjoyed: "04", total: "13")
+                  //       ],
+                  //     ),
+                  //     SizedBox(
+                  //       height: 10,
+                  //     )
+                  //   ]),
+                  // ),
+
                   Obx(() => controller.leaveApplication.isEmpty
                       ? Container()
                       : Container(
@@ -202,12 +203,12 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                           color: controller.leaveApplication[
                                                       'status'] ==
                                                   "pending"
-                                              ? Colors.deepOrange
+                                              ? AppColors.modernLightBrown
                                               : controller.leaveApplication[
                                                           'status'] ==
                                                       "approved"
-                                                  ? Colors.green
-                                                  : Colors.red,
+                                                  ? AppColors.modernGreen
+                                                  : AppColors.modernSexyRed,
                                           borderRadius: BorderRadius.only(
                                               bottomLeft: Radius.circular(10),
                                               bottomRight:
@@ -666,13 +667,35 @@ class LeavescreenView extends GetView<LeavescreenController> {
                               ),
                             );
                           }),
-                          Container(
-                              margin: EdgeInsets.all(10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Number of days",
-                                  controller: controller.numberOfDays,
-                                  obsecure: false,
-                                  keyboardType: TextInputType.number)),
+                          // Row(
+                          //   children: [
+                          //     Expanded(
+                          //       flex: 2,
+                          //       child: Text(
+                          //         "Number of days ",
+                          //         style: TextStyle(
+                          //             fontSize: 18,
+                          //             color: Colors.grey.shade900,
+                          //             fontWeight: FontWeight.w600),
+                          //         // textAlign: TextAlign.center,
+                          //       ),
+                          //     ),
+                          //     Expanded(
+                          //       flex: 1,
+                          //       child: Text(
+                          //         "${controller.numberOfDays.text}",
+                          //         style: TextStyle(
+                          //             fontSize: 18,
+                          //             color: Colors.grey.shade900,
+                          //             fontWeight: FontWeight.w600),
+                          //         // textAlign: TextAlign.center,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: COMMONWIDGET.generalTextBox(

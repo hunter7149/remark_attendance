@@ -13,6 +13,9 @@ abstract class Routes {
   static const MANAGEMENT = _Paths.MANAGEMENT;
   static const MOVEMENTSCREEN = _Paths.MOVEMENTSCREEN;
   static const TASKSCREEN = _Paths.TASKSCREEN;
+  static const PROFILEVIEWSCREEN = _Paths.PROFILEVIEWSCREEN;
+  static const PROFILEEDITSCREEN = _Paths.PROFILEEDITSCREEN;
+  static const PERSONALINFO = _Paths.PERSONALINFO;
 }
 
 abstract class _Paths {
@@ -27,4 +30,7 @@ abstract class _Paths {
   static const MANAGEMENT = '/management';
   static const MOVEMENTSCREEN = '/movementscreen';
   static const TASKSCREEN = '/taskscreen';
+  static const PROFILEVIEWSCREEN = '/profileviewscreen';
+  static const PROFILEEDITSCREEN = '/profileeditscreen';
+  static const PERSONALINFO = '/personalinfo';
 }

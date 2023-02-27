@@ -24,6 +24,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                //------------------Attendance status-----------------//
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -77,6 +78,127 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 SizedBox(
                   height: 20,
                 ),
+                Obx(() => controller.attendanceHistory.length == 0
+                    ? Container()
+                    : Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        // padding: EdgeInsets.symmetric(horizontal: 5),
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyColor,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Date",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade900,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "In",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade900,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "Out",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade900,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "Status",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade900,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //------Dynamic items------//
+                            Column(
+                              children: controller.attendanceHistory.reversed
+                                  .map((element) => Container(
+                                        // margin:
+                                        //     EdgeInsets.symmetric(vertical: 5),
+                                        padding: EdgeInsets.all(10),
+                                        decoration:
+                                            BoxDecoration(color: Colors.white),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              "  ${element["intime"].toString().split(" ")[1]} ${element["outtime"].toString().split(" ")[2]}   ",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              element["intime"]
+                                                  .toString()
+                                                  .split(" ")[1],
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              "  ${element["outtime"].toString().split(" ")[1]} ${element["outtime"].toString().split(" ")[2]}   ",
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            Text(
+                                              element["status"],
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ],
+                                        ),
+                                      ))
+                                  .toList(),
+                            ),
+                            //---Buttom curve design---------//
+                            Container(
+                              height: 35,
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.greyColor,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(10),
+                                      bottomRight: Radius.circular(10))),
+                            )
+                          ],
+                        ),
+                      )),
+                SizedBox(
+                  height: 20,
+                ),
+
                 //----------Check in out box with clock--------------//
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 16),
@@ -265,7 +387,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               child: Text(
                                 "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["activity"]}" +
                                     " at "
-                                        "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["time"]}",
+                                        "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["intime"]}",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.grey.shade900,
@@ -275,100 +397,66 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                           ],
                         ),
                       )),
-                //-----------------Order History Changer------------------//
-                Obx(() => controller.attendanceHistory.length == 0
-                    ? Container()
-                    : space(horizontal: 16)),
-                Obx(() => controller.attendanceHistory.length == 0
-                    ? Container()
-                    : Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
-                        // padding: EdgeInsets.symmetric(horizontal: 5),
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColor,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Activity",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "Date - Time",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            //------Dynamic items------//
-                            Column(
-                              children: controller.attendanceHistory.reversed
-                                  .map((element) => Container(
-                                        // margin:
-                                        //     EdgeInsets.symmetric(vertical: 5),
-                                        padding: EdgeInsets.all(10),
-                                        decoration:
-                                            BoxDecoration(color: Colors.white),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              element["activity"],
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            Text(
-                                              element["time"],
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                            //---Buttom curve design---------//
-                            Container(
-                              height: 35,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10))),
-                            )
-                          ],
-                        ),
-                      )),
+                // //-----------------Order History Changer------------------//
+                // Obx(() => controller.attendanceHistory.length == 0
+                //     ? Container()
+                //     : space(horizontal: 16)),
                 SizedBox(
                   height: 20,
-                )
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        // margin: EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: AppColors.greyColor,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Movement",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade900,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          color: Colors.grey.shade200,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 24),
+                          child: Column(
+                            children: [
+                              Text(
+                                "You can request a temporary movement time for official or personal reason",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              COMMONWIDGET.button(
+                                  height: 40,
+                                  title: "Request",
+                                  backgroudcolor: Color(0xff25ae7a),
+                                  funtion: () {
+                                    Get.snackbar("Success", "Working");
+                                  }),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

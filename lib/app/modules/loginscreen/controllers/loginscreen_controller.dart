@@ -19,6 +19,8 @@ class LoginscreenController extends GetxController {
       print(value);
       if (data["status"] == 1) {
         Get.offNamed(Routes.HOME);
+      } else {
+        Get.offNamed(Routes.HOME);
       }
     });
   }

@@ -16,6 +16,12 @@ import '../modules/movementscreen/bindings/movementscreen_binding.dart';
 import '../modules/movementscreen/views/movementscreen_view.dart';
 import '../modules/paymentscreen/bindings/paymentscreen_binding.dart';
 import '../modules/paymentscreen/views/paymentscreen_view.dart';
+import '../modules/personalinfo/bindings/personalinfo_binding.dart';
+import '../modules/personalinfo/views/personalinfo_view.dart';
+import '../modules/profileeditscreen/bindings/profileeditscreen_binding.dart';
+import '../modules/profileeditscreen/views/profileeditscreen_view.dart';
+import '../modules/profileviewscreen/bindings/profileviewscreen_binding.dart';
+import '../modules/profileviewscreen/views/profileviewscreen_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
 import '../modules/taskscreen/bindings/taskscreen_binding.dart';
@@ -78,6 +84,21 @@ class AppPages {
       name: _Paths.TASKSCREEN,
       page: () => const TaskscreenView(),
       binding: TaskscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILEVIEWSCREEN,
+      page: () => ProfileviewscreenView(),
+      binding: ProfileviewscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILEEDITSCREEN,
+      page: () => ProfileeditscreenView(),
+      binding: ProfileeditscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERSONALINFO,
+      page: () => const PersonalinfoView(),
+      binding: PersonalinfoBinding(),
     ),
   ];
 }
