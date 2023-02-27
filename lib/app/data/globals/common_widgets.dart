@@ -67,11 +67,13 @@ class COMMONWIDGET {
       required TextEditingController controller,
       required bool obsecure,
       TextInputType? keyboardType,
-      int? maxline}) {
+      int? maxline,
+      bool? enabled}) {
     return TextField(
       style: TextStyle(color: Colors.black),
       controller: controller,
       obscureText: obsecure,
+      enabled: enabled ?? true,
       maxLines: maxline ?? 1,
       keyboardType: keyboardType ?? TextInputType.text,
       decoration: InputDecoration(
