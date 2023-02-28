@@ -24,19 +24,22 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
-              child: Column(
-            children: [
-              expandedPersonal(context: context),
-              SizedBox(
-                height: 20,
-              ),
-              expandedPresentAddress(context: context),
-              SizedBox(
-                height: 20,
-              ),
-              expandedPermanentAddress(context: context),
-            ],
-          )),
+              child: Column(children: [
+            personalInfoSection(
+                controller: controller,
+                context: context,
+                color: AppColors.modernGreen),
+            SizedBox(
+              height: 20,
+            ),
+            presentAddressInfoSection(
+                controller: controller,
+                context: context,
+                color: AppColors.mainBlue),
+            SizedBox(
+              height: 20,
+            )
+          ])),
         )));
   }
 
@@ -45,7 +48,7 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
       text,
       style: TextStyle(
           fontSize: 16,
-          color: Colors.grey.shade100,
+          color: Colors.grey.shade900,
           fontWeight: FontWeight.w400),
     );
   }
@@ -96,258 +99,359 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
     );
   }
 
-//-----------------------Section responsible for personal information-----------------------------//
-  expandedPersonal({required BuildContext context}) {
-    return ExpandablePanel(
-      theme: ExpandableThemeData(
-          tapBodyToCollapse: true,
-          // hasIcon: false,
-          headerAlignment: ExpandablePanelHeaderAlignment.center,
-          // iconPlacement: ExpandablePanelIconPlacement.right,
-
-          animationDuration: const Duration(milliseconds: 500),
-          // tapBodyToExpand: true,
-          expandIcon: Icons.arrow_circle_down,
-          collapseIcon: Icons.arrow_circle_up),
-
-      // ...
-
-      header: Container(
-        // height: 100,
-        width: double.maxFinite,
-        color: AppColors.modernBlue,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColors.modernBlue,
-                    borderRadius: BorderRadius.circular(100)),
-                padding: EdgeInsets.all(30),
-                child: Image.asset(
-                  "assets/images/personal.png",
-                  color: Colors.white,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Personal information",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-        ),
-      ),
-      collapsed: Container(),
-
-      expanded: Container(
-
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: SingleChildScrollView(
+  personalInfoSection(
+      {required ProfileviewscreenController controller,
+      required BuildContext context,
+      required Color color}) {
+    return Container(
+      decoration: BoxDecoration(
+          color: color.withOpacity(0.03),
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5)),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
-                commonTextField(controller: controller.name, title: "Name"),
-                commonTextField(
-                    controller: controller.dateOfBirth, title: "Date of birth"),
-                commonTextField(controller: controller.email, title: "Email"),
-                commonTextField(controller: controller.phone, title: "Phone"),
-                commonTextField(controller: controller.gender, title: "Gender"),
-                commonTextField(
-                    controller: controller.bloodGroup, title: "Blood group"),
-                commonTextField(
-                    controller: controller.nationality, title: "Nationality"),
-                commonTextField(
-                    controller: controller.nid, title: "National identity"),
-                commonTextField(controller: controller.height, title: "Height"),
-                commonTextField(controller: controller.weight, title: "Weight"),
-                commonTextField(
-                    controller: controller.religion, title: "Religion"),
-                commonTextField(controller: controller.tin, title: "TIN no"),
-                commonTextField(
+                personalRow(
+                    label: "Employee name:",
+                    controller: controller.name,
+                    hinttext: "Name"),
+                personalRow(
+                    label: "Employee date of birth:",
+                    controller: controller.dateOfBirth,
+                    hinttext: "Date of birth"),
+                personalRow(
+                    label: "Gender :",
+                    controller: controller.gender,
+                    hinttext: "Gender"),
+                personalRow(
+                    label: "Blood group :",
+                    controller: controller.bloodGroup,
+                    hinttext: "Blood group"),
+                personalRow(
+                    label: "Mobile :",
+                    controller: controller.phone,
+                    hinttext: "Mobile number"),
+                personalRow(
+                    label: "Email :",
+                    controller: controller.email,
+                    hinttext: "Email"),
+                personalRow(
+                    label: "Father's name :",
+                    controller: controller.fatherName,
+                    hinttext: "Fathers's name"),
+                personalRow(
+                    label: "Father's profession :",
+                    controller: controller.fatherProf,
+                    hinttext: "Father's profession"),
+                personalRow(
+                    label: "Mother's name :",
+                    controller: controller.motherName,
+                    hinttext: "Mohter's name"),
+                personalRow(
+                    label: "Mother's profession :",
+                    controller: controller.motherProf,
+                    hinttext: "Mother's proffesion"),
+                personalRow(
+                    label: "Nationality :",
+                    controller: controller.nationality,
+                    hinttext: "Nationality"),
+                personalRow(
+                    label: "Nid:",
+                    controller: controller.nid,
+                    hinttext: "National Identification Card(NID)"),
+                personalRow(
+                    label: "Height :",
+                    controller: controller.height,
+                    hinttext: "Height"),
+                personalRow(
+                    label: "Weight :",
+                    controller: controller.weight,
+                    hinttext: "Weight"),
+                personalRow(
+                    label: "Religion :",
+                    controller: controller.religion,
+                    hinttext: "Religion"),
+                personalRow(
+                    label: "TIN :",
+                    controller: controller.tin,
+                    hinttext: "TIN"),
+                personalRow(
+                    label: "Marital status :",
                     controller: controller.maritalStatus,
-                    title: "Marital status"),
-                commonTextField(
-                    controller: controller.spouseName, title: "Spouse name"),
-                commonTextField(
+                    hinttext: "Marital status"),
+                personalRow(
+                    label: "Spouse name :",
+                    controller: controller.spouseName,
+                    hinttext: "Spouse name"),
+                personalRow(
+                    label: "Spouse date of birth :",
                     controller: controller.spouseDob,
-                    title: "Spouse date of birth"),
-                commonTextField(
+                    hinttext: "Spouse date of birth"),
+                personalRow(
+                    label: "Number of children :",
                     controller: controller.noOfChildren,
-                    title: "No of children"),
-                commonTextField(
+                    hinttext: "Number of children"),
+                personalRow(
+                    label: "Children 1 name :",
                     controller: controller.childOneName,
-                    title: "Children 1 name"),
-                commonTextField(
+                    hinttext: "Children 1 name"),
+                personalRow(
+                    label: "Children 1 date of birth :",
                     controller: controller.childOneDob,
-                    title: "Children 1 date of birth"),
-                commonTextField(
-                    controller: controller.childTwoName, title: "Child 2 name"),
-                commonTextField(
+                    hinttext: "Children 1 date of birth"),
+                personalRow(
+                    label: "Children 2 name :",
+                    controller: controller.childTwoName,
+                    hinttext: "Children 2 name"),
+                personalRow(
+                    label: "Children 2 date of birth :",
                     controller: controller.childTwoDob,
-                    title: "Child 2 date of birth"),
+                    hinttext: "Children 2 date of birth"),
+                personalRow(
+                    label: "Passport no:",
+                    controller: controller.passportNo,
+                    hinttext: "Passport no"),
+                personalRow(
+                    label: "Passport expiry:",
+                    controller: controller.passportExp,
+                    hinttext: "Passport expiry"),
+                personalRow(
+                    label: "Driving l;icense no:",
+                    controller: controller.drivingLicenseNo,
+                    hinttext: "Driving l;icense no"),
+                personalRow(
+                    label: "Driving license expiry:",
+                    controller: controller.drivingLicenseExp,
+                    hinttext: "Driving license expiry"),
               ],
             ),
-          )),
+          ),
+          Positioned(
+              child: Container(
+            height: 40,
+            width: 180,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    bottomRight: Radius.circular(20))),
+            child: Center(
+              child: Text(
+                'Academic information',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ))
+        ],
+      ),
     );
   }
 
-//-----------------------Section responsible for present address information-----------------------------//
-  expandedPresentAddress({required BuildContext context}) {
-    return ExpandablePanel(
-      theme: ExpandableThemeData(
-          tapBodyToCollapse: true,
-          headerAlignment: ExpandablePanelHeaderAlignment.center,
-          animationDuration: const Duration(milliseconds: 500),
-          expandIcon: Icons.arrow_circle_down,
-          collapseIcon: Icons.arrow_circle_up),
-      header: Container(
-        width: double.maxFinite,
-        color: AppColors.modernGreen,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColors.modernGreen,
-                    borderRadius: BorderRadius.circular(100)),
-                padding: EdgeInsets.all(30),
-                child: Image.asset(
-                  "assets/images/contact.png",
-                  color: Colors.white,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Present address",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-        ),
-      ),
-      collapsed: Container(),
-      expanded: Container(
-
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: SingleChildScrollView(
+  presentAddressInfoSection(
+      {required ProfileviewscreenController controller,
+      required BuildContext context,
+      required Color color}) {
+    return Container(
+      decoration: BoxDecoration(
+          color: color.withOpacity(0.03),
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5)),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
-                commonTextField(
+                personalRow(
+                    label: "Vill/House No/Area:",
                     controller: controller.presentVillage,
-                    title: "Village/House no/Area"),
-                commonTextField(
+                    hinttext: "Village/Area"),
+                personalRow(
+                    label: "Police statios :",
                     controller: controller.presentPoliceStation,
-                    title: "Police station"),
-                commonTextField(
+                    hinttext: "Police statios "),
+                personalRow(
+                    label: "District:",
+                    controller: controller.presentDistrict,
+                    hinttext: "District"),
+                personalRow(
+                    label: "Division:",
+                    controller: controller.presentDivision,
+                    hinttext: "Division"),
+                personalRow(
+                    label: "Post office:",
                     controller: controller.presentPostOffice,
-                    title: "Post office"),
-                commonTextField(
-                    controller: controller.presentDistrict, title: "District"),
-                commonTextField(
-                    controller: controller.presentDivision, title: "Division"),
-                commonTextField(
-                    controller: controller.presentPostCode, title: "Post code"),
+                    hinttext: "Post office"),
+                personalRow(
+                    label: "Post code:",
+                    controller: controller.presentPostCode,
+                    hinttext: "Post code"),
               ],
             ),
-          )),
+          ),
+          Positioned(
+              child: Container(
+            height: 40,
+            width: 180,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    bottomRight: Radius.circular(20))),
+            child: Center(
+              child: Text(
+                'Present address',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ))
+        ],
+      ),
     );
   }
 
-//-----------------------Section responsible for permanent address information-----------------------------//
-  expandedPermanentAddress({required BuildContext context}) {
-    return ExpandablePanel(
-      theme: ExpandableThemeData(
-          tapBodyToCollapse: true,
-          headerAlignment: ExpandablePanelHeaderAlignment.center,
-          animationDuration: const Duration(milliseconds: 500),
-          expandIcon: Icons.arrow_circle_down,
-          collapseIcon: Icons.arrow_circle_up),
-      header: Container(
-        width: double.maxFinite,
-        color: AppColors.modernSexyRed,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: AppColors.modernSexyRed,
-                    borderRadius: BorderRadius.circular(100)),
-                padding: EdgeInsets.all(30),
-                child: Image.asset(
-                  "assets/images/contact.png",
-                  color: Colors.white,
-                  height: 50,
-                  width: 50,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Text(
-                "Permanent address",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-                textAlign: TextAlign.start,
-              ),
-            ],
-          ),
-        ),
-      ),
-      collapsed: Container(),
-      expanded: Container(
-
-          // height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          // padding: EdgeInsets.symmetric(horizontal: 16),
-          child: SingleChildScrollView(
+  permanentAddressInfoSection(
+      {required ProfileviewscreenController controller,
+      required BuildContext context,
+      required Color color}) {
+    return Container(
+      decoration: BoxDecoration(
+          color: color.withOpacity(0.03),
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5)),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: [
                 SizedBox(
-                  height: 10,
+                  height: 50,
                 ),
-                commonTextField(
-                    controller: controller.permanentVillage,
-                    title: "Village/House no/Area"),
-                commonTextField(
-                    controller: controller.permanentPoliceStation,
-                    title: "Police station"),
-                commonTextField(
-                    controller: controller.permanentPostOffice,
-                    title: "Post office"),
-                commonTextField(
-                    controller: controller.permanentDistrict,
-                    title: "District"),
-                commonTextField(
-                    controller: controller.permanentDivision,
-                    title: "Division"),
-                commonTextField(
-                    controller: controller.permanentPostCode,
-                    title: "Post code"),
+                personalRow(
+                    label: "Children 2 name :",
+                    controller: controller.childTwoName,
+                    hinttext: "Children 2 name"),
+                personalRow(
+                    label: "Children 2 date of birth :",
+                    controller: controller.childTwoDob,
+                    hinttext: "Children 2 date of birth"),
               ],
             ),
-          )),
+          ),
+          Positioned(
+              child: Container(
+            height: 40,
+            width: 180,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    bottomRight: Radius.circular(20))),
+            child: Center(
+              child: Text(
+                'Permanent address',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ))
+        ],
+      ),
+    );
+  }
+
+  academicInfoSection(
+      {required ProfileviewscreenController controller,
+      required BuildContext context,
+      required Color color}) {
+    return Container(
+      decoration: BoxDecoration(
+          color: color.withOpacity(0.03),
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5)),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                personalRow(
+                    label: "Children 2 name :",
+                    controller: controller.childTwoName,
+                    hinttext: "Children 2 name"),
+                personalRow(
+                    label: "Children 2 date of birth :",
+                    controller: controller.childTwoDob,
+                    hinttext: "Children 2 date of birth"),
+              ],
+            ),
+          ),
+          Positioned(
+              child: Container(
+            height: 40,
+            width: 180,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    bottomRight: Radius.circular(20))),
+            child: Center(
+              child: Text(
+                'Academic information',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ))
+        ],
+      ),
+    );
+  }
+
+  personalRow(
+      {required String label,
+      required TextEditingController controller,
+      required String hinttext}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      // decoration: BoxDecoration(
+      //     border: Border.all(color: Colors.black, width: 1),
+      //     borderRadius: BorderRadius.circular(5)),
+      child: Row(
+        children: [
+          Expanded(flex: 1, child: textView(text: label)),
+          SizedBox(
+            width: 5,
+          ),
+          Expanded(
+              flex: 2,
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10)),
+                child: COMMONWIDGET.commonTextEdit(
+                    hinttext: hinttext,
+                    controller: controller,
+                    obsecure: false,
+                    enabled: true,
+                    radius: 5,
+                    borderColor: Colors.white),
+              ))
+        ],
+      ),
     );
   }
 }

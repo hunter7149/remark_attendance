@@ -68,9 +68,12 @@ class COMMONWIDGET {
       required bool obsecure,
       TextInputType? keyboardType,
       int? maxline,
-      bool? enabled}) {
+      bool? enabled,
+      double? radius,
+      Color? borderColor}) {
     return TextField(
-      style: TextStyle(color: Colors.black),
+      style: TextStyle(color: Colors.black, fontSize: 16),
+      textAlignVertical: TextAlignVertical.center,
       controller: controller,
       obscureText: obsecure,
       enabled: enabled ?? true,
@@ -82,14 +85,14 @@ class COMMONWIDGET {
           color: Colors.black,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(radius ?? 10),
           borderSide: BorderSide(
             width: 1,
-            color: Colors.grey.shade100,
+            color: borderColor ?? Colors.grey.shade400,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(radius ?? 10),
           borderSide: BorderSide(
             width: 1,
             color: Colors.blue.shade200,

@@ -18,6 +18,10 @@ class ProfileviewscreenController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController religion = TextEditingController();
   TextEditingController tin = TextEditingController();
+  TextEditingController fatherName = TextEditingController();
+  TextEditingController fatherProf = TextEditingController();
+  TextEditingController motherName = TextEditingController();
+  TextEditingController motherProf = TextEditingController();
   TextEditingController maritalStatus = TextEditingController();
   TextEditingController spouseName = TextEditingController();
   TextEditingController noOfChildren = TextEditingController();
@@ -44,6 +48,7 @@ class ProfileviewscreenController extends GetxController {
   TextEditingController permanentPostOffice = TextEditingController();
   TextEditingController permanentPostCode = TextEditingController();
   TextEditingController permanentVillage = TextEditingController();
+  //----------------------Controller for academic information----------------------//
   setData() {
     data = Get.arguments;
     userProfile = data;
