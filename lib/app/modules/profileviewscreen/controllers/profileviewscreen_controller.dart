@@ -49,6 +49,49 @@ class ProfileviewscreenController extends GetxController {
   TextEditingController permanentPostCode = TextEditingController();
   TextEditingController permanentVillage = TextEditingController();
   //----------------------Controller for academic information----------------------//
+  RxList<List<TextEditingController>> academicControllers =
+      <List<TextEditingController>>[].obs;
+
+  academicControllerAssign() {
+    List<Map<String, dynamic>> data = userProfile["academic"];
+    academicControllers.clear();
+    data.forEach((e) {
+      print("Key : ${e['examName']} ");
+      TextEditingController examName =
+          TextEditingController(text: "${e['examName']} ");
+      TextEditingController group =
+          TextEditingController(text: "${e['group']} ");
+      TextEditingController board =
+          TextEditingController(text: "${e['board']} ");
+      TextEditingController institute =
+          TextEditingController(text: "${e['institute']} ");
+      TextEditingController division =
+          TextEditingController(text: "${e['division']} ");
+      TextEditingController passingYear =
+          TextEditingController(text: "${e['passingYear']} ");
+      TextEditingController result =
+          TextEditingController(text: "${e['result']} ");
+      TextEditingController outOf =
+          TextEditingController(text: "${e['scale']} ");
+      TextEditingController copy = TextEditingController(text: "${e['copy']} ");
+
+      academicControllers.add([
+        examName,
+        group,
+        board,
+        institute,
+        division,
+        passingYear,
+        result,
+        outOf,
+        copy
+      ]);
+      academicControllers.refresh();
+      print(academicControllers);
+    });
+    update();
+  }
+
   setData() {
     data = Get.arguments;
     userProfile = data;
@@ -66,6 +109,7 @@ class ProfileviewscreenController extends GetxController {
 
     update();
     print(userProfile);
+    academicControllerAssign();
   }
 
   @override
