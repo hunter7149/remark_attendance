@@ -158,11 +158,11 @@ class HomeView extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ZoomTapAnimation(
-                        onLongTap: () {
+                        onTap: () {
                           Get.toNamed(Routes.PROFILEVIEWSCREEN,
                               arguments: controller.userProfile);
                         },
-                        onTap: () {
+                        onLongTap: () {
                           Get.toNamed(Routes.PROFILEEDITSCREEN,
                               arguments: controller.userProfile);
                         },
