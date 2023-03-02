@@ -4,7 +4,7 @@ class HomeController extends GetxController {
   RxMap<String, dynamic> userProfile = <String, dynamic>{
     "userId": 123456,
     "profileImage": "web link",
-    "personal": {
+    "personal": <String, dynamic>{
       "empName": "Mohammad Khalid Bin Oalid",
       "empDob": "4/9/1998",
       "empFather": "Mohammad Toriqul Islam",
@@ -25,10 +25,10 @@ class HomeController extends GetxController {
       "spouseName": "Labonni Akter",
       "spouseDob": "05/09/2001",
       "noOfChildren": 0,
-      "children": [
-        {"name": "No name", "dob": "09/09/2023"},
-        {"name": "No name", "dob": "09/09/2023"}
-      ],
+      "children1name": "Abir",
+      "children1dob": "10/1/2012",
+      "children2name": "Kaniya",
+      "children2dob": "3/1/1997",
       "passport": "123129834091283",
       "passportExp": "09/10/2029",
       "drivingLicense": "12031029310293",
@@ -94,7 +94,7 @@ class HomeController extends GetxController {
         "jobTitle": "Mobile Application Developer",
         "startDate": "08/06/2021",
         "endDate": "31/01/2021",
-        "tenture": "N/A",
+        "tenure": "N/A",
         "reason": "Job switch",
         "responsibility": "Develop mobile application"
       }

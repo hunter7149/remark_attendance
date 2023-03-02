@@ -111,26 +111,36 @@ class HomeView extends GetView<HomeController> {
                             SizedBox(
                               height: 5,
                             ),
-                            // Text(
-                            //   "IT Department",
-                            //   style: TextStyle(
-                            //       fontSize: 12,
-                            //       color: Colors.grey.shade100,
-                            //       fontWeight: FontWeight.w400),
-                            // ),
-                            // SizedBox(
-                            //   height: 5,
-                            // ),
-                            // Text(
-                            //   "Reporting to:Amit Kumar",
-                            //   style: TextStyle(
-                            //       fontSize: 12,
-                            //       color: Colors.grey.shade100,
-                            //       fontWeight: FontWeight.w400),
-                            // ),
-                            // SizedBox(
-                            //   height: 5,
-                            // ),
+                            Text(
+                              "IT Department",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Responsiblity",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "Reporting to:Amit Kumar",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
                             Text(
                               "01303146132",
                               style: TextStyle(
