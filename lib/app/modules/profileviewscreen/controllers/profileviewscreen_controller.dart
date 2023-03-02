@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 
 class ProfileviewscreenController extends GetxController {
   //-----------------------------Important variables------------------------//
-  late RxMap<String, dynamic> userProfile = <String, dynamic>{}.obs;
-  late RxMap<String, dynamic> personalInformation = <String, dynamic>{}.obs;
-  late RxMap<String, dynamic> addressInfo = <String, dynamic>{}.obs;
+  RxMap<String, dynamic> userProfile = <String, dynamic>{}.obs;
+  RxMap<String, dynamic> personalInformation = <String, dynamic>{}.obs;
+  RxMap<String, dynamic> addressInfo = <String, dynamic>{}.obs;
+  RxList<Map<String, dynamic>> academicData = <Map<String, dynamic>>[].obs;
   //-----------------Function that returns a object of multiple textfield for personal information section-------------//
   personalEditingController() {
     PERSONALCONTROLLERS pc = PERSONALCONTROLLERS();
@@ -67,20 +68,98 @@ class ProfileviewscreenController extends GetxController {
     return permanent;
   }
 
+  academicInformationEditingController({required int index}) {
+    ACADEMICCONTROLLERS edit = ACADEMICCONTROLLERS();
+
+    edit.examName.text = "${academicData[index]['examName']} ";
+    edit.group.text = "${academicData[index]['group']} ";
+    edit.board.text = "${academicData[index]['board']} ";
+    edit.institute.text = "${academicData[index]['institute']} ";
+    edit.division.text = "${academicData[index]['division']} ";
+    edit.passingYear.text = "${academicData[index]['passingYear']} ";
+    edit.result.text = "${academicData[index]['result']} ";
+    edit.outOf.text = "${academicData[index]['scale']} ";
+    edit.copy.text = "${academicData[index]['copy']} ";
+    return edit;
+  }
+
+//-----------------ACADEMIC INFO---------------------------------//
+  singleAcademicDataRemove({required int index}) {
+    academicData.removeAt(index);
+    academicData.refresh();
+    update();
+  }
+
+  singelAcademicDataUpdate(
+      {required ACADEMICCONTROLLERS txtcnt, required int index}) {
+    Map<String, dynamic> info = {
+      "examName": txtcnt.examName.text,
+      "group": txtcnt.group.text,
+      "board": txtcnt.board.text,
+      "institute": txtcnt.institute.text,
+      "division": txtcnt.division.text,
+      "passingYear": txtcnt.passingYear.text, // fixed typo here
+      "result": txtcnt.result.text,
+      "scale": txtcnt.outOf.text,
+      "copy": txtcnt.copy.text,
+    };
+
+    Map<String, String> academicDataString = {};
+    info.forEach((key, value) {
+      academicDataString[key] = value.toString();
+    });
+
+    academicData[index] = academicDataString;
+    academicData.refresh();
+    print(
+        "Academic data--> ${academicData} + type ${academicData.runtimeType} + ${info.runtimeType}");
+    update();
+  }
+
+  singelAcademicDataAdd({required ACADEMICCONTROLLERS txtcnt}) {
+    Map<String, dynamic> info = {
+      "examName": txtcnt.examName.text,
+      "group": txtcnt.group.text,
+      "board": txtcnt.board.text,
+      "institute": txtcnt.institute.text,
+      "division": txtcnt.division.text,
+      "passingYear": txtcnt.passingYear.text, // fixed typo here
+      "result": txtcnt.result.text,
+      "scale": txtcnt.outOf.text,
+      "copy": txtcnt.copy.text,
+    };
+
+    Map<String, String> academicDataString = {};
+    info.forEach((key, value) {
+      academicDataString[key] = value.toString();
+    });
+
+    academicData.add(academicDataString);
+    academicData.refresh();
+    print(
+        "Academic data--> ${academicData} + type ${academicData.runtimeType} + ${info.runtimeType}");
+    update();
+  }
+
   setData() {
-    dynamic data = Get.arguments;
+    //---------------Clearing previous data for double safety--------------//
     userProfile.clear();
     personalInformation.clear();
-    userProfile = data;
-    userProfile.refresh();
+    academicData.clear();
     addressInfo.clear();
 
+    //--------------------Assigning new data-----------------------//
+    dynamic data = Get.arguments;
+    userProfile = data;
+    userProfile.refresh();
     personalInformation.value = data['personal'];
     addressInfo.value = data['address'];
+    academicData.value = data['academic'];
 
+    //----------------------Refreshing all variables---------------//
     addressInfo.refresh();
-
     personalInformation.refresh();
+    academicData.refresh();
 
     update();
 
@@ -103,31 +182,3 @@ class ProfileviewscreenController extends GetxController {
     super.onClose();
   }
 }
-
-//   late RxMap<String, dynamic> userProfile;
-//   dynamic data;
-//   setData() {
-//     data = Get.arguments;
-//     userProfile = data;
-//     userProfile.refresh();
-//     update();
-//     print(userProfile);
-//   }
-
-//   @override
-//   void onInit() {
-//     super.onInit();
-//     setData();
-//     // print(Get.arguments[0]);
-//   }
-
-//   @override
-//   void onReady() {
-//     super.onReady();
-//   }
-
-//   @override
-//   void onClose() {
-//     super.onClose();
-//   }
-// }
