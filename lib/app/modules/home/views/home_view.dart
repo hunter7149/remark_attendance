@@ -65,7 +65,7 @@ class HomeView extends GetView<HomeController> {
               // height: 400,
               padding: EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: AppColors.modernBlue,
+                color: AppColors.modernGreen,
                 // color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(10),
 

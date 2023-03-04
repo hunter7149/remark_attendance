@@ -73,3 +73,28 @@ class CONTACTPERSONNELCONTROLLERS {
   TextEditingController nidNo = TextEditingController();
   TextEditingController relation = TextEditingController();
 }
+
+class TRAININGINFORMATIONCONTROLLERS {
+  TextEditingController trainingName = TextEditingController();
+  TextEditingController trainingType = TextEditingController();
+  TextEditingController instituteName = TextEditingController();
+  TextEditingController startDate = TextEditingController();
+  TextEditingController endDate = TextEditingController();
+  TextEditingController duration = TextEditingController();
+  TextEditingController copy = TextEditingController();
+}
+
+class HEALTHINFORMATIONCONTROLLERS {
+  TextEditingController healthIssueType = TextEditingController();
+  TextEditingController medication = TextEditingController();
+  TextEditingController report = TextEditingController();
+}
+
+class LANGUAGECONTROLLERS {
+  TextEditingController languageName = TextEditingController();
+  TextEditingController speaking = TextEditingController();
+  TextEditingController reading = TextEditingController();
+  TextEditingController writing = TextEditingController();
+  TextEditingController understanding = TextEditingController();
+  TextEditingController remarks = TextEditingController();
+}

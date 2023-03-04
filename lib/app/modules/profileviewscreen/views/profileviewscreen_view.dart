@@ -24,27 +24,63 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
             }),
         body: SafeArea(
             child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: SingleChildScrollView(
-              child: Column(
-            children: [
-              personalInfo(
-                  controller: controller, color: AppColors.modernGreen),
-              SizedBox(
-                height: 20,
-              ),
-              addressInfo(
-                  controller: controller, color: AppColors.modernPlantation),
-              SizedBox(
-                height: 20,
-              ),
-              academicInfo(
-                  controller: controller, color: AppColors.modernCoolPink)
-            ],
-          )),
-        )));
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: SingleChildScrollView(
+                  child: Obx(() => Column(
+                        children: [
+                          personalInfo(
+                              controller: controller,
+                              color: AppColors.modernGreen),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          addressInfo(
+                              controller: controller,
+                              color: AppColors.modernBlue),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          academicInfo(
+                              controller: controller,
+                              color: AppColors.modernCoolPink),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          experienceInfo(
+                              controller: controller,
+                              color: AppColors.modernGreen),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          contactPersonnel(
+                              controller: controller,
+                              color: AppColors.modernLightBrown),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          trainingInfo(
+                              controller: controller,
+                              color: AppColors.modernPurple),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          healthInfo(
+                              controller: controller,
+                              color: AppColors.modernChocolate),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          languageInfo(
+                              controller: controller,
+                              color: AppColors.modernCoral),
+                          SizedBox(
+                            height: 20,
+                          )
+                        ],
+                      )),
+                ))));
   }
 
   textView(
@@ -606,9 +642,6 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               data: controller.addressInfo['present'],
                               color: AppColors.modernGreen,
                               title: "Present address"),
-                          SizedBox(
-                            height: 20,
-                          ),
                           singleAddressItem(
                               data: controller.addressInfo['permanent'],
                               color: AppColors.modernBlue,
@@ -668,23 +701,36 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
       required Color color,
       required String title}) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: color,
+          ),
+          borderRadius: BorderRadius.circular(10)),
       child: Column(
         children: [
-          Container(
-            // height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-                border: Border.all(color: color, width: 0.5),
-                color: color,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10))),
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(color: Colors.white),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                // height: 30,
+                width: 130,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+                decoration: BoxDecoration(
+                    border: Border.all(color: color, width: 0.5),
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        topRight: Radius.circular(10))),
+                child: Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
           Column(
             children: [
@@ -1014,15 +1060,18 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
   ) {
     Color color = AppColors.modernBlue;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-          border: Border.all(width: 0.7, color: AppColors.modernBlue),
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
           borderRadius: BorderRadius.circular(5)),
       child: Column(children: [
         Container(
           height: 20,
           decoration: BoxDecoration(
-              color: AppColors.modernBlue,
+              color: Colors.grey.shade400,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(5), topRight: Radius.circular(5))),
           child: Center(
@@ -1172,6 +1221,10 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Copy:",
                               hinttext: "Copy",
                               controller: tcr.copy),
+                          deleteItem(function: () {
+                            Get.back();
+                            controller.singleAcademicDataRemove(index: index);
+                          })
                         ],
                       ),
                     ),
@@ -1211,5 +1264,1395 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                 ),
               ),
             ));
+  }
+
+//---------------------------------Experience Information----------------------------//
+  experienceInfo(
+      {required ProfileviewscreenController controller, required Color color}) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      // padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: color),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: 180,
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    'Experience information',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              ZoomTapAnimation(
+                onTap: () {
+                  EXPERIENCECONTROLLERS tcr = EXPERIENCECONTROLLERS();
+                  singleExperienceInfoUpdate(
+                      controller: controller, tcr: tcr, type: 1, index: 0);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 5, top: 5),
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    children: controller.experienceData.isNotEmpty
+                        ? List.generate(controller.experienceData.length,
+                            (index) {
+                            return experienceRow(
+                                index, controller.experienceData[index]);
+                          }).toList().cast<Widget>()
+                        : []),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  experienceRow(
+    int index,
+    Map<String, dynamic> e,
+  ) {
+    Color color = AppColors.modernBlue;
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+          child: Center(
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        personalRow(
+            title: "Organization", value: e['organization'], color: color),
+        personalRow(title: "Department", value: e['department'], color: color),
+        personalRow(title: "Job title", value: e['jobTitle'], color: color),
+        personalRow(title: "Start Date", value: e['startDate'], color: color),
+        personalRow(title: "End Date", value: e['endDate'], color: color),
+        personalRow(title: "Tenture", value: e['tenure'], color: color),
+        personalRow(
+            title: "Reason of leaving", value: e['reason'], color: color),
+        personalRow(title: "Out of", value: e['responsibility'], color: color),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ZoomTapAnimation(
+              onTap: () {
+                EXPERIENCECONTROLLERS tcr = controller
+                    .experienceInformationEditingController(index: index);
+                singleExperienceInfoUpdate(
+                    controller: controller, tcr: tcr, type: 0, index: index);
+              },
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        topLeft: Radius.circular(30))),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    textView(text: "Edit", size: 12, color: Colors.white)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  static singleExperienceInfoUpdate(
+      {required ProfileviewscreenController controller,
+      required EXPERIENCECONTROLLERS tcr,
+      required int type,
+      required int index}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Enter your information",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: 400,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          inputFieldForPopup(
+                              label: "Organization:",
+                              hinttext: "Organization",
+                              controller: tcr.organization),
+                          inputFieldForPopup(
+                              label: "Department:",
+                              hinttext: "Department",
+                              controller: tcr.department),
+                          inputFieldForPopup(
+                              label: "Job title:",
+                              hinttext: "Job title",
+                              controller: tcr.jobTitle),
+                          inputFieldForPopup(
+                              label: "Start Date:",
+                              hinttext: "Start Date",
+                              controller: tcr.startDate),
+                          inputFieldForPopup(
+                              label: "End date:",
+                              hinttext: "End date",
+                              controller: tcr.endDate),
+                          inputFieldForPopup(
+                              label: "Tenture:",
+                              hinttext: "Tenture",
+                              controller: tcr.tenure),
+                          inputFieldForPopup(
+                              label: "Reason of leaving:",
+                              hinttext: "Reason of leaving",
+                              controller: tcr.reason),
+                          inputFieldForPopup(
+                              label: "Responsibility:",
+                              hinttext: "Responsibility",
+                              controller: tcr.responsibility),
+                          deleteItem(function: () {
+                            controller.singleExperienceDataRemove(index: index);
+                            Get.back();
+                          })
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            if (type == 0) {
+                              controller.singelExperienceDataUpdate(
+                                  txtcnt: tcr, index: index);
+                            } else {
+                              controller.singelExperienceDataAdd(txtcnt: tcr);
+                            }
+                            Get.back();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: type == 0
+                                ? Text("Save",
+                                    style: TextStyle(color: Colors.white))
+                                : Text("Add",
+                                    style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+//-------------------------------Contact Personnel---------------------------------//
+  contactPersonnel(
+      {required ProfileviewscreenController controller, required Color color}) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      // padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: color),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: 180,
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    'Contact personnel',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    children: controller.contactPersonnel.isNotEmpty
+                        ? [
+                            contactPersonnelRow(
+                              "Emergency",
+                              "emergency",
+                              controller.contactPersonnel['emergency'],
+                            ),
+                            contactPersonnelRow("Reference", 'reference',
+                                controller.contactPersonnel['reference']),
+                            contactPersonnelRow("Nominee", 'reference',
+                                controller.contactPersonnel['nominee']),
+                            contactPersonnelRow("Guarantor", 'reference',
+                                controller.contactPersonnel['guarantor'])
+                          ]
+                        : []),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  contactPersonnelRow(
+    String title,
+    String jsonTitle,
+    Map<String, dynamic> e,
+  ) {
+    Color color = AppColors.modernBlue;
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(children: [
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+          child: Center(
+            child: Text(
+              "${title}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        personalRow(title: "Contact name", value: e['name'], color: color),
+        personalRow(
+            title: "Orgranization", value: e['organization'], color: color),
+        personalRow(title: "Contact no", value: e['contactNo'], color: color),
+        personalRow(title: "Email address", value: e['email'], color: color),
+        personalRow(title: "Address", value: e['address'], color: color),
+        personalRow(title: "NID no", value: e['nid'], color: color),
+        personalRow(title: "Relation", value: e['relation'], color: color),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ZoomTapAnimation(
+              onTap: () {
+                CONTACTPERSONNELCONTROLLERS tcr = controller
+                    .contactPersonnelEditingController(title: jsonTitle);
+                singleContactPersonnelInfoUpdate(
+                    controller: controller,
+                    tcr: tcr,
+                    type: 0,
+                    jsonTitle: jsonTitle);
+              },
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        topLeft: Radius.circular(30))),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    textView(text: "Edit", size: 12, color: Colors.white)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  static singleContactPersonnelInfoUpdate(
+      {required ProfileviewscreenController controller,
+      required CONTACTPERSONNELCONTROLLERS tcr,
+      required int type,
+      required String jsonTitle}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Enter your information",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: 400,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          inputFieldForPopup(
+                              label: "Contact name:",
+                              hinttext: "name",
+                              controller: tcr.contactName),
+                          inputFieldForPopup(
+                              label: "Organization:",
+                              hinttext: "Organization",
+                              controller: tcr.organization),
+                          inputFieldForPopup(
+                              label: "Contact no:",
+                              hinttext: "Contact no",
+                              controller: tcr.contactNo),
+                          inputFieldForPopup(
+                              label: "Email address:",
+                              hinttext: "Email address",
+                              controller: tcr.emailAddress),
+                          inputFieldForPopup(
+                              label: "Address:",
+                              hinttext: "Address",
+                              controller: tcr.address),
+                          inputFieldForPopup(
+                              label: "NID no:",
+                              hinttext: "NID no",
+                              controller: tcr.nidNo),
+                          inputFieldForPopup(
+                              label: "Relation:",
+                              hinttext: "Relation",
+                              controller: tcr.relation),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            if (type == 0) {
+                              controller.singelContactPersonnelDataUpdate(
+                                  txtcnt: tcr, jsonTitle: jsonTitle);
+                              // controller.singelExperienceDataUpdate(
+                              //     txtcnt: tcr, index: index);
+                            } else {
+                              // controller.singelExperienceDataAdd(txtcnt: tcr);
+                            }
+                            Get.back();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: type == 0
+                                ? Text("Save",
+                                    style: TextStyle(color: Colors.white))
+                                : Text("Add",
+                                    style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+//-------------------------------Training Data-------------------------------------//
+
+  trainingInfo(
+      {required ProfileviewscreenController controller, required Color color}) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      // padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: color),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: 180,
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    'Training information',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              ZoomTapAnimation(
+                onTap: () {
+                  TRAININGINFORMATIONCONTROLLERS tcr =
+                      TRAININGINFORMATIONCONTROLLERS();
+                  singleTrainingInfoUpdate(
+                      controller: controller, tcr: tcr, type: 1, index: 0);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 5, top: 5),
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    children: controller.trainningData.isNotEmpty
+                        ? List.generate(controller.trainningData.length,
+                            (index) {
+                            return trainingRow(
+                                index, controller.trainningData[index]);
+                          }).toList().cast<Widget>()
+                        : []),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  trainingRow(
+    int index,
+    Map<String, dynamic> e,
+  ) {
+    Color color = AppColors.modernBlue;
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+          child: Center(
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        personalRow(title: "Trainign name", value: e['name'], color: color),
+        personalRow(title: "Department", value: e['type'], color: color),
+        personalRow(title: "Job title", value: e['institute'], color: color),
+        personalRow(title: "Start Date", value: e['startDate'], color: color),
+        personalRow(title: "End Date", value: e['endDate'], color: color),
+        personalRow(title: "Tenture", value: e['duration'], color: color),
+        personalRow(title: "Reason of leaving", value: e['copy'], color: color),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ZoomTapAnimation(
+              onTap: () {
+                TRAININGINFORMATIONCONTROLLERS tcr =
+                    controller.trainingEditingController(index: index);
+                singleTrainingInfoUpdate(
+                    controller: controller, tcr: tcr, type: 0, index: index);
+              },
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        topLeft: Radius.circular(30))),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    textView(text: "Edit", size: 12, color: Colors.white)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  static singleTrainingInfoUpdate(
+      {required ProfileviewscreenController controller,
+      required TRAININGINFORMATIONCONTROLLERS tcr,
+      required int type,
+      required int index}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Enter your information",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: 400,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          inputFieldForPopup(
+                              label: "Training Name:",
+                              hinttext: "Training Name",
+                              controller: tcr.trainingName),
+                          inputFieldForPopup(
+                              label: "Training type:",
+                              hinttext: "Training type",
+                              controller: tcr.trainingType),
+                          inputFieldForPopup(
+                              label: "Institute name:",
+                              hinttext: "Institute name",
+                              controller: tcr.instituteName),
+                          inputFieldForPopup(
+                              label: "Start Date:",
+                              hinttext: "Start Date",
+                              controller: tcr.startDate),
+                          inputFieldForPopup(
+                              label: "End date:",
+                              hinttext: "End date",
+                              controller: tcr.endDate),
+                          inputFieldForPopup(
+                              label: "Duration:",
+                              hinttext: "Duration",
+                              controller: tcr.duration),
+                          inputFieldForPopup(
+                              label: "Copy:",
+                              hinttext: "Copy",
+                              controller: tcr.copy),
+                          deleteItem(function: () {
+                            controller.singleTrainingDataRemove(index: index);
+                            Get.back();
+                          })
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            if (type == 0) {
+                              controller.singelTrainingDataUpdate(
+                                  txtcnt: tcr, index: index);
+                            } else {
+                              controller.singelTrainingDataAdd(txtcnt: tcr);
+                            }
+                            Get.back();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: type == 0
+                                ? Text("Save",
+                                    style: TextStyle(color: Colors.white))
+                                : Text("Add",
+                                    style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+//---------------------------------------------------------------------------------//
+
+//------------------------------Health data---------------------------------------//
+
+  healthInfo(
+      {required ProfileviewscreenController controller, required Color color}) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      // padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: color),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: 180,
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    'Health information',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              ZoomTapAnimation(
+                onTap: () {
+                  HEALTHINFORMATIONCONTROLLERS tcr =
+                      HEALTHINFORMATIONCONTROLLERS();
+                  singleHealthInfoUpdate(
+                      controller: controller, tcr: tcr, type: 1, index: 0);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 5, top: 5),
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    children: controller.healthData.isNotEmpty
+                        ? List.generate(controller.healthData.length, (index) {
+                            return healthRow(
+                                index, controller.healthData[index]);
+                          }).toList().cast<Widget>()
+                        : []),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  healthRow(
+    int index,
+    Map<String, dynamic> e,
+  ) {
+    Color color = AppColors.modernBlue;
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+          child: Center(
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        personalRow(
+            title: "Health issue type", value: e['issueType'], color: color),
+        personalRow(
+            title: "Medication/Description",
+            value: e['description'],
+            color: color),
+        personalRow(
+            title: "Report/Prescription",
+            value: e['prescriptiom'],
+            color: color),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ZoomTapAnimation(
+              onTap: () {
+                HEALTHINFORMATIONCONTROLLERS tcr =
+                    controller.healthEditingController(index: index);
+                singleHealthInfoUpdate(
+                    controller: controller, tcr: tcr, type: 0, index: index);
+              },
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        topLeft: Radius.circular(30))),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    textView(text: "Edit", size: 12, color: Colors.white)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  static singleHealthInfoUpdate(
+      {required ProfileviewscreenController controller,
+      required HEALTHINFORMATIONCONTROLLERS tcr,
+      required int type,
+      required int index}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Enter your information",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: 400,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          inputFieldForPopup(
+                              label: "Health issue type:",
+                              hinttext: "Health issue type",
+                              controller: tcr.healthIssueType),
+                          inputFieldForPopup(
+                              label: "Medication/Description:",
+                              hinttext: "Medication/Description",
+                              controller: tcr.medication),
+                          inputFieldForPopup(
+                              label: "Report/Prescription:",
+                              hinttext: "Report/Prescription",
+                              controller: tcr.report),
+                          deleteItem(function: () {
+                            controller.singleHealthDataRemove(index: index);
+                            Get.back();
+                          })
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            if (type == 0) {
+                              controller.singelHealthDataUpdate(
+                                  txtcnt: tcr, index: index);
+                            } else {
+                              controller.singelHealthDataAdd(txtcnt: tcr);
+                            }
+                            Get.back();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: type == 0
+                                ? Text("Save",
+                                    style: TextStyle(color: Colors.white))
+                                : Text("Add",
+                                    style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+//-------------------------------------------------------------------------------//
+
+//----------------------------Language data-------------------------------------//
+  languageInfo(
+      {required ProfileviewscreenController controller, required Color color}) {
+    return Container(
+      width: double.infinity,
+      height: 300,
+      // padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1, color: color),
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 40,
+                width: 180,
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5),
+                        bottomRight: Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    'Language information',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              ZoomTapAnimation(
+                onTap: () {
+                  LANGUAGECONTROLLERS tcr = LANGUAGECONTROLLERS();
+                  singleLanguageInfoUpdate(
+                      controller: controller, tcr: tcr, type: 1, index: 0);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 5, top: 5),
+                  height: 45,
+                  width: 45,
+                  decoration: BoxDecoration(
+                      color: color, borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                    children: controller.languageData.isNotEmpty
+                        ? List.generate(controller.languageData.length,
+                            (index) {
+                            return languageRow(
+                                index, controller.languageData[index]);
+                          }).toList().cast<Widget>()
+                        : []),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  languageRow(
+    int index,
+    Map<String, dynamic> e,
+  ) {
+    Color color = AppColors.modernBlue;
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(
+          border: Border.all(
+            width: 0.7,
+            color: Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(5)),
+      child: Column(children: [
+        Container(
+          height: 20,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade400,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5), topRight: Radius.circular(5))),
+          child: Center(
+            child: Text(
+              "${index + 1}",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        personalRow(title: "Language name", value: e['name'], color: color),
+        personalRow(title: "Speaking", value: e['speaking'], color: color),
+        personalRow(title: "Reading", value: e['reading'], color: color),
+        personalRow(title: "Writting", value: e['writing'], color: color),
+        personalRow(
+            title: "Understanding", value: e['understanding'], color: color),
+        personalRow(title: "Remarks", value: e['remarks'], color: color),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ZoomTapAnimation(
+              onTap: () {
+                LANGUAGECONTROLLERS tcr =
+                    controller.languageEditingController(index: index);
+                singleLanguageInfoUpdate(
+                    controller: controller, tcr: tcr, type: 0, index: index);
+              },
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        topLeft: Radius.circular(30))),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                    ),
+                    textView(text: "Edit", size: 12, color: Colors.white)
+                  ],
+                ),
+              ),
+            )
+          ],
+        )
+      ]),
+    );
+  }
+
+  static singleLanguageInfoUpdate(
+      {required ProfileviewscreenController controller,
+      required LANGUAGECONTROLLERS tcr,
+      required int type,
+      required int index}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Enter your information",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: 400,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          inputFieldForPopup(
+                              label: "Language name:",
+                              hinttext: "Language name",
+                              controller: tcr.languageName),
+                          inputFieldForPopup(
+                              label: "Speaking:",
+                              hinttext: "Speaking",
+                              controller: tcr.speaking),
+                          inputFieldForPopup(
+                              label: "Reading:",
+                              hinttext: "Reading",
+                              controller: tcr.reading),
+                          inputFieldForPopup(
+                              label: "Writing:",
+                              hinttext: "Writing",
+                              controller: tcr.writing),
+                          inputFieldForPopup(
+                              label: "Understanding:",
+                              hinttext: "Understanding",
+                              controller: tcr.understanding),
+                          inputFieldForPopup(
+                              label: "Remarks:",
+                              hinttext: "Remarks",
+                              controller: tcr.remarks),
+                          deleteItem(function: () {
+                            controller.singleLanguageDataRemove(index: index);
+                            Get.back();
+                          })
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            if (type == 0) {
+                              controller.singelLanguageDataUpdate(
+                                  txtcnt: tcr, index: index);
+                            } else {
+                              controller.singelLanguageDataAdd(txtcnt: tcr);
+                            }
+                            Get.back();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: type == 0
+                                ? Text("Save",
+                                    style: TextStyle(color: Colors.white))
+                                : Text("Add",
+                                    style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+//------------------------------------------------------------------------------//
+
+//--------------Function to delete------------------------------//
+  static deleteItem({required VoidCallback function}) {
+    return ZoomTapAnimation(
+      onTap: function,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        decoration: BoxDecoration(
+            color: AppColors.modernSexyRed,
+            borderRadius: BorderRadius.circular(10)),
+        child: Center(
+          child: Text(
+            "Delete this item",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
   }
 }
