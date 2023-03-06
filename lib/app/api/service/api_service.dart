@@ -6,7 +6,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
-const BASE_URL = 'http://192.168.10.100:8070/';
+const BASE_URL = 'http://182.160.114.100:7171/';
 
 class ApiService extends GetxService {
   late Dio _dio;
