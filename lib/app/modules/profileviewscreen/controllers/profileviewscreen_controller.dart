@@ -1,6 +1,7 @@
 import 'package:attendance/app/modules/profileviewscreen/components/text_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProfileviewscreenController extends GetxController {
   //-----------------------------Important variables------------------------//
@@ -512,7 +513,7 @@ class ProfileviewscreenController extends GetxController {
 //------------------------------Rebind data------------------------------------------//
 
   dataBinder() {
-    RxMap<String, dynamic> newData = <String, dynamic>{
+    Map<String, dynamic> newData = <String, dynamic>{
       "userId": 123456,
       "profileImage": "web link",
       "personal": personalInformation,
@@ -523,19 +524,18 @@ class ProfileviewscreenController extends GetxController {
       "training": trainningData,
       "healthinfo": healthData,
       "languages": languageData
-    }.obs;
+    };
     print(
         "--------------------------------------Old data------------------------------------");
     print(userProfile['healthinfo']);
 
-    newData.refresh();
     userProfile.clear();
-    userProfile = newData;
+    userProfile.value = newData;
     userProfile.refresh();
     print(
         "--------------------------------------New data------------------------------------");
     print(userProfile['healthinfo']);
-    update();
+    // update();
   }
 
   setData() {
@@ -551,7 +551,9 @@ class ProfileviewscreenController extends GetxController {
     languageData.clear();
 
     //--------------------Assigning new data-----------------------//
+    GetStorage storage = GetStorage();
     dynamic data = Get.arguments;
+
     userProfile = data;
     userProfile.refresh();
     personalInformation.value = data['personal'] ?? [];
