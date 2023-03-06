@@ -14,10 +14,11 @@ class LoginscreenController extends GetxController {
 
   dynamic data;
   requestTestData() async {
-    await Repository().requestLogin(map: {}).then((value) {
+    await Repository().requestLogin(
+        map: {"username": "M322", "password": "12345"}).then((value) {
       data = value;
       print(value);
-      if (data["status"] == 1) {
+      if (data["result"] == 1) {
         Get.offNamed(Routes.HOME);
       } else {
         Get.offNamed(Routes.HOME);

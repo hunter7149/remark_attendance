@@ -12,7 +12,7 @@ class Repository extends Providers {
   ///-------------------------User related api-------------------------///
   Future<dynamic> requestLogin({required Map<String, dynamic> map}) async =>
       await commonApiCall(
-              endPoint: AppUrl.loginApi, method: Method.GET, map: map)
+              endPoint: AppUrl.loginApi, method: Method.POST, map: map)
           .then((value) => value);
 
 //-------------------------Notification related api-------------------------------//

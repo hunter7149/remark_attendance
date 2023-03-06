@@ -16,6 +16,9 @@ dependencies:
   date_time_picker: ^2.1.0
   esc_pos_bluetooth: ^0.4.1
   expandable: ^5.0.1
+  firebase_core: ^2.7.0
+  firebase_messaging: ^14.2.5
+  flutter_local_notifications: ^13.0.0
 
   get: 4.6.5
   flutter: 

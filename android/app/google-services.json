@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "365464532035",
+    "project_id": "remarkehris-4ee07",
+    "storage_bucket": "remarkehris-4ee07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365464532035:android:c10e0a2fed1bb13c2a90f6",
+        "android_client_info": {
+          "package_name": "com.example.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365464532035-inuf145i75s1sqab111h46uk53mscohv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo4OdtFMspqE8Tdp7fJ0uiaDg0qaEDsrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365464532035-inuf145i75s1sqab111h46uk53mscohv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
