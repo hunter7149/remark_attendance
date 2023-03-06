@@ -156,6 +156,7 @@ class ProfileviewscreenController extends GetxController {
   singleAcademicDataRemove({required int index}) {
     academicData.removeAt(index);
     academicData.refresh();
+    dataBinder();
     update();
   }
 
@@ -180,6 +181,7 @@ class ProfileviewscreenController extends GetxController {
 
     academicData[index] = academicDataString;
     academicData.refresh();
+    dataBinder();
     print(
         "Academic data--> ${academicData} + type ${academicData.runtimeType} + ${info.runtimeType}");
     update();
@@ -205,8 +207,45 @@ class ProfileviewscreenController extends GetxController {
 
     academicData.add(academicDataString);
     academicData.refresh();
+    dataBinder();
     print(
         "Academic data--> ${academicData} + type ${academicData.runtimeType} + ${info.runtimeType}");
+    update();
+  }
+
+//---------------------Personal information-----------------------------------//
+  singlePersonalInfoUpdater({required PERSONALCONTROLLERS controller}) {
+    personalInformation.value = {
+      "empName": "${controller.name.text}",
+      "empDob": "${controller.dateOfBirth.text}",
+      "empFather": "${controller.fatherName.text}",
+      "empMother": "${controller.motherName.text}",
+      "empFatherProf": "${controller.fatherProf.text}",
+      "empMotherProf": "${controller.motherProf.text}",
+      "gender": "${controller.gender.text}",
+      "bloodGroup": "${controller.bloodGroup.text}",
+      "height": "${controller.height.text}",
+      "weight": "${controller.weight.text}",
+      "nationality": "${controller.nationality.text}",
+      "nid": "${controller.nid.text}",
+      "religion": "${controller.religion.text}",
+      "tinNo": "${controller.tin.text}",
+      "phone": "${controller.phone.text}",
+      "email": "${controller.email.text}",
+      "maritalStatus": "${controller.maritalStatus.text}",
+      "spouseName": "${controller.spouseName.text}",
+      "spouseDob": "${controller.spouseDob.text}",
+      "noOfChildren": "${controller.noOfChildren.text}",
+      "children1name": "${controller.childOneName.text}",
+      "children1dob": "${controller.childOneDob.text}",
+      "children2name": "${controller.childTwoName.text}",
+      "children2dob": "${controller.childTwoDob.text}",
+      "passport": "${controller.passportNo.text}",
+      "passportExp": "${controller.passportExp.text}",
+      "drivingLicense": "${controller.drivingLicenseNo.text}",
+      "drivingLicenseExp": "${controller.drivingLicenseExp.text}",
+    };
+    personalInformation.refresh();
     update();
   }
 
@@ -214,6 +253,7 @@ class ProfileviewscreenController extends GetxController {
   singleExperienceDataRemove({required int index}) {
     experienceData.removeAt(index);
     experienceData.refresh();
+    dataBinder();
     update();
   }
 
@@ -238,6 +278,7 @@ class ProfileviewscreenController extends GetxController {
 
     experienceData[index] = experienceDataString;
     experienceData.refresh();
+    dataBinder();
     print(
         "experience data--> ${experienceData} + type ${experienceData.runtimeType} + ${info.runtimeType}");
     update();
@@ -263,6 +304,7 @@ class ProfileviewscreenController extends GetxController {
 
     experienceData.add(experienceDataString);
     experienceData.refresh();
+    dataBinder();
     print(
         "experience data--> ${experienceData} + type ${experienceData.runtimeType} + ${info.runtimeType}");
     update();
@@ -290,6 +332,7 @@ class ProfileviewscreenController extends GetxController {
 
     contactPersonnel[jsonTitle] = contactPersonnelDataString;
     contactPersonnel.refresh();
+    dataBinder();
     print(
         "experience data--> ${contactPersonnel} + type ${contactPersonnel.runtimeType} + ${info.runtimeType}");
     update();
@@ -301,6 +344,7 @@ class ProfileviewscreenController extends GetxController {
   singleTrainingDataRemove({required int index}) {
     trainningData.removeAt(index);
     trainningData.refresh();
+    dataBinder();
     update();
   }
 
@@ -324,6 +368,7 @@ class ProfileviewscreenController extends GetxController {
 
     trainningData[index] = trainingDataString;
     trainningData.refresh();
+    dataBinder();
     print(
         "experience data--> ${trainningData} + type ${trainningData.runtimeType} + ${info.runtimeType}");
     update();
@@ -348,6 +393,7 @@ class ProfileviewscreenController extends GetxController {
 
     trainningData.add(trainingDataString);
     trainningData.refresh();
+    dataBinder();
     print(
         "trainning --> ${trainningData} + type ${trainningData.runtimeType} + ${info.runtimeType}");
     update();
@@ -359,6 +405,7 @@ class ProfileviewscreenController extends GetxController {
   singleHealthDataRemove({required int index}) {
     healthData.removeAt(index);
     healthData.refresh();
+    dataBinder();
     update();
   }
 
@@ -377,6 +424,7 @@ class ProfileviewscreenController extends GetxController {
 
     healthData[index] = healthDataString;
     healthData.refresh();
+    dataBinder();
     print(
         "Health data--> ${healthData} + type ${healthData.runtimeType} + ${info.runtimeType}");
     update();
@@ -396,6 +444,7 @@ class ProfileviewscreenController extends GetxController {
 
     healthData.add(healthDataString);
     healthData.refresh();
+    dataBinder();
     print(
         "Health data--> ${healthData} + type ${healthData.runtimeType} + ${info.runtimeType}");
     update();
@@ -407,6 +456,7 @@ class ProfileviewscreenController extends GetxController {
   singleLanguageDataRemove({required int index}) {
     languageData.removeAt(index);
     languageData.refresh();
+    dataBinder();
     update();
   }
 
@@ -428,6 +478,7 @@ class ProfileviewscreenController extends GetxController {
 
     languageData[index] = languageDataString;
     languageData.refresh();
+    dataBinder();
     print(
         "Lanhguage data--> ${healthData} + type ${healthData.runtimeType} + ${info.runtimeType}");
     update();
@@ -450,12 +501,43 @@ class ProfileviewscreenController extends GetxController {
 
     languageData.add(languageDataString);
     languageData.refresh();
+    dataBinder();
     print(
         "language data--> ${languageData} + type ${languageData.runtimeType} + ${info.runtimeType}");
     update();
   }
 
 //-----------------------------------------------------------------------------------//
+
+//------------------------------Rebind data------------------------------------------//
+
+  dataBinder() {
+    RxMap<String, dynamic> newData = <String, dynamic>{
+      "userId": 123456,
+      "profileImage": "web link",
+      "personal": personalInformation,
+      "address": addressInfo,
+      "academic": academicData,
+      "experience": experienceData,
+      "contacts": contactPersonnel,
+      "training": trainningData,
+      "healthinfo": healthData,
+      "languages": languageData
+    }.obs;
+    print(
+        "--------------------------------------Old data------------------------------------");
+    print(userProfile['healthinfo']);
+
+    newData.refresh();
+    userProfile.clear();
+    userProfile = newData;
+    userProfile.refresh();
+    print(
+        "--------------------------------------New data------------------------------------");
+    print(userProfile['healthinfo']);
+    update();
+  }
+
   setData() {
     //---------------Clearing previous data for double safety--------------//
     userProfile.clear();

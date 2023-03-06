@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  RxMap<String, dynamic> userProfile = <String, dynamic>{
+  RxMap<String, dynamic> userInfo = <String, dynamic>{
     "userId": 123456,
     "profileImage": "web link",
     "personal": <String, dynamic>{

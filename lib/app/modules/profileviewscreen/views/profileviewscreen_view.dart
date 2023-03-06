@@ -505,6 +505,8 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                         Expanded(
                             child: InkWell(
                           onTap: () {
+                            controller.singlePersonalInfoUpdater(
+                                controller: tcr);
                             Get.back();
                           },
                           child: Container(

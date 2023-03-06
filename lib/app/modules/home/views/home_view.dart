@@ -92,7 +92,7 @@ class HomeView extends GetView<HomeController> {
                               height: 10,
                             ),
                             Text(
-                              controller.userProfile["personal"]["empName"],
+                              controller.userInfo["personal"]["empName"],
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.grey.shade100,
@@ -170,11 +170,11 @@ class HomeView extends GetView<HomeController> {
                       ZoomTapAnimation(
                         onTap: () {
                           Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                              arguments: controller.userProfile);
+                              arguments: controller.userInfo);
                         },
                         onLongTap: () {
                           Get.toNamed(Routes.PROFILEEDITSCREEN,
-                              arguments: controller.userProfile);
+                              arguments: controller.userInfo);
                         },
                         child: Container(
                           height: 40,
