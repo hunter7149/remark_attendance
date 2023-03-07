@@ -18,9 +18,9 @@ abstract class Providers implements CallBack {
     finalMap['device_id'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
     finalMap['current_os'] = Platform.isAndroid ? 'android' : 'ios';
 
-    if (Pref.readData(key: Pref.LOGIN_INFORMATION) != null)
-      finalMap['user_id'] =
-          Pref.readData(key: Pref.LOGIN_INFORMATION)['user_id'].toString();
+    // if (Pref.readData(key: Pref.LOGIN_INFORMATION) != null)
+    //   finalMap['user_id'] =
+    //       Pref.readData(key: Pref.LOGIN_INFORMATION)['user_id'].toString();
 
     /// ---- @end
     return await ApiService().request(endPoint, method, map);
@@ -42,8 +42,8 @@ abstract class Providers implements CallBack {
     //       Pref.readData(key: Pref.LOGIN_DATA)['user_id'].toString();
 
     ///-- @end
-    return await ApiService(
-            token: Pref.readData(key: Pref.LOGIN_INFORMATION)['token'])
+
+    return await ApiService(token: Pref.readData(key: Pref.LOGIN_INFORMATION))
         .request(endPoint, method, finalMap);
   }
 }

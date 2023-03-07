@@ -1035,22 +1035,31 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
           SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                    children: controller.academicData.isNotEmpty
-                        ? List.generate(controller.academicData.length,
-                            (index) {
-                            return academicRow(
-                                index, controller.academicData[index]);
-                          }).toList().cast<Widget>()
-                        : []),
+          Obx(
+            () => Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: controller.academicData.isNotEmpty
+                        ? Column(
+                            children: controller.academicData.isNotEmpty
+                                ? List.generate(controller.academicData.length,
+                                    (index) {
+                                    return academicRow(
+                                        index, controller.academicData[index]);
+                                  }).toList().cast<Widget>()
+                                : [])
+                        : Container(
+                            height: 200,
+                            child: Image.asset(
+                              "assets/images/empty.png",
+                              fit: BoxFit.cover,
+                            ),
+                          )),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
@@ -1223,10 +1232,13 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Copy:",
                               hinttext: "Copy",
                               controller: tcr.copy),
-                          deleteItem(function: () {
-                            Get.back();
-                            controller.singleAcademicDataRemove(index: index);
-                          })
+                          type == 0
+                              ? deleteItem(function: () {
+                                  Get.back();
+                                  controller.singleAcademicDataRemove(
+                                      index: index);
+                                })
+                              : Container()
                         ],
                       ),
                     ),
@@ -1336,7 +1348,15 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                             return experienceRow(
                                 index, controller.experienceData[index]);
                           }).toList().cast<Widget>()
-                        : []),
+                        : [
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                "assets/images/empty.png",
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          ]),
               ),
             ),
           ),
@@ -1506,10 +1526,13 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Responsibility:",
                               hinttext: "Responsibility",
                               controller: tcr.responsibility),
-                          deleteItem(function: () {
-                            controller.singleExperienceDataRemove(index: index);
-                            Get.back();
-                          })
+                          type == 0
+                              ? deleteItem(function: () {
+                                  controller.singleExperienceDataRemove(
+                                      index: index);
+                                  Get.back();
+                                })
+                              : Container()
                         ],
                       ),
                     ),
@@ -1888,7 +1911,15 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                             return trainingRow(
                                 index, controller.trainningData[index]);
                           }).toList().cast<Widget>()
-                        : []),
+                        : [
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                "assets/images/empty.png",
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          ]),
               ),
             ),
           ),
@@ -2051,10 +2082,13 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Copy:",
                               hinttext: "Copy",
                               controller: tcr.copy),
-                          deleteItem(function: () {
-                            controller.singleTrainingDataRemove(index: index);
-                            Get.back();
-                          })
+                          type == 0
+                              ? deleteItem(function: () {
+                                  controller.singleTrainingDataRemove(
+                                      index: index);
+                                  Get.back();
+                                })
+                              : Container()
                         ],
                       ),
                     ),
@@ -2167,7 +2201,15 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                             return healthRow(
                                 index, controller.healthData[index]);
                           }).toList().cast<Widget>()
-                        : []),
+                        : [
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                "assets/images/empty.png",
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          ]),
               ),
             ),
           ),
@@ -2317,10 +2359,13 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Report/Prescription:",
                               hinttext: "Report/Prescription",
                               controller: tcr.report),
-                          deleteItem(function: () {
-                            controller.singleHealthDataRemove(index: index);
-                            Get.back();
-                          })
+                          type == 0
+                              ? deleteItem(function: () {
+                                  controller.singleHealthDataRemove(
+                                      index: index);
+                                  Get.back();
+                                })
+                              : Container()
                         ],
                       ),
                     ),
@@ -2432,7 +2477,15 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                             return languageRow(
                                 index, controller.languageData[index]);
                           }).toList().cast<Widget>()
-                        : []),
+                        : [
+                            Container(
+                              height: 200,
+                              child: Image.asset(
+                                "assets/images/empty.png",
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          ]),
               ),
             ),
           ),
@@ -2591,10 +2644,13 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                               label: "Remarks:",
                               hinttext: "Remarks",
                               controller: tcr.remarks),
-                          deleteItem(function: () {
-                            controller.singleLanguageDataRemove(index: index);
-                            Get.back();
-                          })
+                          type == 0
+                              ? deleteItem(function: () {
+                                  controller.singleLanguageDataRemove(
+                                      index: index);
+                                  Get.back();
+                                })
+                              : Container()
                         ],
                       ),
                     ),

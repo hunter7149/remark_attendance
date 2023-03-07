@@ -17,6 +17,6 @@ class Repository extends Providers {
 
 //-------------------------Notification related api-------------------------------//
   Future<dynamic> getAllNotification() async =>
-      await tokenBaseApi(endPoint: "", method: Method.GET, map: {})
+      await tokenBaseApi(endPoint: AppUrl.loginApi, method: Method.GET, map: {})
           .then((value) => value);
 }

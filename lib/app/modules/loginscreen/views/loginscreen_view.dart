@@ -48,7 +48,7 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   COMMONWIDGET.button(
                       title: "LOGIN",
                       funtion: () {
-                        controller.requestTestData();
+                        controller.requestLogin();
                         // Get.toNamed(Routes.HOME);
                       },
                       height: 50),

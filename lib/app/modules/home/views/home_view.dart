@@ -37,19 +37,30 @@ class HomeView extends GetView<HomeController> {
           ),
           centerTitle: true,
           actions: [
-            // Container(
-            //   margin: EdgeInsets.all(10),
-            //   padding: EdgeInsets.all(7),
-            //   decoration: BoxDecoration(
-            //       // borderRadius: BorderRadius.circular(100),
-            //       // border: Border.all(width: 0.7, color: Colors.grey.shade600)
-            //       ),
-            //   child: Icon(
-            //     FontAwesomeIcons.bell,
-            //     color: Colors.grey.shade700,
-            //     size: 20,
-            //   ),
-            // ),
+            ZoomTapAnimation(
+              onTap: () {},
+              child: Row(
+                children: [
+                  Text(
+                    "Sign out",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(
+                            width: 0.7, color: Colors.grey.shade600)),
+                    child: Icon(
+                      Icons.logout_rounded,
+                      color: Colors.grey.shade700,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         body: SafeArea(

@@ -11,6 +11,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
   const SplashscreenView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    controller.saveDeviceInfo();
     Timer(Duration(seconds: 2), () {
       Get.offNamed(Routes.LOGINSCREEN);
     });
