@@ -5,6 +5,7 @@ class Pref {
 
   static var LOGIN_INFORMATION = 'login_information';
   static var DEVICE_IDENTITY = 'device-identity';
+  static var FCM_TOKEN = "fcm_token";
 
   static void writeData({required String key, required dynamic value}) =>
       box.write(key, value);

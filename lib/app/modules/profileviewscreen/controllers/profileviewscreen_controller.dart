@@ -250,7 +250,34 @@ class ProfileviewscreenController extends GetxController {
     update();
   }
 
-//---------------------EXPERIENCE INFORMATION---------------------------------//
+//---------------------Address information------------------------------------//
+  singleAddressInfoUpdate(
+      {required ADDRESSCONTROLLERS present,
+      required ADDRESSCONTROLLERS permanent}) {
+    Map<String, dynamic> address = {
+      "present": {
+        "division": present.division.text,
+        "district": present.district.text,
+        "policeStation": present.policeStation.text,
+        "postOffice": present.postOffice.text,
+        "postCode": present.postCode.text,
+        "village": present.village.text
+      },
+      "permanent": {
+        "division": permanent.division.text,
+        "district": permanent.district.text,
+        "policeStation": permanent.policeStation.text,
+        "postOffice": permanent.postOffice.text,
+        "postCode": permanent.postCode.text,
+        "village": permanent.village.text
+      }
+    };
+    addressInfo.addAll(address);
+    addressInfo.refresh();
+    dataBinder();
+  }
+
+//---------------------Experience information---------------------------------//
   singleExperienceDataRemove({required int index}) {
     experienceData.removeAt(index);
     experienceData.refresh();

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/modules/profileviewscreen/components/text_controllers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
@@ -30,53 +31,99 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                 child: SingleChildScrollView(
                   child: Obx(() => Column(
                         children: [
+                          Container(
+                            height: 220,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                    width: 0.8, color: AppColors.modernGreen)),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: 200,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          "https://media.licdn.com/dms/image/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset('assets/logo/user.png'),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                    bottom: 0,
+                                    right: 0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.modernGreen,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20))),
+                                      padding: EdgeInsets.all(10),
+                                      child: Icon(Icons.edit),
+                                    ))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
                           personalInfo(
                               controller: controller,
                               color: AppColors.modernGreen),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           addressInfo(
                               controller: controller,
                               color: AppColors.modernBlue),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           academicInfo(
                               controller: controller,
                               color: AppColors.modernCoolPink),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           experienceInfo(
                               controller: controller,
                               color: AppColors.modernGreen),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           contactPersonnel(
                               controller: controller,
                               color: AppColors.modernLightBrown),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           trainingInfo(
                               controller: controller,
                               color: AppColors.modernPurple),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           healthInfo(
                               controller: controller,
                               color: AppColors.modernChocolate),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           ),
                           languageInfo(
                               controller: controller,
                               color: AppColors.modernCoral),
                           SizedBox(
-                            height: 20,
+                            height: 30,
                           )
                         ],
                       )),
@@ -610,49 +657,51 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
           borderRadius: BorderRadius.circular(10)),
       child: Stack(
         children: [
-          Column(
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            bottomRight: Radius.circular(20))),
-                    child: Center(
-                      child: Text(
-                        'Address',
-                        style: TextStyle(color: Colors.white),
+          Obx(
+            () => Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      height: 40,
+                      width: 180,
+                      decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(20))),
+                      child: Center(
+                        child: Text(
+                          'Address',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          singleAddressItem(
-                              data: controller.addressInfo['present'],
-                              color: AppColors.modernGreen,
-                              title: "Present address"),
-                          singleAddressItem(
-                              data: controller.addressInfo['permanent'],
-                              color: AppColors.modernBlue,
-                              title: "Permanent address")
-                        ],
-                      ),
-                    )),
-              ),
-            ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            singleAddressItem(
+                                data: controller.addressInfo['present'],
+                                color: AppColors.modernGreen,
+                                title: "Present address"),
+                            singleAddressItem(
+                                data: controller.addressInfo['permanent'],
+                                color: AppColors.modernBlue,
+                                title: "Permanent address")
+                          ],
+                        ),
+                      )),
+                ),
+              ],
+            ),
           ),
           Positioned(
             top: 5,
@@ -957,6 +1006,8 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                         Expanded(
                             child: InkWell(
                           onTap: () {
+                            controller.singleAddressInfoUpdate(
+                                present: present, permanent: permanent);
                             Get.back();
                           },
                           child: Container(
@@ -1050,12 +1101,25 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                                         index, controller.academicData[index]);
                                   }).toList().cast<Widget>()
                                 : [])
-                        : Container(
-                            height: 200,
-                            child: Image.asset(
-                              "assets/images/empty.png",
-                              fit: BoxFit.cover,
-                            ),
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 50,
+                                child: Image.asset(
+                                  "assets/images/empty.png",
+                                  fit: BoxFit.cover,
+                                  color: color,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "No data provided!",
+                                style: TextStyle(fontSize: 20),
+                              )
+                            ],
                           )),
               ),
             ),
@@ -1349,12 +1413,28 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                                 index, controller.experienceData[index]);
                           }).toList().cast<Widget>()
                         : [
-                            Container(
-                              height: 200,
-                              child: Image.asset(
-                                "assets/images/empty.png",
-                                fit: BoxFit.cover,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Image.asset(
+                                    "assets/images/empty.png",
+                                    fit: BoxFit.cover,
+                                    color: color,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "No data provided!",
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
                             )
                           ]),
               ),
@@ -1578,65 +1658,90 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
   contactPersonnel(
       {required ProfileviewscreenController controller, required Color color}) {
     return Container(
-      width: double.infinity,
-      height: 300,
-      // padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-          border: Border.all(width: 1, color: color),
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        width: double.infinity,
+        height: 300,
+        // padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+            border: Border.all(width: 1, color: color),
+            borderRadius: BorderRadius.circular(10)),
+        child: Obx(
+          () => Column(
             children: [
-              Container(
-                height: 40,
-                width: 180,
-                decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(5),
-                        bottomRight: Radius.circular(20))),
-                child: Center(
-                  child: Text(
-                    'Contact personnel',
-                    style: TextStyle(color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 40,
+                    width: 180,
+                    decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(20))),
+                    child: Center(
+                      child: Text(
+                        'Contact personnel',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                        children: controller.contactPersonnel.isNotEmpty
+                            ? [
+                                contactPersonnelRow(
+                                  "Emergency",
+                                  "emergency",
+                                  controller.contactPersonnel['emergency'],
+                                ),
+                                contactPersonnelRow("Reference", 'reference',
+                                    controller.contactPersonnel['reference']),
+                                contactPersonnelRow("Nominee", 'reference',
+                                    controller.contactPersonnel['nominee']),
+                                contactPersonnelRow("Guarantor", 'reference',
+                                    controller.contactPersonnel['guarantor'])
+                              ]
+                            : [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      child: Image.asset(
+                                        "assets/images/empty.png",
+                                        fit: BoxFit.cover,
+                                        color: color,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "No data provided!",
+                                      style: TextStyle(fontSize: 20),
+                                    )
+                                  ],
+                                )
+                              ]),
                   ),
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                    children: controller.contactPersonnel.isNotEmpty
-                        ? [
-                            contactPersonnelRow(
-                              "Emergency",
-                              "emergency",
-                              controller.contactPersonnel['emergency'],
-                            ),
-                            contactPersonnelRow("Reference", 'reference',
-                                controller.contactPersonnel['reference']),
-                            contactPersonnelRow("Nominee", 'reference',
-                                controller.contactPersonnel['nominee']),
-                            contactPersonnelRow("Guarantor", 'reference',
-                                controller.contactPersonnel['guarantor'])
-                          ]
-                        : []),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+        ));
   }
 
   contactPersonnelRow(
@@ -1912,12 +2017,28 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                                 index, controller.trainningData[index]);
                           }).toList().cast<Widget>()
                         : [
-                            Container(
-                              height: 200,
-                              child: Image.asset(
-                                "assets/images/empty.png",
-                                fit: BoxFit.cover,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Image.asset(
+                                    "assets/images/empty.png",
+                                    fit: BoxFit.cover,
+                                    color: color,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "No data provided!",
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
                             )
                           ]),
               ),
@@ -2202,12 +2323,28 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                                 index, controller.healthData[index]);
                           }).toList().cast<Widget>()
                         : [
-                            Container(
-                              height: 200,
-                              child: Image.asset(
-                                "assets/images/empty.png",
-                                fit: BoxFit.cover,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Image.asset(
+                                    "assets/images/empty.png",
+                                    fit: BoxFit.cover,
+                                    color: color,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "No data provided!",
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
                             )
                           ]),
               ),
@@ -2478,12 +2615,28 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                                 index, controller.languageData[index]);
                           }).toList().cast<Widget>()
                         : [
-                            Container(
-                              height: 200,
-                              child: Image.asset(
-                                "assets/images/empty.png",
-                                fit: BoxFit.cover,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Image.asset(
+                                    "assets/images/empty.png",
+                                    fit: BoxFit.cover,
+                                    color: color,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  "No data provided!",
+                                  style: TextStyle(fontSize: 20),
+                                )
+                              ],
                             )
                           ]),
               ),

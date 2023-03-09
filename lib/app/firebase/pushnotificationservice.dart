@@ -1,3 +1,4 @@
+import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -108,7 +109,9 @@ class FirebaseService {
 
   static Future<String> getToken() async {
     token = (await _firebaseMessaging.getToken())!;
+
     print(token);
+    Pref.writeData(key: Pref.FCM_TOKEN, value: token.toString());
     return token.toString();
   }
 }
