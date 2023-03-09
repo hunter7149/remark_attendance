@@ -294,7 +294,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                   title: "Check In",
                                   backgroudcolor: Color(0xff25ae7a),
                                   funtion: () {
-                                    controller.requestCheckIn();
+                                    controller.requestCheckIn2();
                                   }),
                             )),
                       // SizedBox(

@@ -4,6 +4,7 @@ class Pref {
   static final box = GetStorage();
 
   static var LOGIN_INFORMATION = 'login_information';
+  static var USER_ID = 'user_id';
   static var DEVICE_IDENTITY = 'device-identity';
   static var FCM_TOKEN = "fcm_token";
 

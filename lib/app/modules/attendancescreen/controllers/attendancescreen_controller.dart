@@ -1,9 +1,12 @@
+import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' as gcode;
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
+
+import '../../../api/repository/repository.dart';
 
 class AttendancescreenController extends GetxController {
   RxBool isCheckedIn = false.obs;
@@ -38,7 +41,57 @@ class AttendancescreenController extends GetxController {
       "status": "Attended",
     }
   ].obs;
+
+  requestCheckIn2() async {
+    String UserId = Pref.readData(key: Pref.USER_ID).toString();
+    Map<String, dynamic> bindedData = {
+      "hrCrEmpIdHrCrEmp": "${UserId}",
+      "onDate":
+          "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString()}",
+      "isPass": 0,
+      "empLocation": "${address.value}",
+      "attnType": "IN",
+      "lattitude": "${lattitude.value}",
+      "longitude": "${longitude.value}",
+    };
+
+    try {
+      await Repository().requestCheckIn(map: bindedData).then((value) {
+        print("Check in api value ------------------- > ${value}");
+
+        isCheckedInUpdater(value: true);
+        lastCheckInUpdater(
+            time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+
+        Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.shade500,
+            duration: Duration(seconds: 2));
+      });
+    } on Exception catch (e) {
+      Get.snackbar("Failed", "Try again",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    }
+  }
+
   requestCheckIn() {
+    String UserId = Pref.readData(key: Pref.USER_ID).toString();
+    Map<String, dynamic> bindedData = {
+      "hrCrEmpIdHrCrEmp": "${UserId}",
+      "onDate":
+          "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString()}",
+      "isPass": 0,
+      "empLocation": "${address.value}",
+      "attnType": "IN",
+      "lattitude": "${lattitude.value}",
+      "longitude": "${longitude.value}",
+    };
     isCheckedInUpdater(value: true);
     lastCheckInUpdater(
         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));

@@ -15,6 +15,11 @@ class Repository extends Providers {
               endPoint: AppUrl.loginApi, method: Method.POST, map: map)
           .then((value) => value);
 
+  Future<dynamic> requestCheckIn({required Map<String, dynamic> map}) async =>
+      await tokenBaseApi(
+              endPoint: AppUrl.loginApi, method: Method.POST, map: map)
+          .then((value) => value);
+
 //-------------------------Notification related api-------------------------------//
   Future<dynamic> getAllNotification() async =>
       await tokenBaseApi(endPoint: AppUrl.loginApi, method: Method.GET, map: {})

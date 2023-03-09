@@ -38,13 +38,13 @@ class LoginscreenController extends GetxController {
         if (value["result"] == "success") {
           Pref.writeData(
               key: Pref.LOGIN_INFORMATION, value: value['accessToken']);
+          Pref.writeData(key: Pref.USER_ID, value: email.text);
           Get.offNamed(Routes.HOME);
         } else {
           Get.snackbar("Failed", "Check username and password",
               colorText: Colors.white,
               backgroundColor: Colors.red,
               snackPosition: SnackPosition.BOTTOM);
-          Get.offNamed(Routes.HOME);
         }
       });
     }
