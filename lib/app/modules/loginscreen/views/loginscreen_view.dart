@@ -2,6 +2,7 @@ import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/app_strings.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
 
@@ -41,17 +42,24 @@ class LoginscreenView extends GetView<LoginscreenController> {
                     height: 20,
                   ),
                   passwordField(
-                      hinttext: "Enter your password", controller: controller),
+                    hinttext: "Enter your password",
+                    controller: controller,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                  COMMONWIDGET.button(
-                      title: "LOGIN",
-                      funtion: () {
-                        controller.requestLogin();
-                        // Get.toNamed(Routes.HOME);
-                      },
-                      height: 50),
+                  Obx(() => controller.isLogingIn.value
+                      ? Center(
+                          child:
+                              SpinKitDoubleBounce(color: AppColors.modernGreen),
+                        )
+                      : COMMONWIDGET.button(
+                          title: "LOGIN",
+                          funtion: () {
+                            controller.requestLogin();
+                            // Get.toNamed(Routes.HOME);
+                          },
+                          height: 50)),
                   SizedBox(
                     height: 20,
                   ),

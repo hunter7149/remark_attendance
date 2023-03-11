@@ -28,21 +28,9 @@ class AttendancescreenController extends GetxController {
   }
 
   //-------------Function for updating history of attendance-----------//
-  RxList<Map<String, dynamic>> attendanceHistory = <Map<String, dynamic>>[
-    {
-      "activity": "Check In",
-      "intime":
-          DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
-      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
-          .format(DateTime.now().add(Duration(hours: 6)))
-          .toString(),
-      "lattitude": "0.0",
-      "longitude": "0.0",
-      "status": "Attended",
-    }
-  ].obs;
-
-  requestCheckIn2() async {
+  RxList<dynamic> attendanceHistory = <dynamic>[].obs;
+  RxBool isCheckingInOut = false.obs;
+  requestCheckIn() async {
     String UserId = Pref.readData(key: Pref.USER_ID).toString();
     Map<String, dynamic> bindedData = {
       "hrCrEmpIdHrCrEmp": "${UserId}",
@@ -51,18 +39,21 @@ class AttendancescreenController extends GetxController {
       "isPass": 0,
       "empLocation": "${address.value}",
       "attnType": "IN",
-      "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}",
+      "lattitude": lattitude.value,
+      "longitude": longitude.value,
     };
 
     try {
+      isCheckingInOut.value = true;
+      update();
       await Repository().requestCheckIn(map: bindedData).then((value) {
         print("Check in api value ------------------- > ${value}");
-
+        Pref.writeData(key: Pref.CHECKED_IN, value: true);
         isCheckedInUpdater(value: true);
         lastCheckInUpdater(
             time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-
+        isCheckingInOut.value = false;
+        update();
         Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
             colorText: Colors.white,
             borderRadius: 2,
@@ -71,6 +62,8 @@ class AttendancescreenController extends GetxController {
             duration: Duration(seconds: 2));
       });
     } on Exception catch (e) {
+      isCheckingInOut.value = false;
+      update();
       Get.snackbar("Failed", "Try again",
           colorText: Colors.white,
           borderRadius: 2,
@@ -80,7 +73,7 @@ class AttendancescreenController extends GetxController {
     }
   }
 
-  requestCheckIn() {
+  requestCheckOut() async {
     String UserId = Pref.readData(key: Pref.USER_ID).toString();
     Map<String, dynamic> bindedData = {
       "hrCrEmpIdHrCrEmp": "${UserId}",
@@ -88,68 +81,79 @@ class AttendancescreenController extends GetxController {
           "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString()}",
       "isPass": 0,
       "empLocation": "${address.value}",
-      "attnType": "IN",
-      "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}",
+      "attnType": "OUT",
+      "lattitude": lattitude.value,
+      "longitude": longitude.value,
     };
-    isCheckedInUpdater(value: true);
-    lastCheckInUpdater(
-        time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-    attendanceHistory.add({
-      "activity": "Check In",
-      "intime":
-          DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
-      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
-          .format(DateTime.now().add(Duration(hours: 6)))
-          .toString(),
-      "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}",
-      "status": "Attended",
-    });
-    Get.closeAllSnackbars();
-    Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
-        colorText: Colors.white,
-        borderRadius: 2,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.shade500,
-        duration: Duration(seconds: 2));
-    attendanceHistory.refresh();
 
-    update();
+    try {
+      isCheckingInOut.value = true;
+      update();
+
+      await Repository().requestCheckIn(map: bindedData).then((value) {
+        print("Check in api value ------------------- > ${value}");
+        Pref.writeData(key: Pref.CHECKED_IN, value: false);
+        isCheckedInUpdater(value: false);
+        lastCheckOutUpdater(
+            time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+        isCheckingInOut.value = false;
+        update();
+        Get.snackbar("Checked out", "Checked out at ${lastCheckIn.value}",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.shade500,
+            duration: Duration(seconds: 2));
+      });
+    } on Exception catch (e) {
+      isCheckingInOut.value = false;
+      update();
+      Get.snackbar("Failed", "Try again",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    }
   }
 
-  requestCheckOut() {
-    isCheckedInUpdater(value: false);
-    lastCheckOutUpdater(
-        time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-    attendanceHistory.add({
-      "activity": "Check Out",
-      "intime":
-          DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
-      "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
-          .format(DateTime.now().add(Duration(hours: 6)))
-          .toString(),
-      "lattitude": "${lattitude.value}",
-      "longitude": "${longitude.value}",
-      "status": "Attended",
-    });
-    print(longitude);
-    print(lattitude);
-    attendanceHistory.refresh();
-    Get.closeAllSnackbars();
-    Get.snackbar("Checked out", "Checked out at ${lastCheckOut.value}",
-        colorText: Colors.white,
-        borderRadius: 2,
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red.shade500,
-        duration: Duration(seconds: 2));
+  RxBool isAttendanceLoading = false.obs;
+
+  requestPersonalAttendance() async {
+    String userId = Pref.readData(key: Pref.USER_ID).toString();
+    try {
+      isAttendanceLoading.value = true;
+      update();
+      await Repository()
+          .getPersonalAttendance(employeeId: userId)
+          .then((value) {
+        print("Recieved personal attendance ---->${value["value"]}");
+        attendanceHistory.clear();
+        attendanceHistory.value = value["value"] ?? [];
+        attendanceHistory.refresh();
+        isAttendanceLoading.value = false;
+        update();
+
+        isAttendanceLoading.value = false;
+        update();
+      });
+    } on Exception catch (e) {
+      isAttendanceLoading.value = false;
+      update();
+      print("Error------at->Personal attendance exception--------> ${e}");
+    }
+    isAttendanceLoading.value = false;
     update();
   }
 
   RxDouble lattitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
   RxString address = "".obs;
+  RxBool isLocationLoading = false.obs;
+
   getLocation() async {
+    isLocationLoading.value = true;
+    update();
     Location location = new Location();
 
     bool _serviceEnabled;
@@ -171,26 +175,37 @@ class AttendancescreenController extends GetxController {
         return LocationData;
       }
     }
-
+    await location.changeSettings(
+      accuracy: LocationAccuracy.high,
+    );
     _locationData = await location.getLocation();
     // print(_locationData.latitude);
     LocationData locationData = _locationData;
     lattitude.value = locationData.latitude ?? 0.0;
     longitude.value = locationData.longitude ?? 0.0;
+
     update();
     List<gcode.Placemark> placemarks =
         await gcode.placemarkFromCoordinates(lattitude.value, longitude.value);
-    address.value =
-        "${placemarks[0].subLocality}" + "," + "${placemarks[0].locality}";
+    address.value = "${placemarks[0].street}" +
+        "," +
+        "${placemarks[0].subLocality}" +
+        "," +
+        "${placemarks[0].locality}" +
+        "-" +
+        "${placemarks[0].postalCode}";
+    isLocationLoading.value = false;
     update();
-    print("${placemarks[0].subLocality}" + "," + "${placemarks[0].locality}");
+    print("${address.value}");
     return locationData;
   }
 
   @override
   void onInit() {
     super.onInit();
+    isCheckedInUpdater(value: Pref.readData(key: Pref.CHECKED_IN) ?? false);
     getLocation();
+    requestPersonalAttendance();
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'package:attendance/app/api/service/prefrences.dart';
+import 'package:attendance/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -166,6 +168,13 @@ class HomeController extends GetxController {
       }
     ]
   }.obs;
+
+  requestSignOut() {
+    Pref.removeData(key: Pref.USER_ID);
+    Pref.removeData(key: Pref.USER_PASSWORD);
+    Pref.removeData(key: Pref.LOGIN_INFORMATION);
+    Get.offNamed(Routes.LOGINSCREEN);
+  }
 
   @override
   void onInit() {

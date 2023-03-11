@@ -6,14 +6,14 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
-const BASE_URL = 'http://192.168.10.149:8070';
+const BASE_URL = 'http://192.168.10.149:8070/HRIS/';
 
 class ApiService extends GetxService {
   late Dio _dio;
   static header({String? token}) => {
         "Content-Type": 'application/json',
         "Accept": 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
+        if (token != null) 'Authorization': 'Remark $token',
       };
 
   ApiService({String? token}) {
@@ -53,6 +53,7 @@ class ApiService extends GetxService {
         );
       }
       print("response status code -> ${response.statusCode}");
+      print("response data-> ${response.data}");
       if (response.statusCode == 200) {
         return response.data;
       } else if (response.statusCode == 422) {
@@ -60,6 +61,8 @@ class ApiService extends GetxService {
       } else if (response.statusCode == 401) {
         throw Exception("Unauthorized");
       } else if (response.statusCode == 500) {
+        throw Exception("Server Error");
+      } else if (response.statusCode == 404) {
         throw Exception("Server Error");
       } else {
         throw Exception("Something Went Wrong");
@@ -69,8 +72,8 @@ class ApiService extends GetxService {
     } on FormatException {
       throw Exception("Bad Response Format!");
     } on DioError catch (e) {
-      // throw Exception(e.response?.data);
-      return e.response?.data;
+      throw Exception(e.response?.data);
+      // return e.response?.data;
     } catch (e) {
       print("error $e");
       throw Exception("Something Went Wrong");

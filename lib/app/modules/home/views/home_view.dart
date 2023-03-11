@@ -41,7 +41,9 @@ class HomeView extends GetView<HomeController> {
           centerTitle: true,
           actions: [
             ZoomTapAnimation(
-              onTap: () {},
+              onTap: () {
+                controller.requestSignOut();
+              },
               child: Row(
                 children: [
                   Text(

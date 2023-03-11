@@ -2343,3 +2343,71 @@
   //     ),
   //   );
   // }
+
+
+//-------------Attendance controller check in out--------//
+  // requestCheckIn() {
+  //   String UserId = Pref.readData(key: Pref.USER_ID).toString();
+  //   Map<String, dynamic> bindedData = {
+  //     "hrCrEmpIdHrCrEmp": "${UserId}",
+  //     "onDate":
+  //         "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString()}",
+  //     "isPass": 0,
+  //     "empLocation": "${address.value}",
+  //     "attnType": "IN",
+  //     "lattitude": "${lattitude.value}",
+  //     "longitude": "${longitude.value}",
+  //   };
+  //   isCheckedInUpdater(value: true);
+  //   lastCheckInUpdater(
+  //       time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+  //   attendanceHistory.add({
+  //     "activity": "Check In",
+  //     "intime":
+  //         DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
+  //     "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
+  //         .format(DateTime.now().add(Duration(hours: 6)))
+  //         .toString(),
+  //     "lattitude": "${lattitude.value}",
+  //     "longitude": "${longitude.value}",
+  //     "status": "Attended",
+  //   });
+  //   Get.closeAllSnackbars();
+  //   Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
+  //       colorText: Colors.white,
+  //       borderRadius: 2,
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       backgroundColor: Colors.green.shade500,
+  //       duration: Duration(seconds: 2));
+  //   attendanceHistory.refresh();
+
+  //   update();
+  // }
+
+  // requestCheckOut() {
+  //   isCheckedInUpdater(value: false);
+  //   lastCheckOutUpdater(
+  //       time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+  //   attendanceHistory.add({
+  //     "activity": "Check Out",
+  //     "intime":
+  //         DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()).toString(),
+  //     "outtime": DateFormat('MM/dd/yyyy hh:mm:ss a')
+  //         .format(DateTime.now().add(Duration(hours: 6)))
+  //         .toString(),
+  //     "lattitude": "${lattitude.value}",
+  //     "longitude": "${longitude.value}",
+  //     "status": "Attended",
+  //   });
+  //   print(longitude);
+  //   print(lattitude);
+  //   attendanceHistory.refresh();
+  //   Get.closeAllSnackbars();
+  //   Get.snackbar("Checked out", "Checked out at ${lastCheckOut.value}",
+  //       colorText: Colors.white,
+  //       borderRadius: 2,
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       backgroundColor: Colors.red.shade500,
+  //       duration: Duration(seconds: 2));
+  //   update();
+  // }

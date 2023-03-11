@@ -1,6 +1,7 @@
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -52,7 +53,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                       ),
                       Obx(() => Container(
                             width: double.maxFinite,
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                            padding: EdgeInsets.symmetric(vertical: 30),
                             decoration: BoxDecoration(
                                 color: controller.isCheckedIn.value
                                     ? Colors.green.shade400
@@ -66,7 +67,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                     ? "Checked in"
                                     : "Not checked in",
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 20,
                                     color: Colors.grey.shade100,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -78,123 +79,162 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 SizedBox(
                   height: 20,
                 ),
-                Obx(() => controller.attendanceHistory.length == 0
-                    ? Container()
-                    : Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
-                        // padding: EdgeInsets.symmetric(horizontal: 5),
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColor,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Date",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "In",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "Out",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "Status",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
+                Obx(() => Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      // padding: EdgeInsets.symmetric(horizontal: 5),
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: AppColors.greyColor,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Date",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "In",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Out",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Status",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
-                            //------Dynamic items------//
-                            Column(
-                              children: controller.attendanceHistory.reversed
-                                  .map((element) => Container(
-                                        // margin:
-                                        //     EdgeInsets.symmetric(vertical: 5),
-                                        padding: EdgeInsets.all(10),
-                                        decoration:
-                                            BoxDecoration(color: Colors.white),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              "  ${element["intime"].toString().split(" ")[1]} ${element["outtime"].toString().split(" ")[2]}   ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            Text(
-                                              element["intime"]
-                                                  .toString()
-                                                  .split(" ")[1],
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            Text(
-                                              "  ${element["outtime"].toString().split(" ")[1]} ${element["outtime"].toString().split(" ")[2]}   ",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                            Text(
-                                              element["status"],
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey.shade900,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                                  .toList(),
-                            ),
-                            //---Buttom curve design---------//
-                            Container(
-                              height: 35,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColor,
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(10),
-                                      bottomRight: Radius.circular(10))),
-                            )
-                          ],
-                        ),
-                      )),
+                          ),
+                          //------Dynamic items------//
+                          controller.isAttendanceLoading.value
+                              ? Center(
+                                  child: SpinKitThreeBounce(
+                                  color: AppColors.modernGreen,
+                                ))
+                              : Column(
+                                  children: controller
+                                          .attendanceHistory.isNotEmpty
+                                      ? controller.attendanceHistory
+                                          .map((element) => Container(
+                                                // margin:
+                                                //     EdgeInsets.symmetric(vertical: 5),
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "  ${element["ATTN_DATE"]}",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors
+                                                              .grey.shade900,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    Text(
+                                                      "${element["IN_TIME"]}",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors
+                                                              .grey.shade900,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    Text(
+                                                      "${element["OUT_TIME"]}",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors
+                                                              .grey.shade900,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                    Text(
+                                                      "${element["ATTN_DAY_STS_TYPE"]}",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          color: Colors
+                                                              .grey.shade900,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList()
+                                      : [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Container(
+                                                height: 50,
+                                                child: Image.asset(
+                                                  "assets/images/empty.png",
+                                                  fit: BoxFit.cover,
+                                                  color: AppColors.modernGreen,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                "No data provided!",
+                                                style: TextStyle(fontSize: 20),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          )
+                                        ]),
+                          //---Buttom curve design---------//
+                          Container(
+                            height: 35,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                color: AppColors.greyColor,
+                                borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(10),
+                                    bottomRight: Radius.circular(10))),
+                          )
+                        ],
+                      ),
+                    )),
                 SizedBox(
                   height: 20,
                 ),
@@ -222,7 +262,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Mohammad Khalid Bin Oalid",
+                              "CLOCK",
                               style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.grey.shade900,
@@ -285,39 +325,43 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                         height: 20,
                       ),
                       //------Check In Button------------//
-                      Obx(() => controller.isCheckedIn.value
-                          ? Container()
-                          : Container(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: COMMONWIDGET.button(
-                                  height: 50,
-                                  title: "Check In",
-                                  backgroudcolor: Color(0xff25ae7a),
-                                  funtion: () {
-                                    controller.requestCheckIn2();
-                                  }),
-                            )),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
-                      //------------Chekc Out Button------------//
-                      Obx(() => controller.isCheckedIn.value
-                          ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 24),
-                              child: COMMONWIDGET.button(
-                                  height: 50,
-                                  title: "Check Out",
-                                  backgroudcolor: Colors.red.shade400,
-                                  funtion: () {
-                                    controller.requestCheckOut();
-                                  }),
+                      Obx(() => controller.isCheckingInOut.value
+                          ? SpinKitThreeBounce(
+                              color: controller.isCheckedIn.value
+                                  ? AppColors.modernRed
+                                  : AppColors.modernGreen,
                             )
-                          : Container()),
+                          : controller.isCheckedIn.value
+                              ? Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 24),
+                                  child: COMMONWIDGET.button(
+                                      height: 50,
+                                      title: "Check Out",
+                                      backgroudcolor: Colors.red.shade400,
+                                      funtion: () {
+                                        controller.requestCheckOut();
+                                      }),
+                                )
+                              : Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 24),
+                                  child: COMMONWIDGET.button(
+                                      height: 50,
+                                      title: "Check In",
+                                      backgroudcolor: Color(0xff25ae7a),
+                                      funtion: () {
+                                        controller.requestCheckIn();
+                                      }),
+                                )),
+
                       SizedBox(
                         height: 20,
                       ),
                       Obx(() => controller.address.isEmpty
-                          ? Container()
+                          ? Container(
+                              child: Center(
+                                child: Text("NO LOCATION FOUND!"),
+                              ),
+                            )
                           : Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -327,19 +371,27 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                       bottomRight: Radius.circular(10))),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.location_pin,
-                                    color: Colors.grey.shade600,
-                                  ),
-                                  Text(
-                                    " ${controller.address}",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
+                                children: controller.isLocationLoading.value
+                                    ? [
+                                        SpinKitThreeBounce(
+                                          color: AppColors.modernBlue,
+                                        )
+                                      ]
+                                    : [
+                                        Icon(
+                                          Icons.location_pin,
+                                          color: Colors.grey.shade600,
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            " ${controller.address}",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade900,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                      ],
                               ),
                             ))
                     ],

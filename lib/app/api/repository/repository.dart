@@ -17,11 +17,13 @@ class Repository extends Providers {
 
   Future<dynamic> requestCheckIn({required Map<String, dynamic> map}) async =>
       await tokenBaseApi(
-              endPoint: AppUrl.loginApi, method: Method.POST, map: map)
+              endPoint: AppUrl.checkInOut, method: Method.POST, map: map)
           .then((value) => value);
 
 //-------------------------Notification related api-------------------------------//
-  Future<dynamic> getAllNotification() async =>
-      await tokenBaseApi(endPoint: AppUrl.loginApi, method: Method.GET, map: {})
-          .then((value) => value);
+  Future<dynamic> getPersonalAttendance({required String employeeId}) async =>
+      await tokenBaseApi(
+          endPoint: AppUrl.personalAttendance,
+          method: Method.POST,
+          map: {"employeeId": employeeId}).then((value) => value);
 }

@@ -1,3 +1,5 @@
 class AppUrl {
-  static String loginApi = "/HRIS/LoginApi";
+  static String loginApi = "LoginApi/apiLogin";
+  static String checkInOut = "LoginApi/attnInOut";
+  static String personalAttendance = "LoginApi/personalATTN";
 }

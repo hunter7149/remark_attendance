@@ -31,19 +31,23 @@ abstract class Providers implements CallBack {
       {required String endPoint,
       required Method method,
       required Map<String, dynamic> map}) async {
+    String token = Pref.readData(key: Pref.LOGIN_INFORMATION);
+
     ///Adding some value in recieved map
     Map<String, dynamic> finalMap = map;
     finalMap['version_code'] =
         await PackageInfo.fromPlatform().then((value) => value.buildNumber);
     finalMap['device_id'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
     finalMap['current_os'] = Platform.isAndroid ? 'android' : 'ios';
+    // finalMap['token'] = token;
+
     // if (Pref.readData(key: Pref.LOGIN_DATA) != null)
     //   finalMap['user_id'] =
     //       Pref.readData(key: Pref.LOGIN_DATA)['user_id'].toString();
 
     ///-- @end
 
-    return await ApiService(token: Pref.readData(key: Pref.LOGIN_INFORMATION))
-        .request(endPoint, method, finalMap);
+    print("Requested api token ------------>${token}");
+    return await ApiService(token: token).request(endPoint, method, finalMap);
   }
 }
