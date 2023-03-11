@@ -47,6 +47,7 @@ class LeavescreenController extends GetxController {
     try {
       await Repository().requestLeaveType(employeeId: userId).then((value) {
         print(value);
+
         leaveHistory.refresh();
       });
     } on Exception catch (e) {}
