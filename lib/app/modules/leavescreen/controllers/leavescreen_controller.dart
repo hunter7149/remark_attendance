@@ -1,3 +1,5 @@
+import 'package:attendance/app/api/repository/repository.dart';
+import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,6 +25,33 @@ class LeavescreenController extends GetxController {
     'Casual',
     'Others',
   ].obs;
+
+  String leaveTypeFinder({required String type}) {
+    if (type == "") {
+      return "";
+    } else if (type == "") {
+      return "";
+    } else if (type == "") {
+      return "";
+    } else if (type == "") {
+      return "";
+    } else if (type == "") {
+      return "";
+    } else {
+      return "";
+    }
+  }
+
+  requestLeaveType() async {
+    String userId = Pref.readData(key: Pref.USER_ID).toString();
+    try {
+      await Repository().requestLeaveType(employeeId: userId).then((value) {
+        print(value);
+        leaveHistory.refresh();
+      });
+    } on Exception catch (e) {}
+  }
+
   DropdownLeaveTypeValueUpdater(String type) {
     dropdownLeaveTypeValue.value = type;
 
@@ -57,6 +86,7 @@ class LeavescreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    requestLeaveType();
   }
 
   @override

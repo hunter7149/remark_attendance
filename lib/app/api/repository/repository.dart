@@ -15,13 +15,26 @@ class Repository extends Providers {
               endPoint: AppUrl.loginApi, method: Method.POST, map: map)
           .then((value) => value);
 
+//-------------------------Attendance related api-------------------------------//
   Future<dynamic> requestCheckIn({required Map<String, dynamic> map}) async =>
       await tokenBaseApi(
               endPoint: AppUrl.checkInOut, method: Method.POST, map: map)
           .then((value) => value);
 
-//-------------------------Notification related api-------------------------------//
   Future<dynamic> getPersonalAttendance({required String employeeId}) async =>
+      await tokenBaseApi(
+          endPoint: AppUrl.personalAttendance,
+          method: Method.POST,
+          map: {"employeeId": employeeId}).then((value) => value);
+
+//------------------------------Leave related api------------------------//
+
+  Future<dynamic> requestLeaveType({required String employeeId}) async =>
+      await tokenBaseApi(
+          endPoint: AppUrl.leaveType,
+          method: Method.POST,
+          map: {"employeeId": employeeId}).then((value) => value);
+  Future<dynamic> requestLeaveHistory({required String employeeId}) async =>
       await tokenBaseApi(
           endPoint: AppUrl.personalAttendance,
           method: Method.POST,
