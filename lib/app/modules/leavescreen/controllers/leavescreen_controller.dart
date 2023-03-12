@@ -1,6 +1,7 @@
 import 'package:attendance/app/api/repository/repository.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -9,6 +10,8 @@ class LeavescreenController extends GetxController {
   DateTime endDate = DateTime.now().add(Duration(days: 1));
   TextEditingController numberOfDays = TextEditingController(text: "1");
   TextEditingController reasonOfLeave = TextEditingController();
+  TextEditingController addressDuringLeave = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
   RxMap<String, dynamic> leaveApplication = <String, dynamic>{}.obs;
   RxList<Map<String, dynamic>> leaveHistory = <Map<String, dynamic>>[
     {"type": "Sick", "start_date": "10-12-21", "days": "2"},
@@ -19,12 +22,8 @@ class LeavescreenController extends GetxController {
   ].obs;
 
   //----------------------------Drop down for apply leave-----------------------------//
-  RxString dropdownLeaveTypeValue = 'Sick'.obs;
-  RxList<String> leaveType = <String>[
-    'Sick',
-    'Casual',
-    'Others',
-  ].obs;
+  RxString dropdownLeaveTypeValue = 'Select leave type'.obs;
+  RxList<String> leaveType = <String>['Select leave type'].obs;
 
   String leaveTypeFinder({required String type}) {
     if (type == "") {
@@ -42,15 +41,33 @@ class LeavescreenController extends GetxController {
     }
   }
 
+  RxBool isLeaveTypeLoading = false.obs;
   requestLeaveType() async {
     String userId = Pref.readData(key: Pref.USER_ID).toString();
     try {
+      isLeaveTypeLoading.value = true;
+      update();
       await Repository().requestLeaveType(employeeId: userId).then((value) {
         print(value);
-
-        leaveHistory.refresh();
+        if (value != null && value['value'] != null && value['value'] != []) {
+          List<dynamic> leaves = value['value'];
+          leaveType.clear();
+          DropdownLeaveTypeValueUpdater(
+              "${leaves[0]['LEAVE_TYPE']}-(${leaves[0]['LEAVE_DAYS']} Days)");
+          leaves.forEach((element) {
+            leaveType.add(
+                "${element['LEAVE_TYPE']}-(${element['LEAVE_DAYS']} Days)");
+          });
+          leaveType.refresh();
+          update();
+        }
       });
-    } on Exception catch (e) {}
+      isLeaveTypeLoading.value = false;
+      update();
+    } on Exception catch (e) {
+      // isLeaveTypeLoading.value = false;
+      // update();
+    }
   }
 
   DropdownLeaveTypeValueUpdater(String type) {
@@ -59,28 +76,68 @@ class LeavescreenController extends GetxController {
     update();
   }
 
-  daysCounter() {
-    Duration difference = endDate.difference(startDate);
-    int daysBetween = difference.inDays;
-    numberOfDays.text = daysBetween.toString();
+  dateChanger({required String value}) {
+    startDate = DateTime.parse(value);
+    print(startDate);
     update();
   }
 
-  requestApplication() {
-    int days = int.tryParse(numberOfDays.text.toString()) ?? 1;
-    leaveApplication.value = {
-      "type": "${dropdownLeaveTypeValue.value}",
-      "start_date":
-          "${DateFormat('MM/dd/yyyy').format(startDate).toString().split(" ")[0]}",
-      "days": "${days}",
-      "reasonOfLeave": "${reasonOfLeave.text}",
-      "status": "pending",
-      "applicationDate":
-          "${DateFormat('MM/dd/yyyy').format(DateTime.now()).toString().split(" ")[0]}"
+  daysCounter() {
+    Duration difference = endDate.difference(startDate);
+    int daysBetween = difference.inDays;
+
+    numberOfDays.text = (daysBetween).toString();
+    daytimereseter();
+    update();
+  }
+
+  daytimereseter() {
+    if (int.parse(numberOfDays.text) < 1) {
+      numberOfDays.text = "1";
+      endDate = startDate.add(Duration(days: 1));
+      update();
+    }
+  }
+
+  requestApplication() async {
+    String userId = Pref.readData(key: Pref.USER_ID).toString();
+
+    String dateFormatter({required DateTime date}) {
+      return DateFormat('MM/dd/yyyy').format(date).toString().split(" ")[0];
+    }
+
+    Map<String, dynamic> requestBody = {
+      "alkpLeaveTypeIdAlkp": "${dropdownLeaveTypeValue.value.split("-")[0]}",
+      "hrCrEmpIdHrCrEmp": "${userId}",
+      "hrCrEmpRespnsblIdHrCrEmp": "${""}",
+      "hrCrEmpEntryByIdHrCrEmp": "${userId}",
+      "appDate":
+          "${DateFormat('dd/MM/yyyy').format(DateTime.now()).toString().split(" ")[0]}",
+      "endDate":
+          "${DateFormat('dd/MM/yyyy').format(endDate).toString().split(" ")[0]}",
+      "startDate":
+          "${DateFormat('dd/MM/yyyy').format(startDate).toString().split(" ")[0]}",
+      "addressDuringLeave": "${addressDuringLeave.text}",
+      "contactNo": "${phoneNumber.text}",
+      "reasonForLeave": "${reasonOfLeave.text}",
+      "remarks": "${reasonOfLeave.text}",
     };
+    print(requestBody);
+    try {
+      await Repository()
+          .requestLeaveApplication(body: requestBody)
+          .then((value) {
+        print(value);
+      });
+    } on Exception catch (e) {}
     startDate = DateTime.now();
+    endDate = DateTime.now().add(Duration(days: 1));
     numberOfDays.text = "1";
     reasonOfLeave.text = "";
+    phoneNumber.text = "";
+    addressDuringLeave.text = "";
+    leaveApplication.value = requestBody;
+
     update();
   }
 

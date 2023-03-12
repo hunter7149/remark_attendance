@@ -3,5 +3,5 @@ class AppUrl {
   static String checkInOut = "LoginApi/attnInOut";
   static String personalAttendance = "LoginApi/personalATTN";
   static String leaveType = "LoginApi/leaveSelf";
-  static String leaveHistory = "";
+  static String leaveApplication = "LoginApi/leaveEntrySelf";
 }

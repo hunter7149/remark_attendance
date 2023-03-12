@@ -4,9 +4,11 @@ import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../data/globals/common_widgets.dart';
@@ -146,7 +148,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Leave type: ${controller.leaveApplication['type']}",
+                                      "Leave type: ${controller.leaveApplication['alkpLeaveTypeIdAlkp']}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -156,7 +158,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Start date: ${controller.leaveApplication['start_date']}",
+                                      "Start date: ${controller.leaveApplication['startDate']}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -166,7 +168,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Total days: ${controller.leaveApplication['days']}",
+                                      "End date: ${controller.leaveApplication['endDate']}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -176,7 +178,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Reason: ${controller.leaveApplication['reasonOfLeave']}",
+                                      "Reason: ${controller.leaveApplication['reasonForLeave']}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -186,7 +188,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       height: 10,
                                     ),
                                     Text(
-                                      "Applied at: ${controller.leaveApplication['applicationDate']}",
+                                      "Applied at: ${controller.leaveApplication['appDate']}",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -200,22 +202,14 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       // height: 35,
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
-                                          color: controller.leaveApplication[
-                                                      'status'] ==
-                                                  "pending"
-                                              ? AppColors.modernLightBrown
-                                              : controller.leaveApplication[
-                                                          'status'] ==
-                                                      "approved"
-                                                  ? AppColors.modernGreen
-                                                  : AppColors.modernSexyRed,
+                                          color: AppColors.modernLightBrown,
                                           borderRadius: BorderRadius.only(
                                               bottomLeft: Radius.circular(10),
                                               bottomRight:
                                                   Radius.circular(10))),
                                       child: Center(
                                         child: Text(
-                                          "Status: ${controller.leaveApplication['status']}",
+                                          "Status: ${"Applied"}",
                                           style: TextStyle(
                                               fontSize: 18,
                                               color: Colors.grey.shade100,
@@ -289,7 +283,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                           fontWeight: FontWeight.w500),
                                     ),
                                     Text(
-                                      "Days enjoyed",
+                                      "End date",
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.grey.shade900,
@@ -336,7 +330,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                               ),
                                               Expanded(
                                                 child: Text(
-                                                  element["days"],
+                                                  "10/12/2023",
                                                   textAlign: TextAlign.end,
                                                   style: TextStyle(
                                                       fontSize: 16,
@@ -371,24 +365,39 @@ class LeavescreenView extends GetView<LeavescreenController> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: ZoomTapAnimation(
-                  onTap: () {
-                    timeSelectionAlert(controller: controller);
-                  },
-                  child: Container(
-                    height: 60,
-                    color: Color(0xff25ae7a),
-                    child: Center(
-                      child: Text(
-                        "Apply for leave",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey.shade100,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ),
-                ))
+                child: Obx(() => controller.isLeaveTypeLoading.value
+                    ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SpinKitThreeBounce(
+                          color: AppColors.modernGreen,
+                        ),
+                      )
+                    : ZoomTapAnimation(
+                        onTap: () {
+                          if (controller.leaveType[0] == "Select leave type" &&
+                              controller.leaveType.length == 1) {
+                            Get.snackbar("Sorry",
+                                "You don't have any leave or please refresh!",
+                                colorText: Colors.white,
+                                backgroundColor: Colors.red);
+                          } else {
+                            timeSelectionAlert(controller: controller);
+                          }
+                        },
+                        child: Container(
+                          height: 60,
+                          color: Color(0xff25ae7a),
+                          child: Center(
+                            child: Text(
+                              "Apply for leave",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                      )))
           ],
         ));
   }
@@ -538,9 +547,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                     lastDate: DateTime(2100),
                                     // dateLabelText: 'Date',
                                     onChanged: (val) {
-                                      controller.startDate =
-                                          DateTime.parse(val);
-                                      print(controller.startDate);
+                                      controller.dateChanger(value: val);
                                     },
                                     validator: (val) {
                                       print(val);
@@ -626,46 +633,55 @@ class LeavescreenView extends GetView<LeavescreenController> {
                             ],
                           ),
                           Obx(() {
-                            return Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  // color: Colors.blueGrey.shade200,
-                                  border: Border.all(
-                                      width: 1, color: Colors.grey.shade600),
-                                  borderRadius: BorderRadius.circular(10)),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 5),
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              width: double.maxFinite,
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  isExpanded: true,
-                                  alignment: Alignment.center,
-                                  value:
-                                      controller.dropdownLeaveTypeValue.value,
-                                  icon: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.grey.shade900,
-                                  ),
-                                  elevation: 2,
-                                  style: TextStyle(
-                                      color: Colors.grey.shade900,
-                                      fontWeight: FontWeight.w300),
-                                  onChanged: (String? newValue) {
-                                    controller.DropdownLeaveTypeValueUpdater(
-                                        newValue!);
-                                  },
-                                  items: controller.leaveType.value
-                                      .map<DropdownMenuItem<String>>(
-                                          (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
-                              ),
-                            );
+                            return controller.leaveType.isEmpty
+                                ? Container()
+                                : Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        // color: Colors.blueGrey.shade200,
+                                        border: Border.all(
+                                            width: 1,
+                                            color: Colors.grey.shade600),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 5),
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    width: double.maxFinite,
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton(
+                                        isExpanded: true,
+                                        alignment: Alignment.center,
+                                        value: controller
+                                            .dropdownLeaveTypeValue.value,
+                                        icon: Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.grey.shade900,
+                                        ),
+                                        elevation: 2,
+                                        style: TextStyle(
+                                            color: Colors.grey.shade900,
+                                            fontWeight: FontWeight.w500),
+                                        onChanged: (String? newValue) {
+                                          controller
+                                              .DropdownLeaveTypeValueUpdater(
+                                                  newValue!);
+                                        },
+                                        items: controller.leaveType.value
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(
+                                              value,
+                                              style: TextStyle(),
+                                            ),
+                                          );
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  );
                           }),
                           // Row(
                           //   children: [
@@ -699,10 +715,40 @@ class LeavescreenView extends GetView<LeavescreenController> {
                           Container(
                               margin: EdgeInsets.symmetric(horizontal: 10),
                               child: COMMONWIDGET.generalTextBox(
+                                  hinttext: "Total leave days",
+                                  controller: controller.numberOfDays,
+                                  obsecure: false,
+                                  maxline: 1)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: COMMONWIDGET.generalTextBox(
                                   hinttext: "Reason of leave",
                                   controller: controller.reasonOfLeave,
                                   obsecure: false,
-                                  maxline: 4)),
+                                  maxline: 1)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: COMMONWIDGET.generalTextBox(
+                                  hinttext: "Phone number",
+                                  controller: controller.phoneNumber,
+                                  obsecure: false,
+                                  maxline: 1)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              child: COMMONWIDGET.generalTextBox(
+                                  hinttext: "Address during leave",
+                                  controller: controller.addressDuringLeave,
+                                  obsecure: false,
+                                  maxline: 1)),
                         ],
                       ),
                     ),

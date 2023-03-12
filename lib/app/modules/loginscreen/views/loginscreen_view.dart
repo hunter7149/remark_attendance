@@ -51,7 +51,7 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   Obx(() => controller.isLogingIn.value
                       ? Center(
                           child:
-                              SpinKitDoubleBounce(color: AppColors.modernGreen),
+                              SpinKitDoubleBounce(color: AppColors.modernBlue),
                         )
                       : COMMONWIDGET.button(
                           title: "LOGIN",
@@ -109,7 +109,9 @@ class LoginscreenView extends GetView<LoginscreenController> {
                 controller.obsecureUpdater();
               },
               child: Icon(
-                Icons.visibility,
+                controller.obsecure.value
+                    ? Icons.visibility
+                    : Icons.visibility_off,
                 color: AppColors.mainBlue,
               ),
             ),

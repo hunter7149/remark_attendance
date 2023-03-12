@@ -134,10 +134,21 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                           ),
                           //------Dynamic items------//
                           controller.isAttendanceLoading.value
-                              ? Center(
-                                  child: SpinKitThreeBounce(
-                                  color: AppColors.modernGreen,
-                                ))
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                      child: Column(
+                                    children: [
+                                      SpinKitRipple(
+                                        color: AppColors.modernGreen,
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text("Fetching data...")
+                                    ],
+                                  )),
+                                )
                               : Column(
                                   children: controller
                                           .attendanceHistory.isNotEmpty

@@ -39,4 +39,9 @@ class Repository extends Providers {
           endPoint: AppUrl.personalAttendance,
           method: Method.POST,
           map: {"employeeId": employeeId}).then((value) => value);
+  Future<dynamic> requestLeaveApplication(
+          {required Map<String, dynamic> body}) async =>
+      await tokenBaseApi(
+              endPoint: AppUrl.leaveApplication, method: Method.POST, map: body)
+          .then((value) => value);
 }

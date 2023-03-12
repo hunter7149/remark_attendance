@@ -18,55 +18,60 @@ class LoginscreenController extends GetxController {
 
   RxBool isLogingIn = false.obs;
   dynamic data;
-  requestLogin() async {
-    if (email.text.isEmpty) {
-      Get.snackbar("Warning", "Username is empty!",
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-          snackPosition: SnackPosition.BOTTOM);
-    } else if (password.text.isEmpty) {
-      Get.snackbar("Warning", "Password is empty!",
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-          snackPosition: SnackPosition.BOTTOM);
-    } else {
-      isLogingIn.value = true;
-      update();
-      try {
-        await Repository().requestLogin(map: {
-          "username": email.text,
-          "password": password.text
-        }).then((value) async {
-          print(value);
-          if (value["result"] == "success" && value["accessToken"] != "") {
-            Pref.writeData(
-                key: Pref.LOGIN_INFORMATION, value: value['accessToken']);
-            Pref.writeData(key: Pref.USER_ID, value: email.text);
-            Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
-            isLogingIn.value = false;
-            update();
-            Get.offNamed(Routes.HOME);
-          } else {
-            isLogingIn.value = false;
-            update();
-            Get.snackbar("Failed", "Check username and password",
-                colorText: Colors.white,
-                backgroundColor: Colors.red,
-                snackPosition: SnackPosition.BOTTOM);
-          }
-        });
-      } on Exception catch (e) {
-        isLogingIn.value = false;
-        update();
-      }
-    }
-    isLogingIn.value = false;
-    update();
-  }
+
+  // requestLogin() async {
+  //   if (email.text.isEmpty) {
+  //     Get.snackbar("Warning", "Username is empty!",
+  //         colorText: Colors.white,
+  //         backgroundColor: Colors.red,
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   } else if (password.text.isEmpty) {
+  //     Get.snackbar("Warning", "Password is empty!",
+  //         colorText: Colors.white,
+  //         backgroundColor: Colors.red,
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   } else {
+  //     isLogingIn.value = true;
+  //     update();
+  //     try {
+  //       await Repository().requestLogin(map: {
+  //         "username": email.text,
+  //         "password": password.text
+  //       }).then((value) async {
+  //         print(value);
+  //         if (value["result"] == "success" && value["accessToken"] != "") {
+  //           Pref.writeData(
+  //               key: Pref.LOGIN_INFORMATION, value: value['accessToken']);
+  //           Pref.writeData(key: Pref.USER_ID, value: email.text);
+  //           Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
+  //           isLogingIn.value = false;
+  //           update();
+  //           Get.offNamed(Routes.HOME);
+  //         } else {
+  //           isLogingIn.value = false;
+  //           update();
+  //           Get.snackbar("Failed", "Check username and password",
+  //               colorText: Colors.white,
+  //               backgroundColor: Colors.red,
+  //               snackPosition: SnackPosition.BOTTOM);
+  //         }
+  //       });
+  //     } on Exception catch (e) {
+  //       isLogingIn.value = false;
+  //       update();
+  //     }
+  //   }
+  //   isLogingIn.value = false;
+  //   update();
+  // }
 
   isSignedIn() {
     email.text = Pref.readData(key: Pref.USER_ID) ?? "";
     password.text = Pref.readData(key: Pref.USER_PASSWORD) ?? "";
+  }
+
+  requestLogin() {
+    Get.offNamed(Routes.HOME);
   }
 
   @override
