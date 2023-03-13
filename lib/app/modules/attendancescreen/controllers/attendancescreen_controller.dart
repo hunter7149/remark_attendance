@@ -9,6 +9,76 @@ import 'package:location/location.dart';
 import '../../../api/repository/repository.dart';
 
 class AttendancescreenController extends GetxController {
+  //-------------- Movement code starts-------------------------//
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(Duration(days: 1));
+  dateChanger({required String value}) {
+    startDate = DateTime.parse(value);
+    print(startDate);
+    update();
+  }
+
+  TextEditingController numberOfDays = TextEditingController(text: "1");
+  TextEditingController reasonOfLeave = TextEditingController();
+  TextEditingController responsibleEmpId = TextEditingController();
+  TextEditingController addressDuringLeave = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+//-------------------------- Dropdown for movement nature -----------------------------//
+  RxString dropdownMovementNatureValue = 'DAYLONG'.obs;
+  RxList<String> movementNature = <String>['DAYLONG', 'HOURLY'].obs;
+  DropdownMovementNatureValueUpdater(String type) {
+    dropdownMovementNatureValue.value = type;
+
+    update();
+  }
+
+//---------------------------------Dropdown for movement type--------------//
+  RxString dropdownMovementTypeValue = 'Local'.obs;
+  RxList<String> movementType = <String>['Local', 'Foreign'].obs;
+  DropdownMovementTypeValueUpdater(String type) {
+    dropdownMovementTypeValue.value = type;
+
+    update();
+  }
+
+//----------------------Dropdown for transaction type------------------------//
+  RxString dropdownTransactionTypeValue = 'REGULAR'.obs;
+  RxList<String> TransactionType = <String>['REGULAR', 'CANCEL'].obs;
+  DropdownTransactionTypeValueUpdater(String type) {
+    dropdownTransactionTypeValue.value = type;
+
+    update();
+  }
+
+//---------------------Dropdown for duration ----------------------//
+  RxString dropdownDurationValue = '0'.obs;
+  RxList<String> DurationValue =
+      <String>['0', '1', '2', '3', '4', '5', '6', '7', '8'].obs;
+  DropdownDurationValueUpdater(String type) {
+    dropdownDurationValue.value = type;
+
+    update();
+  }
+
+//----------------------------Dropdown for movement type ------------------------------//
+  daysCounter() {
+    Duration difference = endDate.difference(startDate);
+    int daysBetween = difference.inDays;
+
+    numberOfDays.text = (daysBetween).toString();
+    daytimereseter();
+    update();
+  }
+
+  daytimereseter() {
+    if (int.parse(numberOfDays.text) < 1) {
+      numberOfDays.text = "1";
+      endDate = startDate.add(Duration(days: 1));
+      update();
+    }
+  }
+
+//------------------------------------------------Movement codes ends------------------------//
   RxBool isCheckedIn = false.obs;
   isCheckedInUpdater({required bool value}) {
     isCheckedIn.value = value;

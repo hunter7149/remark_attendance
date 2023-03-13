@@ -29,6 +29,7 @@ class FirebaseService {
 
     var initializationSettingsAndroid =
         new AndroidInitializationSettings('launch_background');
+
     var initializationSettings =
         InitializationSettings(android: initializationSettingsAndroid);
     _flutterLocalNotificationsPlugin.initialize(initializationSettings);
@@ -60,6 +61,7 @@ class FirebaseService {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+
       if (notification != null && android != null) {
         if (notification.title == "Hi") {
           Get.toNamed(Routes.LEAVESCREEN);
