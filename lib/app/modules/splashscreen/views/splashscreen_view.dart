@@ -13,7 +13,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
   Widget build(BuildContext context) {
     controller.saveDeviceInfo();
     Timer(Duration(seconds: 2), () {
-      Get.offNamed(Routes.LOGINSCREEN);
+      controller.isSignedIn();
     });
     return Scaffold(
       body: Center(

@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:ntp/ntp.dart';
 
 import '../controllers/attendancescreen_controller.dart';
 
@@ -412,57 +413,57 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   ),
                 ),
                 //--------------------Last Chekc In View--------------//
-                Obx(() => controller.attendanceHistory.length == 0
-                    ? Container()
-                    : space(horizontal: 16)),
-                Obx(() => controller.attendanceHistory.length == 0
-                    ? Container()
-                    : Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 16,
-                        ),
-                        // padding: EdgeInsets.all(24),
-                        width: double.maxFinite,
-                        decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: AppColors.greyColor,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      topRight: Radius.circular(10))),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Latest Activity",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.grey.shade900,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["activity"]}" +
-                                    " at "
-                                        "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["intime"]}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
+                // Obx(() => controller.attendanceHistory.length == 0
+                //     ? Container()
+                //     : space(horizontal: 16)),
+                // Obx(() => controller.attendanceHistory.length == 0
+                //     ? Container()
+                //     : Container(
+                //         margin: EdgeInsets.symmetric(
+                //           horizontal: 16,
+                //         ),
+                //         // padding: EdgeInsets.all(24),
+                //         width: double.maxFinite,
+                //         decoration: BoxDecoration(
+                //             color: Colors.grey.shade200,
+                //             borderRadius: BorderRadius.circular(10)),
+                //         child: Column(
+                //           children: [
+                //             Container(
+                //               padding: EdgeInsets.all(10),
+                //               decoration: BoxDecoration(
+                //                   color: AppColors.greyColor,
+                //                   borderRadius: BorderRadius.only(
+                //                       topLeft: Radius.circular(10),
+                //                       topRight: Radius.circular(10))),
+                //               child: Row(
+                //                 mainAxisAlignment: MainAxisAlignment.center,
+                //                 children: [
+                //                   Text(
+                //                     "Latest Activity",
+                //                     style: TextStyle(
+                //                         fontSize: 18,
+                //                         color: Colors.grey.shade900,
+                //                         fontWeight: FontWeight.w500),
+                //                   ),
+                //                 ],
+                //               ),
+                //             ),
+                //             Container(
+                //               padding: EdgeInsets.symmetric(vertical: 10),
+                //               child: Text(
+                //                 "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["activity"]}" +
+                //                     " at "
+                //                         "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["intime"]}",
+                //                 style: TextStyle(
+                //                     fontSize: 18,
+                //                     color: Colors.grey.shade900,
+                //                     fontWeight: FontWeight.w500),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       )),
                 // //-----------------Order History Changer------------------//
                 // Obx(() => controller.attendanceHistory.length == 0
                 //     ? Container()
@@ -470,61 +471,117 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        // margin: EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                            color: AppColors.greyColor,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Movement",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey.shade900,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          color: Colors.grey.shade200,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 24),
-                          child: Column(
-                            children: [
-                              Text(
-                                "You can request a temporary movement time for official or personal reason",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              COMMONWIDGET.button(
-                                  height: 40,
-                                  title: "Request",
-                                  backgroudcolor: Color(0xff25ae7a),
-                                  funtion: () {
-                                    print("Pressed");
-                                    return timeSelectionAlert(
-                                        controller: controller);
-                                  }),
-                            ],
-                          ))
-                    ],
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.symmetric(horizontal: 16),
+                //   child: Column(
+                //     children: [
+                //       Container(
+                //         padding: EdgeInsets.all(10),
+                //         // margin: EdgeInsets.symmetric(horizontal: 16),
+                //         decoration: BoxDecoration(
+                //             color: AppColors.modernBlue,
+                //             borderRadius: BorderRadius.only(
+                //                 topLeft: Radius.circular(10),
+                //                 topRight: Radius.circular(10))),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text(
+                //               "Short leave",
+                //               style: TextStyle(
+                //                   fontSize: 18,
+                //                   color: Colors.grey.shade100,
+                //                   fontWeight: FontWeight.w400),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       Container(
+                //           color: Colors.grey.shade200,
+                //           padding: EdgeInsets.symmetric(
+                //               horizontal: 24, vertical: 24),
+                //           child: Column(
+                //             children: [
+                //               Text(
+                //                 "You can request a temporary movement time for official or personal reason",
+                //                 style: TextStyle(
+                //                     fontSize: 18,
+                //                     color: Colors.grey.shade900,
+                //                     fontWeight: FontWeight.w400),
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               COMMONWIDGET.button(
+                //                   height: 40,
+                //                   title: "New short leave",
+                //                   backgroudcolor: AppColors.modernBlue,
+                //                   funtion: () {
+                //                     print("Pressed");
+                //                     return shortLeaveTransactionAlert(
+                //                         controller: controller);
+                //                   }),
+                //             ],
+                //           ))
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(height: 20),
+                // Container(
+                //   margin: EdgeInsets.symmetric(horizontal: 16),
+                //   child: Column(
+                //     children: [
+                //       Container(
+                //         padding: EdgeInsets.all(10),
+                //         // margin: EdgeInsets.symmetric(horizontal: 16),
+                //         decoration: BoxDecoration(
+                //             color: AppColors.modernGreen,
+                //             borderRadius: BorderRadius.only(
+                //                 topLeft: Radius.circular(10),
+                //                 topRight: Radius.circular(10))),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text(
+                //               "Movement",
+                //               style: TextStyle(
+                //                   fontSize: 18,
+                //                   color: Colors.grey.shade100,
+                //                   fontWeight: FontWeight.w400),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       Container(
+                //           color: Colors.grey.shade200,
+                //           padding: EdgeInsets.symmetric(
+                //               horizontal: 24, vertical: 24),
+                //           child: Column(
+                //             children: [
+                //               Text(
+                //                 "You can request a temporary movement time for official or personal reason",
+                //                 style: TextStyle(
+                //                     fontSize: 18,
+                //                     color: Colors.grey.shade900,
+                //                     fontWeight: FontWeight.w400),
+                //               ),
+                //               SizedBox(
+                //                 height: 10,
+                //               ),
+                //               COMMONWIDGET.button(
+                //                   height: 40,
+                //                   title: "Request",
+                //                   backgroudcolor: Color(0xff25ae7a),
+                //                   funtion: () {
+                //                     print("Pressed");
+                //                     return movementTransactionAlert(
+                //                         controller: controller);
+                //                   }),
+                //             ],
+                //           ))
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -543,7 +600,8 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
 
 //----------------------------------Pop up for movement---------------------//
 
-  static timeSelectionAlert({required AttendancescreenController controller}) {
+  static movementTransactionAlert(
+      {required AttendancescreenController controller}) {
     return Get.generalDialog(
         barrierDismissible: false,
         transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
@@ -567,7 +625,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Select your time",
+                        "Movement Transaction",
                         style: TextStyle(),
                       ),
                       InkWell(
@@ -590,7 +648,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                     ],
                   ),
                   content: Container(
-                    height: 300,
+                    // height: 300,
                     width: double.maxFinite,
                     child: SingleChildScrollView(
                       child: Column(
@@ -656,6 +714,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               ),
                             ],
                           ),
+
                           Row(
                             children: [
                               Expanded(
@@ -716,269 +775,648 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               ),
                             ],
                           ),
-                          Obx(() {
-                            return controller.movementNature.isEmpty
-                                ? Container()
-                                : Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        // color: Colors.blueGrey.shade200,
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade600),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 5),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Start hour--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Start hour: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  children: [
+                                    //hour//
+                                    Obx(() {
+                                      return controller.HourValue.isEmpty
+                                          ? Container()
+                                          : Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blueGrey.shade200,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color:
+                                                          Colors.grey.shade600),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 24, vertical: 5),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              width: double.maxFinite,
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  alignment: Alignment.center,
+                                                  value: controller
+                                                      .dropdownHourValue.value,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.grey.shade900,
+                                                  ),
+                                                  elevation: 2,
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.grey.shade900,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    controller
+                                                        .DropdownHourValueUpdater(
+                                                            newValue!);
+                                                  },
+                                                  items: controller
+                                                      .HourValue.value
+                                                      .map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            );
+                                    }),
+                                    SizedBox(height: 10),
+                                    //minutes//
+                                    Obx(() {
+                                      return controller.MinuteValue.isEmpty
+                                          ? Container()
+                                          : Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blueGrey.shade200,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color:
+                                                          Colors.grey.shade600),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 24, vertical: 5),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              width: double.maxFinite,
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  alignment: Alignment.center,
+                                                  value: controller
+                                                      .dropdownMinuteValue
+                                                      .value,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.grey.shade900,
+                                                  ),
+                                                  elevation: 2,
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.grey.shade900,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    controller
+                                                        .DropdownMinuteValueUpdater(
+                                                            newValue!);
+                                                  },
+                                                  items: controller
+                                                      .MinuteValue.value
+                                                      .map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            );
+                                    }),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Movement nature section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Movement nature: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Obx(() {
+                                  return controller.movementNature.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blueGrey.shade200,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey.shade600),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          width: double.maxFinite,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              alignment: Alignment.center,
+                                              value: controller
+                                                  .dropdownMovementNatureValue
+                                                  .value,
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.grey.shade900,
+                                              ),
+                                              elevation: 2,
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                              onChanged: (String? newValue) {
+                                                controller
+                                                    .DropdownMovementNatureValueUpdater(
+                                                        newValue!);
+                                              },
+                                              items: controller
+                                                  .movementNature.value
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //--Total leave days--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Total tour days: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    width: double.maxFinite,
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        alignment: Alignment.center,
-                                        value: controller
-                                            .dropdownMovementNatureValue.value,
-                                        icon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.grey.shade900,
-                                        ),
-                                        elevation: 2,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade900,
-                                            fontWeight: FontWeight.w500),
-                                        onChanged: (String? newValue) {
-                                          controller
-                                              .DropdownMovementNatureValueUpdater(
-                                                  newValue!);
-                                        },
-                                        items: controller.movementNature.value
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  );
-                          }),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Total leave days",
+                                        controller: controller.numberOfDays,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Total leave days",
-                                  controller: controller.numberOfDays,
-                                  obsecure: false,
-                                  maxline: 1)),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Responsible  ID",
-                                  controller: controller.responsibleEmpId,
-                                  obsecure: false,
-                                  maxline: 1)),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Obx(() {
-                            return controller.movementNature.isEmpty
-                                ? Container()
-                                : Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        // color: Colors.blueGrey.shade200,
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade600),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 5),
+                          //--Responsible Employee id--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Responsible employee ID: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    width: double.maxFinite,
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        alignment: Alignment.center,
-                                        value: controller
-                                            .dropdownMovementTypeValue.value,
-                                        icon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.grey.shade900,
-                                        ),
-                                        elevation: 2,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade900,
-                                            fontWeight: FontWeight.w500),
-                                        onChanged: (String? newValue) {
-                                          controller
-                                              .DropdownMovementTypeValueUpdater(
-                                                  newValue!);
-                                        },
-                                        items: controller.movementType.value
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  );
-                          }),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Responsible  ID",
+                                        controller: controller.responsibleEmpId,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          Obx(() {
-                            return controller.movementNature.isEmpty
-                                ? Container()
-                                : Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        // color: Colors.blueGrey.shade200,
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade600),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 5),
+                          //--Movement type section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Movement type: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Obx(() {
+                                  return controller.movementType.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blueGrey.shade200,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey.shade600),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          width: double.maxFinite,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              alignment: Alignment.center,
+                                              value: controller
+                                                  .dropdownMovementTypeValue
+                                                  .value,
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.grey.shade900,
+                                              ),
+                                              elevation: 2,
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                              onChanged: (String? newValue) {
+                                                controller
+                                                    .DropdownMovementTypeValueUpdater(
+                                                        newValue!);
+                                              },
+                                              items: controller
+                                                  .movementType.value
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Transaction type section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Transaction type: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Obx(() {
+                                  return controller.TransactionType.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blueGrey.shade200,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey.shade600),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          width: double.maxFinite,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              alignment: Alignment.center,
+                                              value: controller
+                                                  .dropdownTransactionTypeValue
+                                                  .value,
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.grey.shade900,
+                                              ),
+                                              elevation: 2,
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                              onChanged: (String? newValue) {
+                                                controller
+                                                    .DropdownTransactionTypeValueUpdater(
+                                                        newValue!);
+                                              },
+                                              items: controller
+                                                  .TransactionType.value
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Duration value--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Duration: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Obx(() {
+                                  return controller.DurationValue.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blueGrey.shade200,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey.shade600),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          width: double.maxFinite,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              alignment: Alignment.center,
+                                              value: controller
+                                                  .dropdownDurationValue.value,
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.grey.shade900,
+                                              ),
+                                              elevation: 2,
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                              onChanged: (String? newValue) {
+                                                controller
+                                                    .DropdownDurationValueUpdater(
+                                                        newValue!);
+                                              },
+                                              items: controller
+                                                  .DurationValue.value
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Reason of leave section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Reason: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    width: double.maxFinite,
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        alignment: Alignment.center,
-                                        value: controller
-                                            .dropdownTransactionTypeValue.value,
-                                        icon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.grey.shade900,
-                                        ),
-                                        elevation: 2,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade900,
-                                            fontWeight: FontWeight.w500),
-                                        onChanged: (String? newValue) {
-                                          controller
-                                              .DropdownMovementTypeValueUpdater(
-                                                  newValue!);
-                                        },
-                                        items: controller.TransactionType.value
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  );
-                          }),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Reason of leave",
+                                        controller: controller.reasonOfLeave,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          Obx(() {
-                            return controller.movementNature.isEmpty
-                                ? Container()
-                                : Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        // color: Colors.blueGrey.shade200,
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade600),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 5),
+                          //--Phone number section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Contact number: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 10),
-                                    width: double.maxFinite,
-                                    child: DropdownButtonHideUnderline(
-                                      child: DropdownButton(
-                                        isExpanded: true,
-                                        alignment: Alignment.center,
-                                        value: controller
-                                            .dropdownDurationValue.value,
-                                        icon: Icon(
-                                          Icons.arrow_drop_down,
-                                          color: Colors.grey.shade900,
-                                        ),
-                                        elevation: 2,
-                                        style: TextStyle(
-                                            color: Colors.grey.shade900,
-                                            fontWeight: FontWeight.w500),
-                                        onChanged: (String? newValue) {
-                                          controller
-                                              .DropdownDurationValueUpdater(
-                                                  newValue!);
-                                        },
-                                        items: controller.DurationValue.value
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(
-                                              value,
-                                              style: TextStyle(),
-                                            ),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  );
-                          }),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Phone number",
+                                        controller: controller.phoneNumber,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Reason of leave",
-                                  controller: controller.reasonOfLeave,
-                                  obsecure: false,
-                                  maxline: 1)),
+                          //--Address during leave section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Address during leave: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Address during leave",
+                                        controller:
+                                            controller.addressDuringLeave,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Phone number",
-                                  controller: controller.phoneNumber,
-                                  obsecure: false,
-                                  maxline: 1)),
-                          SizedBox(
-                            height: 20,
+                          //--Address during leave section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Remarks: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Remarks",
+                                        controller:
+                                            controller.addressDuringLeave,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
                           ),
-                          Container(
-                              margin: EdgeInsets.symmetric(horizontal: 10),
-                              child: COMMONWIDGET.generalTextBox(
-                                  hinttext: "Address during leave",
-                                  controller: controller.addressDuringLeave,
-                                  obsecure: false,
-                                  maxline: 1)),
                         ],
                       ),
                     ),
@@ -988,25 +1426,6 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   actions: [
                     Row(
                       children: [
-                        // Expanded(
-                        //   child: InkWell(
-                        //     onTap: () {
-                        //       Get.back();
-                        //     },
-                        //     child: Container(
-                        //       height: 40,
-                        //       decoration: BoxDecoration(
-                        //           color: Colors.red.shade500,
-                        //           borderRadius: BorderRadius.circular(10)),
-                        //       alignment: Alignment.center,
-                        //       child: Text("No",
-                        //           style: TextStyle(color: Colors.white)),
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   width: 5,
-                        // ),
                         Expanded(
                             child: InkWell(
                           onTap: () {
@@ -1026,7 +1445,511 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                 color: AppColors.modernGreen,
                                 borderRadius: BorderRadius.circular(10)),
                             alignment: Alignment.center,
-                            child: Text("SAVE",
+                            child: Text("Apply",
+                                style: TextStyle(color: Colors.white)),
+                          ),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+  static shortLeaveTransactionAlert(
+      {required AttendancescreenController controller}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Short Leave Transaction",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: MediaQuery.of(Get.context!).size.height / 1.5,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "On date: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  // alignment: Alignment.center,
+                                  margin: EdgeInsets.all(10),
+                                  padding: EdgeInsets.all(5),
+                                  // height: 130,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 0.7,
+                                          color: Colors.grey.shade600),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: DateTimePicker(
+                                    // icon: Icon(Icons.edit),
+                                    textAlign: TextAlign.center,
+                                    use24HourFormat: false,
+                                    initialValue:
+                                        controller.sstartDate.toString(),
+                                    firstDate: DateTime(2000),
+                                    lastDate: DateTime(2100),
+                                    // dateLabelText: 'Date',
+                                    onChanged: (val) {
+                                      controller.sdateChanger(value: val);
+                                    },
+                                    validator: (val) {
+                                      print(val);
+                                      return null;
+                                    },
+                                    onSaved: (val) {
+                                      controller.sstartDate =
+                                          DateTime.parse(val!);
+                                      print(controller.sstartDate);
+                                    },
+                                  ),
+
+                                  //  CupertinoDatePicker(
+                                  //   mode: CupertinoDatePickerMode.date,
+                                  //   initialDateTime: controller.dateTime,
+                                  //   onDateTimeChanged: (DateTime newDateTime) {
+                                  //     controller.dateTime = newDateTime;
+                                  //     print(controller.dateTime);
+                                  //   },
+                                  // ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Start time(24 Hours): ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  children: [
+                                    //hour//
+                                    Obx(() {
+                                      return controller.sHourValue.isEmpty
+                                          ? Container()
+                                          : Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blueGrey.shade200,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color:
+                                                          Colors.grey.shade600),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 24, vertical: 5),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              width: double.maxFinite,
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  alignment: Alignment.center,
+                                                  value: controller
+                                                      .dropdownsHourValue.value,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.grey.shade900,
+                                                  ),
+                                                  elevation: 2,
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.grey.shade900,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    controller
+                                                        .DropdownsHourValueUpdater(
+                                                            newValue!);
+                                                  },
+                                                  items: controller
+                                                      .sHourValue.value
+                                                      .map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            );
+                                    }),
+                                    SizedBox(height: 10),
+                                    //minutes//
+                                    Obx(() {
+                                      return controller.sMinuteValue.isEmpty
+                                          ? Container()
+                                          : Container(
+                                              height: 50,
+                                              decoration: BoxDecoration(
+                                                  // color: Colors.blueGrey.shade200,
+                                                  border: Border.all(
+                                                      width: 1,
+                                                      color:
+                                                          Colors.grey.shade600),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 24, vertical: 5),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              width: double.maxFinite,
+                                              child:
+                                                  DropdownButtonHideUnderline(
+                                                child: DropdownButton(
+                                                  isExpanded: true,
+                                                  alignment: Alignment.center,
+                                                  value: controller
+                                                      .dropdownsMinuteValue
+                                                      .value,
+                                                  icon: Icon(
+                                                    Icons.arrow_drop_down,
+                                                    color: Colors.grey.shade900,
+                                                  ),
+                                                  elevation: 2,
+                                                  style: TextStyle(
+                                                      color:
+                                                          Colors.grey.shade900,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                  onChanged:
+                                                      (String? newValue) {
+                                                    controller
+                                                        .DropdownsMinuteValueUpdater(
+                                                            newValue!);
+                                                  },
+                                                  items: controller
+                                                      .sMinuteValue.value
+                                                      .map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                    return DropdownMenuItem<
+                                                        String>(
+                                                      value: value,
+                                                      child: Text(
+                                                        value,
+                                                        style: TextStyle(),
+                                                      ),
+                                                    );
+                                                  }).toList(),
+                                                ),
+                                              ),
+                                            );
+                                    }),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //--Duration value--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Duration: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Obx(() {
+                                  return controller.sDurationValue.isEmpty
+                                      ? Container()
+                                      : Container(
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              // color: Colors.blueGrey.shade200,
+                                              border: Border.all(
+                                                  width: 1,
+                                                  color: Colors.grey.shade600),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          width: double.maxFinite,
+                                          child: DropdownButtonHideUnderline(
+                                            child: DropdownButton(
+                                              isExpanded: true,
+                                              alignment: Alignment.center,
+                                              value: controller
+                                                  .dropdownsDurationValue.value,
+                                              icon: Icon(
+                                                Icons.arrow_drop_down,
+                                                color: Colors.grey.shade900,
+                                              ),
+                                              elevation: 2,
+                                              style: TextStyle(
+                                                  color: Colors.grey.shade900,
+                                                  fontWeight: FontWeight.w500),
+                                              onChanged: (String? newValue) {
+                                                controller
+                                                    .DropdownsDurationValueUpdater(
+                                                        newValue!);
+                                              },
+                                              items: controller
+                                                  .sDurationValue.value
+                                                  .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                      (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(
+                                                    value,
+                                                    style: TextStyle(),
+                                                  ),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        );
+                                }),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //--Responsible Employee id--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Responsible employee ID: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Responsible  ID",
+                                        controller:
+                                            controller.sresponsibleEmpId,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //--Reason of leave section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Reason: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Reason of leave",
+                                        controller: controller.sreasonOfLeave,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          //--Phone number section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Contact number: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Phone number",
+                                        controller: controller.sphoneNumber,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+
+                          //--Address during leave section--//
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "Remarks: ",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.grey.shade900,
+                                      fontWeight: FontWeight.w600),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                    margin:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: COMMONWIDGET.generalTextBox(
+                                        hinttext: "Remarks",
+                                        controller: controller.sremarks,
+                                        obsecure: false,
+                                        maxline: 1)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            Get.back();
+                            print(
+                                "New start date time : ${controller.startDate}");
+                            print(
+                                "New end date time : ${controller.startDate}");
+                            // controller.requestApplication();
+                            // controller.addtoOfflineData(
+                            //     data: data, date: controller.dateTime);
+                            // callback();
+                          },
+                          child: Container(
+                            height: 40,
+                            decoration: BoxDecoration(
+                                color: AppColors.modernGreen,
+                                borderRadius: BorderRadius.circular(10)),
+                            alignment: Alignment.center,
+                            child: Text("Apply",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ))

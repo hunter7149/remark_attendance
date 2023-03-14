@@ -9,6 +9,8 @@ class Pref {
   static var FCM_TOKEN = "fcm_token";
   static var USER_PASSWORD = "user_password";
   static var CHECKED_IN = "check_in";
+  static var CHECK_IN_BACKUP = "check_in_backup";
+  static var CHECK_OUT_BACKUP = "check_out_backup";
 
   static void writeData({required String key, required dynamic value}) =>
       box.write(key, value);

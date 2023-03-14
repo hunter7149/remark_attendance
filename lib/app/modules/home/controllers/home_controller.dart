@@ -1,3 +1,4 @@
+import 'package:attendance/app/api/repository/repository.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -169,6 +170,17 @@ class HomeController extends GetxController {
     ]
   }.obs;
 
+  // requestSignOut() async {
+  //   String UserId = Pref.readData(key: Pref.USER_ID).toString();
+  //   await Repository().requestLogOut(map: {
+  //     "HrCrEmp": "${UserId}",
+  //   }).then((value) {
+  //     Pref.removeData(key: Pref.USER_ID);
+  //     Pref.removeData(key: Pref.USER_PASSWORD);
+  //     Pref.removeData(key: Pref.LOGIN_INFORMATION);
+  //     Get.offNamed(Routes.LOGINSCREEN);
+  //   });
+  // }
   requestSignOut() {
     Pref.removeData(key: Pref.USER_ID);
     Pref.removeData(key: Pref.USER_PASSWORD);

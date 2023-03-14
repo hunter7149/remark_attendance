@@ -17,7 +17,10 @@ class ApiService extends GetxService {
       };
 
   ApiService({String? token}) {
-    _dio = Dio(BaseOptions(baseUrl: BASE_URL, headers: header(token: token)));
+    _dio = Dio(BaseOptions(
+        baseUrl: BASE_URL,
+        headers: header(token: token),
+        connectTimeout: Duration(seconds: 20)));
     initInterceptors();
   }
 

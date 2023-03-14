@@ -107,21 +107,44 @@ class LeavescreenController extends GetxController {
     }
 
     Map<String, dynamic> requestBody = {
-      "alkpLeaveTypeIdAlkp": "${dropdownLeaveTypeValue.value.split("-")[0]}",
+      "HrCrEmp": "${userId}",
       "hrCrEmpIdHrCrEmp": "${userId}",
-      "hrCrEmpRespnsblIdHrCrEmp": "${""}",
-      "hrCrEmpEntryByIdHrCrEmp": "${userId}",
-      "appDate":
-          "${DateFormat('dd/MM/yyyy').format(DateTime.now()).toString().split(" ")[0]}",
-      "endDate":
-          "${DateFormat('dd/MM/yyyy').format(endDate).toString().split(" ")[0]}",
       "startDate":
           "${DateFormat('dd/MM/yyyy').format(startDate).toString().split(" ")[0]}",
-      "addressDuringLeave": "${addressDuringLeave.text}",
-      "contactNo": "${phoneNumber.text}",
-      "reasonForLeave": "${reasonOfLeave.text}",
+      "endDate":
+          "${DateFormat('dd/MM/yyyy').format(endDate).toString().split(" ")[0]}",
+      "entryDate":
+          "${DateFormat('dd/MM/yyyy').format(DateTime.now()).toString().split(" ")[0]}",
+      "alkpLeaveTypeId": 0,
+      "leaveType": "${dropdownLeaveTypeValue.value.split("-")[0]}",
       "remarks": "${reasonOfLeave.text}",
+      "reason": "${reasonOfLeave.text}",
+      "empLocation": "${addressDuringLeave.text}",
+      "isPass": 0,
+      "empCode": "",
+      "resMobile": "${phoneNumber.text}",
+      "longitude": 0.0,
+      "latitude": 0.0,
+      "splDuration": 0,
+      "startHour": 0,
+      "startMin": 0,
     };
+    // {
+    //   "alkpLeaveTypeIdAlkp": "${dropdownLeaveTypeValue.value.split("-")[0]}",
+    //   "hrCrEmpIdHrCrEmp": "${userId}",
+    //   "hrCrEmpRespnsblIdHrCrEmp": "${""}",
+    //   "hrCrEmpEntryByIdHrCrEmp": "${userId}",
+    //   "appDate":
+    //       "${DateFormat('dd/MM/yyyy').format(DateTime.now()).toString().split(" ")[0]}",
+    //   "endDate":
+    //       "${DateFormat('dd/MM/yyyy').format(endDate).toString().split(" ")[0]}",
+    //   "startDate":
+    //       "${DateFormat('dd/MM/yyyy').format(startDate).toString().split(" ")[0]}",
+    //   "addressDuringLeave": "${addressDuringLeave.text}",
+    //   "contactNo": "${phoneNumber.text}",
+    //   "reasonForLeave": "${reasonOfLeave.text}",
+    //   "remarks": "${reasonOfLeave.text}",
+    // };
     print(requestBody);
     try {
       await Repository()

@@ -15,8 +15,8 @@ abstract class Providers implements CallBack {
     Map<String, dynamic> finalMap = map;
     finalMap['version_code'] =
         await PackageInfo.fromPlatform().then((value) => value.buildNumber);
-    finalMap['device_id'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
-    finalMap['current_os'] = Platform.isAndroid ? 'android' : 'ios';
+    finalMap['macAdds'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
+    finalMap['os'] = Platform.isAndroid ? 'android' : 'ios';
 
     // if (Pref.readData(key: Pref.LOGIN_INFORMATION) != null)
     //   finalMap['user_id'] =
@@ -37,8 +37,8 @@ abstract class Providers implements CallBack {
     Map<String, dynamic> finalMap = map;
     finalMap['version_code'] =
         await PackageInfo.fromPlatform().then((value) => value.buildNumber);
-    finalMap['device_id'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
-    finalMap['current_os'] = Platform.isAndroid ? 'android' : 'ios';
+    finalMap['macAdds'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
+    finalMap['os'] = Platform.isAndroid ? 'android' : 'ios';
     // finalMap['token'] = token;
 
     // if (Pref.readData(key: Pref.LOGIN_DATA) != null)

@@ -196,32 +196,32 @@ class HomeView extends GetView<HomeController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      ZoomTapAnimation(
-                        onTap: () {
-                          Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                              arguments: controller.userInfo);
-                        },
-                        onLongTap: () {
-                          Get.toNamed(Routes.PROFILEEDITSCREEN,
-                              arguments: controller.userInfo);
-                        },
-                        child: Container(
-                          height: 40,
-                          width: 100,
-                          decoration: BoxDecoration(
-                              color: AppColors.modernCoral,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Center(
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ),
-                      )
+                      //   ZoomTapAnimation(
+                      //     onTap: () {
+                      //       Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                      //           arguments: controller.userInfo);
+                      //     },
+                      //     onLongTap: () {
+                      //       Get.toNamed(Routes.PROFILEEDITSCREEN,
+                      //           arguments: controller.userInfo);
+                      //     },
+                      //     child: Container(
+                      //       height: 40,
+                      //       width: 100,
+                      //       decoration: BoxDecoration(
+                      //           color: AppColors.modernCoral,
+                      //           borderRadius: BorderRadius.circular(8)),
+                      //       child: Center(
+                      //         child: Text(
+                      //           "Details",
+                      //           style: TextStyle(
+                      //               fontSize: 16,
+                      //               color: Colors.grey.shade100,
+                      //               fontWeight: FontWeight.w500),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   )
                     ],
                   )
                 ],

@@ -243,121 +243,121 @@ class LeavescreenView extends GetView<LeavescreenController> {
                   SizedBox(
                     height: 10,
                   ),
-                  Obx(() => controller.leaveHistory.length == 0
-                      ? Container()
-                      : Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 16,
-                          ),
-                          // padding: EdgeInsets.symmetric(horizontal: 5),
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                decoration: BoxDecoration(
-                                    color: AppColors.greyColor,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10))),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Leave type",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "Start date",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "End date",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //------Dynamic items------//
-                              Column(
-                                children: controller.leaveHistory
-                                    .map((element) => Container(
-                                          // margin:
-                                          //     EdgeInsets.symmetric(vertical: 5),
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                              color: Colors.white),
-                                          child: Row(
-                                            // mainAxisAlignment:
-                                            //     MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  element["type"],
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color:
-                                                          Colors.grey.shade900,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  element["start_date"],
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color:
-                                                          Colors.grey.shade900,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Text(
-                                                  "10/12/2023",
-                                                  textAlign: TextAlign.end,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color:
-                                                          Colors.grey.shade900,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ))
-                                    .toList(),
-                              ),
-                              //---Buttom curve design---------//
-                              Container(
-                                height: 35,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: AppColors.greyColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10))),
-                              )
-                            ],
-                          ),
-                        )),
+                  // Obx(() => controller.leaveHistory.length == 0
+                  //     ? Container()
+                  //     : Container(
+                  //         margin: EdgeInsets.symmetric(
+                  //           horizontal: 16,
+                  //         ),
+                  //         // padding: EdgeInsets.symmetric(horizontal: 5),
+                  //         width: double.maxFinite,
+                  //         decoration: BoxDecoration(
+                  //             color: Colors.grey.shade200,
+                  //             borderRadius: BorderRadius.circular(10)),
+                  //         child: Column(
+                  //           children: [
+                  //             Container(
+                  //               padding: EdgeInsets.symmetric(
+                  //                   horizontal: 10, vertical: 10),
+                  //               decoration: BoxDecoration(
+                  //                   color: AppColors.greyColor,
+                  //                   borderRadius: BorderRadius.only(
+                  //                       topLeft: Radius.circular(10),
+                  //                       topRight: Radius.circular(10))),
+                  //               child: Row(
+                  //                 mainAxisAlignment:
+                  //                     MainAxisAlignment.spaceBetween,
+                  //                 children: [
+                  //                   Text(
+                  //                     "Leave type",
+                  //                     style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: Colors.grey.shade900,
+                  //                         fontWeight: FontWeight.w500),
+                  //                   ),
+                  //                   Text(
+                  //                     "Start date",
+                  //                     style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: Colors.grey.shade900,
+                  //                         fontWeight: FontWeight.w500),
+                  //                   ),
+                  //                   Text(
+                  //                     "End date",
+                  //                     style: TextStyle(
+                  //                         fontSize: 18,
+                  //                         color: Colors.grey.shade900,
+                  //                         fontWeight: FontWeight.w500),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //             //------Dynamic items------//
+                  //             Column(
+                  //               children: controller.leaveHistory
+                  //                   .map((element) => Container(
+                  //                         // margin:
+                  //                         //     EdgeInsets.symmetric(vertical: 5),
+                  //                         padding: EdgeInsets.all(10),
+                  //                         decoration: BoxDecoration(
+                  //                             color: Colors.white),
+                  //                         child: Row(
+                  //                           // mainAxisAlignment:
+                  //                           //     MainAxisAlignment.spaceBetween,
+                  //                           children: [
+                  //                             Expanded(
+                  //                               child: Text(
+                  //                                 element["type"],
+                  //                                 style: TextStyle(
+                  //                                     fontSize: 16,
+                  //                                     color:
+                  //                                         Colors.grey.shade900,
+                  //                                     fontWeight:
+                  //                                         FontWeight.w500),
+                  //                               ),
+                  //                             ),
+                  //                             Expanded(
+                  //                               child: Text(
+                  //                                 element["start_date"],
+                  //                                 textAlign: TextAlign.center,
+                  //                                 style: TextStyle(
+                  //                                     fontSize: 16,
+                  //                                     color:
+                  //                                         Colors.grey.shade900,
+                  //                                     fontWeight:
+                  //                                         FontWeight.w500),
+                  //                               ),
+                  //                             ),
+                  //                             Expanded(
+                  //                               child: Text(
+                  //                                 "10/12/2023",
+                  //                                 textAlign: TextAlign.end,
+                  //                                 style: TextStyle(
+                  //                                     fontSize: 16,
+                  //                                     color:
+                  //                                         Colors.grey.shade900,
+                  //                                     fontWeight:
+                  //                                         FontWeight.w500),
+                  //                               ),
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ))
+                  //                   .toList(),
+                  //             ),
+                  //             //---Buttom curve design---------//
+                  //             Container(
+                  //               height: 35,
+                  //               padding: EdgeInsets.all(10),
+                  //               decoration: BoxDecoration(
+                  //                   color: AppColors.greyColor,
+                  //                   borderRadius: BorderRadius.only(
+                  //                       bottomLeft: Radius.circular(10),
+                  //                       bottomRight: Radius.circular(10))),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       )),
                 ],
               )),
             ),
