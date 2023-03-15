@@ -679,9 +679,6 @@ class AttendancescreenController extends GetxController {
         attendanceHistory.refresh();
         isAttendanceLoading.value = false;
         update();
-
-        isAttendanceLoading.value = false;
-        update();
       });
     } on Exception catch (e) {
       isAttendanceLoading.value = false;

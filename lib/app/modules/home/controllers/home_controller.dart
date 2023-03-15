@@ -180,15 +180,22 @@ class HomeController extends GetxController {
         await Repository().requestLogOut(map: {
           "HrCrEmp": "${UserId}",
         }).then((value) {
-          Get.snackbar("Success", "${value['result']}",
-              colorText: Colors.white,
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.BOTTOM);
+          if (value["result"] == "Sucessfuly Logout.") {
+            Get.snackbar("Success", "${value['result']}",
+                colorText: Colors.white,
+                backgroundColor: Colors.green,
+                snackPosition: SnackPosition.BOTTOM);
 
-          Pref.removeData(key: Pref.USER_ID);
-          Pref.removeData(key: Pref.USER_PASSWORD);
-          Pref.removeData(key: Pref.LOGIN_INFORMATION);
-          Get.offNamed(Routes.LOGINSCREEN);
+            Pref.removeData(key: Pref.USER_ID);
+            Pref.removeData(key: Pref.USER_PASSWORD);
+            Pref.removeData(key: Pref.LOGIN_INFORMATION);
+            Get.offNamed(Routes.LOGINSCREEN);
+          } else {
+            Get.snackbar("Success", "${value['result']}",
+                colorText: Colors.white,
+                backgroundColor: Colors.red,
+                snackPosition: SnackPosition.BOTTOM);
+          }
         });
       } on Exception catch (e) {
         Get.snackbar("FAILED", "SERVER ERROR",
