@@ -23,7 +23,8 @@ class SplashscreenController extends GetxController {
   isSignedIn() {
     if (Pref.readData(key: Pref.LOGIN_INFORMATION) != "" &&
         Pref.readData(key: Pref.LOGIN_INFORMATION) != null) {
-      Get.offNamed(Routes.HOME);
+      dynamic data = Pref.readData(key: Pref.USER_PROFILE) ?? {};
+      Get.offNamed(Routes.HOME, arguments: {"data": data});
     } else {
       Get.offNamed(Routes.LOGINSCREEN);
     }

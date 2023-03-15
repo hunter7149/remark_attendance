@@ -11,6 +11,9 @@ class Pref {
   static var CHECKED_IN = "check_in";
   static var CHECK_IN_BACKUP = "check_in_backup";
   static var CHECK_OUT_BACKUP = "check_out_backup";
+  static var LATEST_LEAVE = "latest_leave";
+  static var LATEST_CHECK = "latest_check";
+  static var USER_PROFILE = "user_profile";
 
   static void writeData({required String key, required dynamic value}) =>
       box.write(key, value);

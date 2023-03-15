@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
@@ -42,7 +44,7 @@ class HomeView extends GetView<HomeController> {
           actions: [
             ZoomTapAnimation(
               onTap: () {
-                controller.requestSignOut();
+                signOutAlert(controller: controller);
               },
               child: Row(
                 children: [
@@ -76,157 +78,160 @@ class HomeView extends GetView<HomeController> {
               height: 20,
             ),
             //-------------------Profile Section-----------------//
-            Container(
-              width: double.maxFinite,
-              // height: 400,
-              padding: EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: AppColors.modernGreen,
-                // color: Colors.grey.shade100,
-                borderRadius: BorderRadius.circular(10),
+            Obx(
+              () => Container(
+                width: double.maxFinite,
+                // height: 400,
+                padding: EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppColors.modernPlantation,
+                  // color: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(10),
 
-                // border: Border.all(width: 0.5, color: Colors.grey.shade400)
-              ),
-              child: Column(
-                children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // border: Border.all(width: 0.5, color: Colors.grey.shade400)
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    "https://media.licdn.com/dms/asdasdimage/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
+                                placeholder: (context, url) =>
+                                    Center(child: CircularProgressIndicator()),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset('assets/logo/user.png'),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "${controller.userProfile["name"]}",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "${controller.userProfile["designation"]}", //des
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "${controller.userProfile["department"]}", //dept
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Responsibility: ${controller.userProfile["responsibility"] ?? "N/A"}", //respons
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "Reporting to: ${controller.userProfile["rboss"] ?? "NO DATA"}", //report
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "${controller.userProfile["mobile"]}", //phone
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                "${controller.userProfile["email"]}", //email
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey.shade100,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          )
+                        ]),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl:
-                                  "https://media.licdn.com/dms/image/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
-                              placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
-                              errorWidget: (context, url, error) =>
-                                  Image.asset('assets/logo/user.png'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              controller.userInfo["personal"]["empName"],
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "IT executive (Software)",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "IT Department",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Responsiblity",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "Reporting to:Amit Kumar",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "01303146132",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              "khalid.oalid@remarkhb.com",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ],
-                        )
-                      ]),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //   ZoomTapAnimation(
-                      //     onTap: () {
-                      //       Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                      //           arguments: controller.userInfo);
-                      //     },
-                      //     onLongTap: () {
-                      //       Get.toNamed(Routes.PROFILEEDITSCREEN,
-                      //           arguments: controller.userInfo);
-                      //     },
-                      //     child: Container(
-                      //       height: 40,
-                      //       width: 100,
-                      //       decoration: BoxDecoration(
-                      //           color: AppColors.modernCoral,
-                      //           borderRadius: BorderRadius.circular(8)),
-                      //       child: Center(
-                      //         child: Text(
-                      //           "Details",
-                      //           style: TextStyle(
-                      //               fontSize: 16,
-                      //               color: Colors.grey.shade100,
-                      //               fontWeight: FontWeight.w500),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   )
-                    ],
-                  )
-                ],
+                        // ZoomTapAnimation(
+                        //   onTap: () {
+                        //     Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                        //         arguments: controller.userInfo);
+                        //   },
+                        //   onLongTap: () {
+                        //     Get.toNamed(Routes.PROFILEEDITSCREEN,
+                        //         arguments: controller.userInfo);
+                        //   },
+                        //   child: Container(
+                        //     height: 40,
+                        //     width: 100,
+                        //     decoration: BoxDecoration(
+                        //         color: AppColors.modernCoral,
+                        //         borderRadius: BorderRadius.circular(8)),
+                        //     child: Center(
+                        //       child: Text(
+                        //         "Details",
+                        //         style: TextStyle(
+                        //             fontSize: 16,
+                        //             color: Colors.grey.shade100,
+                        //             fontWeight: FontWeight.w500),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
+
             SizedBox(
               height: 10,
             ),
@@ -364,5 +369,85 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
     );
+  }
+
+  static signOutAlert({
+    required HomeController controller,
+  }) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Confirmation",
+                        style: TextStyle(),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                      // height: 300,
+                      width: double.maxFinite,
+                      child: Text("Are you sure you want to sign out?",
+                          style: TextStyle(color: Colors.black))),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: ZoomTapAnimation(
+                          onTap: () {
+                            controller.requestSignOut();
+                          },
+                          child: Container(
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: AppColors.modernGreen,
+                                  borderRadius: BorderRadius.circular(10)),
+                              alignment: Alignment.center,
+                              child: Text("SIGN OUT",
+                                  style: TextStyle(color: Colors.white))),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
   }
 }

@@ -15,8 +15,8 @@ class Repository extends Providers {
               endPoint: AppUrl.loginApi, method: Method.POST, map: map)
           .then((value) => value);
   Future<dynamic> requestLogOut({required Map<String, dynamic> map}) async =>
-      await commonApiCall(
-              endPoint: AppUrl.checkInOut, method: Method.POST, map: map)
+      await tokenBaseApi(
+              endPoint: AppUrl.checkInOutaLT, method: Method.POST, map: map)
           .then((value) => value);
 //-------------------------Attendance related api-------------------------------//
   Future<dynamic> requestCheckIn({required Map<String, dynamic> map}) async =>
@@ -34,7 +34,7 @@ class Repository extends Providers {
 
   Future<dynamic> requestLeaveType({required String employeeId}) async =>
       await tokenBaseApi(
-          endPoint: AppUrl.checkInOut,
+          endPoint: AppUrl.leaveType,
           method: Method.POST,
           map: {"employeeId": employeeId}).then((value) => value);
   Future<dynamic> requestLeaveHistory({required String employeeId}) async =>
@@ -45,6 +45,10 @@ class Repository extends Providers {
   Future<dynamic> requestLeaveApplication(
           {required Map<String, dynamic> body}) async =>
       await tokenBaseApi(
-              endPoint: AppUrl.leaveApplication, method: Method.POST, map: body)
+              endPoint: AppUrl.checkInOut, method: Method.POST, map: body)
+          .then((value) => value);
+  Future<dynamic> requestHitory({required Map<String, dynamic> body}) async =>
+      await tokenBaseApi(
+              endPoint: AppUrl.history, method: Method.POST, map: body)
           .then((value) => value);
 }

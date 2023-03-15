@@ -6,7 +6,11 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_disposable.dart';
 
 enum Method { POST, GET, PUT, DELETE, PATCH }
 
-const BASE_URL = 'http://192.168.10.149:8070/HRIS/';
+const BASE_URL =
+// kDebugMode
+    // ? 'http://192.168.10.149:8070/HRIS/'
+    // :
+    'http://182.160.114.100:7171/HRIS/';
 
 class ApiService extends GetxService {
   late Dio _dio;

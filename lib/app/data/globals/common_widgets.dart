@@ -36,8 +36,10 @@ class COMMONWIDGET {
       required TextEditingController controller,
       required bool obsecure,
       TextInputType? keyboardType,
-      int? maxline}) {
+      int? maxline,
+      bool? readonly}) {
     return TextField(
+      readOnly: readonly ?? false,
       controller: controller,
       obscureText: obsecure,
       maxLines: maxline ?? 1,

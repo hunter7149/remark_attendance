@@ -370,10 +370,11 @@ class AttendancescreenController extends GetxController {
 
   //-------------Function for updating history of attendance-----------//
   RxList<dynamic> attendanceHistory = <dynamic>[].obs;
+  RxMap<String, dynamic> latestActivity = <String, dynamic>{}.obs;
   RxBool isCheckingInOut = false.obs;
   requestCheckIn() async {
     if (await IEchecker.checker()) {
-      // await CheckInOutSync();
+      await CheckInOutSync();
       String UserId = Pref.readData(key: Pref.USER_ID).toString();
 
       Map<String, dynamic> bindedData = {
@@ -422,7 +423,16 @@ class AttendancescreenController extends GetxController {
                 time:
                     DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
             isCheckingInOut.value = false;
+            latestActivity.clear();
+            latestActivity.value = {
+              "title": "CHECKED IN",
+              "time": "${bindedData['startDate']}",
+              "mode": "ONLINE",
+            };
+            latestActivity.refresh;
+            Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
             update();
+
             Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
                 colorText: Colors.white,
                 borderRadius: 2,
@@ -436,8 +446,14 @@ class AttendancescreenController extends GetxController {
           update();
         }
       } else {
+        Get.snackbar("No location", "Please turn on location and try again",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
         await getLocation();
-        requestCheckIn();
+        // requestCheckIn();
       }
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
@@ -453,7 +469,14 @@ class AttendancescreenController extends GetxController {
     Pref.writeData(key: Pref.CHECK_IN_BACKUP, value: bindedData);
     Pref.writeData(key: Pref.CHECKED_IN, value: true);
     isCheckedInUpdater(value: true);
-
+    latestActivity.clear();
+    latestActivity.value = {
+      "title": "CHECKED IN",
+      "time": "${bindedData['startDate']}",
+      "mode": "OFFLINE",
+    };
+    latestActivity.refresh;
+    Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
     lastCheckInUpdater(
         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
     Get.snackbar(
@@ -469,7 +492,14 @@ class AttendancescreenController extends GetxController {
     Pref.writeData(key: Pref.CHECK_OUT_BACKUP, value: bindedData);
     Pref.writeData(key: Pref.CHECKED_IN, value: false);
     isCheckedInUpdater(value: false);
-
+    latestActivity.clear();
+    latestActivity.value = {
+      "title": "CHECKED OUT",
+      "time": "${bindedData['startDate']}",
+      "mode": "OFFLINE",
+    };
+    latestActivity.refresh;
+    Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
     lastCheckInUpdater(
         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
     Get.snackbar("Server error!",
@@ -483,7 +513,7 @@ class AttendancescreenController extends GetxController {
 
   requestCheckOut() async {
     if (await IEchecker.checker()) {
-      // await CheckInOutSync();
+      await CheckInOutSync();
       String UserId = Pref.readData(key: Pref.USER_ID).toString();
       Map<String, dynamic> bindedData = {
         "HrCrEmp": "${UserId}",
@@ -531,8 +561,17 @@ class AttendancescreenController extends GetxController {
                 time:
                     DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
             isCheckingInOut.value = false;
+            latestActivity.clear();
+            latestActivity.value = {
+              "title": "CHECKED OUT",
+              "time": "${bindedData['startDate']}",
+              "mode": "ONLINE",
+            };
+            latestActivity.refresh;
+            Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
             update();
-            Get.snackbar("Checked out", "Checked out at ${lastCheckIn.value}",
+            Get.snackbar(
+                "Checked out", "Checked out at ${bindedData['startDate']}",
                 colorText: Colors.white,
                 borderRadius: 2,
                 snackPosition: SnackPosition.BOTTOM,
@@ -545,8 +584,14 @@ class AttendancescreenController extends GetxController {
           update();
         }
       } else {
+        Get.snackbar("No location", "Please turn on location and try again",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
         getLocation();
-        requestCheckOut();
+        // requestCheckOut();
       }
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
@@ -603,12 +648,12 @@ class AttendancescreenController extends GetxController {
                 duration: Duration(seconds: 2));
           });
         } on Exception catch (e) {
-          // Get.snackbar("Failed", "Try again",
-          //     colorText: Colors.white,
-          //     borderRadius: 2,
-          //     snackPosition: SnackPosition.BOTTOM,
-          //     backgroundColor: Colors.red.shade500,
-          //     duration: Duration(seconds: 2));
+          Get.snackbar("Check out data sync Failed", "Try again",
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade500,
+              duration: Duration(seconds: 2));
         }
       }
     }
@@ -701,6 +746,11 @@ class AttendancescreenController extends GetxController {
     return locationData;
   }
 
+  checkLatest() {
+    latestActivity.value = Pref.readData(key: Pref.LATEST_CHECK) ?? {};
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -708,6 +758,7 @@ class AttendancescreenController extends GetxController {
     getLocation();
     requestPersonalAttendance();
     CheckInOutSync();
+    checkLatest();
   }
 
   @override

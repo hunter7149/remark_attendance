@@ -413,57 +413,60 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   ),
                 ),
                 //--------------------Last Chekc In View--------------//
-                // Obx(() => controller.attendanceHistory.length == 0
-                //     ? Container()
-                //     : space(horizontal: 16)),
-                // Obx(() => controller.attendanceHistory.length == 0
-                //     ? Container()
-                //     : Container(
-                //         margin: EdgeInsets.symmetric(
-                //           horizontal: 16,
-                //         ),
-                //         // padding: EdgeInsets.all(24),
-                //         width: double.maxFinite,
-                //         decoration: BoxDecoration(
-                //             color: Colors.grey.shade200,
-                //             borderRadius: BorderRadius.circular(10)),
-                //         child: Column(
-                //           children: [
-                //             Container(
-                //               padding: EdgeInsets.all(10),
-                //               decoration: BoxDecoration(
-                //                   color: AppColors.greyColor,
-                //                   borderRadius: BorderRadius.only(
-                //                       topLeft: Radius.circular(10),
-                //                       topRight: Radius.circular(10))),
-                //               child: Row(
-                //                 mainAxisAlignment: MainAxisAlignment.center,
-                //                 children: [
-                //                   Text(
-                //                     "Latest Activity",
-                //                     style: TextStyle(
-                //                         fontSize: 18,
-                //                         color: Colors.grey.shade900,
-                //                         fontWeight: FontWeight.w500),
-                //                   ),
-                //                 ],
-                //               ),
-                //             ),
-                //             Container(
-                //               padding: EdgeInsets.symmetric(vertical: 10),
-                //               child: Text(
-                //                 "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["activity"]}" +
-                //                     " at "
-                //                         "${controller.attendanceHistory[controller.attendanceHistory.length - 1]["intime"]}",
-                //                 style: TextStyle(
-                //                     fontSize: 18,
-                //                     color: Colors.grey.shade900,
-                //                     fontWeight: FontWeight.w500),
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       )),
+                Obx(() => controller.latestActivity.isEmpty
+                    ? Container()
+                    : space(horizontal: 16)),
+                Obx(() => controller.latestActivity.isEmpty
+                    ? Container()
+                    : Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        // padding: EdgeInsets.all(24),
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.modernBlue,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Latest Activity",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.grey.shade100,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 16),
+                              child: Text(
+                                "${controller.latestActivity['title']}" +
+                                    " at "
+                                        "${controller.latestActivity['time']}" +
+                                    " in " +
+                                    "${controller.latestActivity['mode']} mode",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
                 // //-----------------Order History Changer------------------//
                 // Obx(() => controller.attendanceHistory.length == 0
                 //     ? Container()
@@ -471,6 +474,8 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 SizedBox(
                   height: 20,
                 ),
+
+                ////Short leave section////
                 // Container(
                 //   margin: EdgeInsets.symmetric(horizontal: 16),
                 //   child: Column(
@@ -527,6 +532,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 //   ),
                 // ),
                 // SizedBox(height: 20),
+                ////Movement section////
                 // Container(
                 //   margin: EdgeInsets.symmetric(horizontal: 16),
                 //   child: Column(

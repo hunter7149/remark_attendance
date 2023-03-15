@@ -1,7 +1,10 @@
 import 'package:attendance/app/api/repository/repository.dart';
+import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   RxMap<String, dynamic> userInfo = <String, dynamic>{
@@ -169,28 +172,59 @@ class HomeController extends GetxController {
       }
     ]
   }.obs;
+  RxMap<String, dynamic> userProfile = <String, dynamic>{}.obs;
+  requestSignOut() async {
+    String UserId = Pref.readData(key: Pref.USER_ID).toString();
+    if (await IEchecker.checker()) {
+      try {
+        await Repository().requestLogOut(map: {
+          "HrCrEmp": "${UserId}",
+        }).then((value) {
+          Get.snackbar("Success", "${value['result']}",
+              colorText: Colors.white,
+              backgroundColor: Colors.green,
+              snackPosition: SnackPosition.BOTTOM);
 
-  // requestSignOut() async {
-  //   String UserId = Pref.readData(key: Pref.USER_ID).toString();
-  //   await Repository().requestLogOut(map: {
-  //     "HrCrEmp": "${UserId}",
-  //   }).then((value) {
-  //     Pref.removeData(key: Pref.USER_ID);
-  //     Pref.removeData(key: Pref.USER_PASSWORD);
-  //     Pref.removeData(key: Pref.LOGIN_INFORMATION);
-  //     Get.offNamed(Routes.LOGINSCREEN);
-  //   });
+          Pref.removeData(key: Pref.USER_ID);
+          Pref.removeData(key: Pref.USER_PASSWORD);
+          Pref.removeData(key: Pref.LOGIN_INFORMATION);
+          Get.offNamed(Routes.LOGINSCREEN);
+        });
+      } on Exception catch (e) {
+        Get.snackbar("FAILED", "SERVER ERROR",
+            colorText: Colors.white,
+            backgroundColor: Colors.red,
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    } else {
+      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+          colorText: Colors.white,
+          backgroundColor: Colors.red,
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  // requestSignOut() {
+  //   Pref.removeData(key: Pref.USER_ID);
+  //   Pref.removeData(key: Pref.USER_PASSWORD);
+  //   Pref.removeData(key: Pref.LOGIN_INFORMATION);
+  //   Get.offNamed(Routes.LOGINSCREEN);
   // }
-  requestSignOut() {
-    Pref.removeData(key: Pref.USER_ID);
-    Pref.removeData(key: Pref.USER_PASSWORD);
-    Pref.removeData(key: Pref.LOGIN_INFORMATION);
-    Get.offNamed(Routes.LOGINSCREEN);
+  dataBinder({required dynamic data}) {
+    userProfile.clear();
+    userProfile.value = data ?? {};
+    userProfile.refresh();
+    update();
   }
 
   @override
   void onInit() {
     super.onInit();
+    dynamic data = Get.arguments;
+
+    dynamic allData = data['data'];
+    print(allData);
+    dataBinder(data: allData);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:attendance/app/api/repository/repository.dart';
+import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -13,13 +14,7 @@ class LeavescreenController extends GetxController {
   TextEditingController addressDuringLeave = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   RxMap<String, dynamic> leaveApplication = <String, dynamic>{}.obs;
-  RxList<Map<String, dynamic>> leaveHistory = <Map<String, dynamic>>[
-    {"type": "Sick", "start_date": "10-12-21", "days": "2"},
-    {"type": "Sick", "start_date": "01-11-21", "days": "1"},
-    {"type": "Casual", "start_date": "23-11-21", "days": "2"},
-    {"type": "Casual", "start_date": "30-09-21", "days": "1"},
-    {"type": "Sick", "start_date": "15-08-21", "days": "3"}
-  ].obs;
+  RxList<dynamic> leaveHistory = <dynamic>[].obs;
 
   //----------------------------Drop down for apply leave-----------------------------//
   RxString dropdownLeaveTypeValue = 'Select leave type'.obs;
@@ -65,6 +60,9 @@ class LeavescreenController extends GetxController {
       isLeaveTypeLoading.value = false;
       update();
     } on Exception catch (e) {
+      leaveType.clear();
+      isLeaveTypeLoading.value = false;
+      update();
       // isLeaveTypeLoading.value = false;
       // update();
     }
@@ -99,6 +97,8 @@ class LeavescreenController extends GetxController {
     }
   }
 
+  RxBool isLeaveRequest = false.obs;
+
   requestApplication() async {
     String userId = Pref.readData(key: Pref.USER_ID).toString();
 
@@ -109,12 +109,9 @@ class LeavescreenController extends GetxController {
     Map<String, dynamic> requestBody = {
       "HrCrEmp": "${userId}",
       "hrCrEmpIdHrCrEmp": "${userId}",
-      "startDate":
-          "${DateFormat('dd/MM/yyyy').format(startDate).toString().split(" ")[0]}",
-      "endDate":
-          "${DateFormat('dd/MM/yyyy').format(endDate).toString().split(" ")[0]}",
-      "entryDate":
-          "${DateFormat('dd/MM/yyyy').format(DateTime.now()).toString().split(" ")[0]}",
+      "startDate": "${DateFormat('dd/MM/yyyy').format(startDate)}",
+      "endDate": "${DateFormat('dd/MM/yyyy').format(endDate)}",
+      "entryDate": "${DateFormat('dd/MM/yyyy').format(DateTime.now())}",
       "alkpLeaveTypeId": 0,
       "leaveType": "${dropdownLeaveTypeValue.value.split("-")[0]}",
       "remarks": "${reasonOfLeave.text}",
@@ -122,7 +119,7 @@ class LeavescreenController extends GetxController {
       "empLocation": "${addressDuringLeave.text}",
       "isPass": 0,
       "empCode": "",
-      "resMobile": "${phoneNumber.text}",
+      "resMobile": int.tryParse(phoneNumber.text) ?? 0,
       "longitude": 0.0,
       "latitude": 0.0,
       "splDuration": 0,
@@ -147,20 +144,105 @@ class LeavescreenController extends GetxController {
     // };
     print(requestBody);
     try {
+      isLeaveRequest.value = true;
+      update();
       await Repository()
           .requestLeaveApplication(body: requestBody)
           .then((value) {
-        print(value);
+        if (value["value"].toString() == "-1" || value['value'] == "") {
+          Get.snackbar("Failed!", "${value["result"]}",
+              icon: Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade500,
+              duration: Duration(seconds: 2));
+        } else {
+          leaveApplication.clear();
+          leaveApplication.value = requestBody;
+          leaveApplication.refresh();
+          Pref.writeData(key: Pref.LATEST_LEAVE, value: requestBody);
+          isLeaveRequest.value = false;
+          update();
+          Get.back();
+          Get.snackbar("Success!", "${value["result"]}",
+              icon: Icon(
+                Icons.check,
+                color: Colors.white,
+              ),
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green.shade500,
+              duration: Duration(seconds: 2));
+        }
       });
-    } on Exception catch (e) {}
+    } on Exception catch (e) {
+      Get.snackbar("Server error!", "TRY AGAIN WHEN SERVER AVAILABLE\n",
+          icon: Icon(
+            Icons.error,
+            color: Colors.white,
+          ),
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+      isLeaveRequest.value = false;
+      update();
+    }
     startDate = DateTime.now();
     endDate = DateTime.now().add(Duration(days: 1));
     numberOfDays.text = "1";
     reasonOfLeave.text = "";
     phoneNumber.text = "";
     addressDuringLeave.text = "";
-    leaveApplication.value = requestBody;
+    isLeaveRequest.value = false;
+    update();
+    update();
+  }
 
+  RxBool isLeaveHistory = false.obs;
+  requestHistory() async {
+    if (await IEchecker.checker()) {
+      try {
+        isLeaveHistory.value = true;
+        update();
+        await Repository()
+            .requestHitory(body: {"leaveType": "LEAVE"}).then((value) {
+          if (value["value"] != [] || value["value"] != null) {
+            leaveHistory.clear();
+            leaveHistory.value = value['value'] ?? [];
+            leaveHistory.refresh();
+            update();
+            isLeaveHistory.value = false;
+            update();
+          }
+        });
+      } on Exception catch (e) {
+        leaveHistory.value = [];
+        leaveHistory.refresh();
+        isLeaveHistory.value = false;
+        update();
+      }
+    } else {
+      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  resetApplicationLoading() {
+    isLeaveRequest.value = false;
+    update();
+  }
+
+  checkHistory() {
+    leaveApplication.value = Pref.readData(key: Pref.LATEST_LEAVE) ?? {};
     update();
   }
 
@@ -168,6 +250,8 @@ class LeavescreenController extends GetxController {
   void onInit() {
     super.onInit();
     requestLeaveType();
+    requestHistory();
+    checkHistory();
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ProfileviewscreenController extends GetxController {
+  ScrollController scrollController = ScrollController();
   //-----------------------------Important variables------------------------//
   RxMap<String, dynamic> userProfile = <String, dynamic>{}.obs;
   RxMap<String, dynamic> personalInformation = <String, dynamic>{}.obs;

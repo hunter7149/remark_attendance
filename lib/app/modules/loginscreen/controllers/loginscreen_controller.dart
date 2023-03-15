@@ -42,6 +42,10 @@ class LoginscreenController extends GetxController {
             "password": password.text
           }).then((value) async {
             print(value);
+            dynamic data = value["value"] ?? {};
+            if (data != {}) {
+              Pref.writeData(key: Pref.USER_PROFILE, value: data);
+            }
             if (value["result"] == "success" && value["accessToken"] != "") {
               Pref.writeData(
                   key: Pref.LOGIN_INFORMATION, value: value['accessToken']);
@@ -49,7 +53,7 @@ class LoginscreenController extends GetxController {
               Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
               isLogingIn.value = false;
               update();
-              Get.offNamed(Routes.HOME);
+              Get.offNamed(Routes.HOME, arguments: {"data": data});
             } else {
               isLogingIn.value = false;
               update();
@@ -62,6 +66,12 @@ class LoginscreenController extends GetxController {
         } on Exception catch (e) {
           isLogingIn.value = false;
           update();
+          Get.snackbar("SERVER ERROR", "TRY AGAIN LATER",
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade500,
+              duration: Duration(seconds: 2));
         }
       } else {
         Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",

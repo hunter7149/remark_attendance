@@ -27,106 +27,123 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
             child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: SingleChildScrollView(
-                  child: Obx(() => Column(
-                        children: [
-                          Container(
-                            height: 220,
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(
-                                    width: 0.8, color: AppColors.modernGreen)),
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Container(
-                                  height: 200,
-                                  width: 200,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl:
-                                          "https://media.licdn.com/dms/image/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
-                                      placeholder: (context, url) => Center(
-                                          child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) =>
-                                          Image.asset('assets/logo/user.png'),
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Container(
+                // padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Scrollbar(
+                  isAlwaysShown: true,
+                  radius: Radius.circular(100),
+                  interactive: true,
+                  thickness: 10,
+                  controller: controller.scrollController,
+                  child: SingleChildScrollView(
+                    controller: controller.scrollController,
+                    child: Obx(() => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 220,
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 0.8,
+                                        color: AppColors.modernGreen)),
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      height: 200,
+                                      width: 200,
                                       decoration: BoxDecoration(
-                                          color: AppColors.modernGreen,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20))),
-                                      padding: EdgeInsets.all(10),
-                                      child: Icon(Icons.edit),
-                                    ))
-                              ],
-                            ),
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl:
+                                              "https://media.licdn.com/dms/image/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Image.asset(
+                                                  'assets/logo/user.png'),
+                                        ),
+                                      ),
+                                    ),
+                                    Positioned(
+                                        bottom: 0,
+                                        right: 0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors.modernGreen,
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(20))),
+                                          padding: EdgeInsets.all(10),
+                                          child: Icon(Icons.edit),
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              personalInfo(
+                                  controller: controller,
+                                  color: AppColors.modernGreen),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              addressInfo(
+                                  controller: controller,
+                                  color: AppColors.modernBlue),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              academicInfo(
+                                  controller: controller,
+                                  color: AppColors.modernCoolPink),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              experienceInfo(
+                                  controller: controller,
+                                  color: AppColors.modernGreen),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              contactPersonnel(
+                                  controller: controller,
+                                  color: AppColors.modernLightBrown),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              trainingInfo(
+                                  controller: controller,
+                                  color: AppColors.modernPurple),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              healthInfo(
+                                  controller: controller,
+                                  color: AppColors.modernChocolate),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              languageInfo(
+                                  controller: controller,
+                                  color: AppColors.modernCoral),
+                              SizedBox(
+                                height: 30,
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          personalInfo(
-                              controller: controller,
-                              color: AppColors.modernGreen),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          addressInfo(
-                              controller: controller,
-                              color: AppColors.modernBlue),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          academicInfo(
-                              controller: controller,
-                              color: AppColors.modernCoolPink),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          experienceInfo(
-                              controller: controller,
-                              color: AppColors.modernGreen),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          contactPersonnel(
-                              controller: controller,
-                              color: AppColors.modernLightBrown),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          trainingInfo(
-                              controller: controller,
-                              color: AppColors.modernPurple),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          healthInfo(
-                              controller: controller,
-                              color: AppColors.modernChocolate),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          languageInfo(
-                              controller: controller,
-                              color: AppColors.modernCoral),
-                          SizedBox(
-                            height: 30,
-                          )
-                        ],
-                      )),
+                        )),
+                  ),
                 ))));
   }
 
