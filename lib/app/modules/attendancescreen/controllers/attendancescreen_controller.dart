@@ -187,6 +187,96 @@ class AttendancescreenController extends GetxController {
     }
   }
 
+  requestMovement() async {
+    if (dropdownHourValue.value == "Hour") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT START HOUR",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else if (dropdownMinuteValue.value == "Minute") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT START MINUTE",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else if (dropdownDurationValue.value == "Minute") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT DURATION",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else {
+      String UserId = Pref.readData(key: Pref.USER_ID).toString();
+
+      Map<String, dynamic> bindedData = {
+        "HrCrEmp": "${UserId}",
+        "hrCrEmpIdHrCrEmp": "${UserId}",
+        "startDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(startDate).toString()}",
+        "endDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(endDate).toString()}",
+        "entryDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+        "alkpLeaveTypeId": 0,
+        "leaveType": "TOUR",
+        "remarks": "${remarks.text}",
+        "reason": "${reasonOfLeave.text}",
+        "empLocation": "${address.value}",
+        "isPass": 0,
+        "empCode": "",
+        "resMobile": int.tryParse(phoneNumber.text) ?? 0,
+        "longitude": longitude.value,
+        "latitude": lattitude.value,
+        "splDuration": int.tryParse(dropdownDurationValue.value) ?? 0,
+        "startHour": int.tryParse(dropdownHourValue.value) ?? 0,
+        "startMin": int.tryParse(dropdownMinuteValue.value) ?? 0,
+      };
+
+      if (await IEchecker.checker()) {
+        try {
+          isShortLeaveLoading.value = true;
+          update();
+          await Repository().requestApplication(body: bindedData).then((value) {
+            isShortLeaveLoading.value = false;
+            update();
+            print(value);
+            if (value["value"].toString() != "-1") {
+              Get.snackbar(
+                  "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
+                  colorText: Colors.white,
+                  borderRadius: 2,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red.shade500,
+                  duration: Duration(seconds: 2));
+            }
+          });
+        } on Exception catch (e) {
+          isShortLeaveLoading.value = false;
+          update();
+          Get.snackbar("ERROR", "SERVER ERROR",
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade500,
+              duration: Duration(seconds: 2));
+        }
+      } else {
+        isShortLeaveLoading.value = false;
+        update();
+        Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
+      }
+    }
+  }
+
 //************************************************Movement codes ends************************************************//
 
   //************************************************Short leave codes starts************************************************//
@@ -401,9 +491,7 @@ class AttendancescreenController extends GetxController {
         try {
           isShortLeaveLoading.value = true;
           update();
-          await Repository()
-              .requestShortLeaveApplication(body: bindedData)
-              .then((value) {
+          await Repository().requestApplication(body: bindedData).then((value) {
             isShortLeaveLoading.value = false;
             update();
             print(value);

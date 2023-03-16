@@ -724,62 +724,62 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                     )),
 
                 SizedBox(height: 20),
-                ////Movement section////
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 16),
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         padding: EdgeInsets.all(10),
-                //         // margin: EdgeInsets.symmetric(horizontal: 16),
-                //         decoration: BoxDecoration(
-                //             color: AppColors.modernGreen,
-                //             borderRadius: BorderRadius.only(
-                //                 topLeft: Radius.circular(10),
-                //                 topRight: Radius.circular(10))),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text(
-                //               "Movement",
-                //               style: TextStyle(
-                //                   fontSize: 18,
-                //                   color: Colors.grey.shade100,
-                //                   fontWeight: FontWeight.w400),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       Container(
-                //           color: Colors.grey.shade200,
-                //           padding: EdgeInsets.symmetric(
-                //               horizontal: 24, vertical: 24),
-                //           child: Column(
-                //             children: [
-                //               Text(
-                //                 "You can request a temporary movement time for official or personal reason",
-                //                 style: TextStyle(
-                //                     fontSize: 18,
-                //                     color: Colors.grey.shade900,
-                //                     fontWeight: FontWeight.w400),
-                //               ),
-                //               SizedBox(
-                //                 height: 10,
-                //               ),
-                //               COMMONWIDGET.button(
-                //                   height: 40,
-                //                   title: "Request",
-                //                   backgroudcolor: Color(0xff25ae7a),
-                //                   funtion: () {
-                //                     print("Pressed");
-                //                     return movementTransactionAlert(
-                //                         controller: controller);
-                //                   }),
-                //             ],
-                //           ))
-                //     ],
-                //   ),
-                // ),
+                //Movement section////
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        // margin: EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: AppColors.modernGreen,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Movement",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          color: Colors.grey.shade200,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 24),
+                          child: Column(
+                            children: [
+                              Text(
+                                "You can request a temporary movement time for official or personal reason",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              COMMONWIDGET.button(
+                                  height: 40,
+                                  title: "Request",
+                                  backgroudcolor: Color(0xff25ae7a),
+                                  funtion: () {
+                                    print("Pressed");
+                                    return movementTransactionAlert(
+                                        controller: controller);
+                                  }),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -1636,6 +1636,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                             // controller.addtoOfflineData(
                             //     data: data, date: controller.dateTime);
                             // callback();
+                            controller.requestMovement();
                           },
                           child: Container(
                             height: 40,
@@ -1643,7 +1644,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                 color: AppColors.modernGreen,
                                 borderRadius: BorderRadius.circular(10)),
                             alignment: Alignment.center,
-                            child: Text("Apply",
+                            child: Text("Apply movement",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ))
