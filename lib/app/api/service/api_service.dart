@@ -8,8 +8,9 @@ enum Method { POST, GET, PUT, DELETE, PATCH }
 
 const BASE_URL =
 // kDebugMode
-    // ? 'http://192.168.10.149:8070/HRIS/'
-    // :
+    // ?
+    // 'http://192.168.10.149:8070/HRIS/';
+// :
     'http://182.160.114.100:7171/HRIS/';
 
 class ApiService extends GetxService {

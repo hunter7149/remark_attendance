@@ -36,7 +36,7 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   ),
                   COMMONWIDGET.loginInput(
                       controller: controller.email,
-                      hinttext: "Enter your email",
+                      hinttext: "Enter your username",
                       obsecure: false),
                   SizedBox(
                     height: 20,
@@ -63,20 +63,20 @@ class LoginscreenView extends GetView<LoginscreenController> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Dont have an account?',
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        ' Create Account',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.grey.shade600),
-                      )
-                    ],
-                  )
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       'Dont have an account?',
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //     Text(
+                  //       ' Create Account',
+                  //       style: TextStyle(
+                  //           fontSize: 16, color: Colors.grey.shade600),
+                  //     )
+                  //   ],
+                  // )
                 ],
               ),
             )

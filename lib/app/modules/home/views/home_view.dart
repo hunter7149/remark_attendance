@@ -79,157 +79,159 @@ class HomeView extends GetView<HomeController> {
             ),
             //-------------------Profile Section-----------------//
             Obx(
-              () => Container(
-                width: double.maxFinite,
-                // height: 400,
-                padding: EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: AppColors.modernPlantation,
-                  // color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(10),
+              () => controller.userProfile.isEmpty
+                  ? Container()
+                  : Container(
+                      width: double.maxFinite,
+                      // height: 400,
+                      padding: EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: AppColors.modernPlantation,
+                        // color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(10),
 
-                  // border: Border.all(width: 0.5, color: Colors.grey.shade400)
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        // border: Border.all(width: 0.5, color: Colors.grey.shade400)
+                      ),
+                      child: Column(
                         children: [
-                          Container(
-                            height: 100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: CachedNetworkImage(
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    "https://media.licdn.com/dms/asdasdimage/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
-                                placeholder: (context, url) =>
-                                    Center(child: CircularProgressIndicator()),
-                                errorWidget: (context, url, error) =>
-                                    Image.asset('assets/logo/user.png'),
-                              ),
-                            ),
-                          ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl:
+                                          "https://media.licdn.com/dms/asasimage/C5603AQHLw4e92r8-TA/profile-displayphoto-shrink_800_800/0/1637957304890?e=1683763200&v=beta&t=WeVtz_u61OB_NCTb9YwjFYonFvIHW8kjTXVTmsm9iG4",
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset('assets/logo/user.png'),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "${controller.userProfile["name"]}",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "${controller.userProfile["designation"]}", //des
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "${controller.userProfile["department"]}", //dept
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Responsibility: ${controller.userProfile["responsibility"] ?? "N/A"}", //respons
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "Reporting to: ${controller.userProfile["rboss"] ?? "NO DATA"}", //report
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "${controller.userProfile["mobile"]}", //phone
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      "${controller.userProfile["email"]}", //email
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ],
+                                )
+                              ]),
                           SizedBox(
-                            width: 10,
+                            height: 20,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                "${controller.userProfile["name"]}",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "${controller.userProfile["designation"]}", //des
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "${controller.userProfile["department"]}", //dept
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Responsibility: ${controller.userProfile["responsibility"] ?? "N/A"}", //respons
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "Reporting to: ${controller.userProfile["rboss"] ?? "NO DATA"}", //report
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "${controller.userProfile["mobile"]}", //phone
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text(
-                                "${controller.userProfile["email"]}", //email
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400),
-                              ),
+                              // ZoomTapAnimation(
+                              //   onTap: () {
+                              //     Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                              //         arguments: controller.userInfo);
+                              //   },
+                              //   onLongTap: () {
+                              //     Get.toNamed(Routes.PROFILEEDITSCREEN,
+                              //         arguments: controller.userInfo);
+                              //   },
+                              //   child: Container(
+                              //     height: 40,
+                              //     width: 100,
+                              //     decoration: BoxDecoration(
+                              //         color: AppColors.modernCoral,
+                              //         borderRadius: BorderRadius.circular(8)),
+                              //     child: Center(
+                              //       child: Text(
+                              //         "Details",
+                              //         style: TextStyle(
+                              //             fontSize: 16,
+                              //             color: Colors.grey.shade100,
+                              //             fontWeight: FontWeight.w500),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           )
-                        ]),
-                    SizedBox(
-                      height: 20,
+                        ],
+                      ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // ZoomTapAnimation(
-                        //   onTap: () {
-                        //     Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                        //         arguments: controller.userInfo);
-                        //   },
-                        //   onLongTap: () {
-                        //     Get.toNamed(Routes.PROFILEEDITSCREEN,
-                        //         arguments: controller.userInfo);
-                        //   },
-                        //   child: Container(
-                        //     height: 40,
-                        //     width: 100,
-                        //     decoration: BoxDecoration(
-                        //         color: AppColors.modernCoral,
-                        //         borderRadius: BorderRadius.circular(8)),
-                        //     child: Center(
-                        //       child: Text(
-                        //         "Details",
-                        //         style: TextStyle(
-                        //             fontSize: 16,
-                        //             color: Colors.grey.shade100,
-                        //             fontWeight: FontWeight.w500),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // )
-                      ],
-                    )
-                  ],
-                ),
-              ),
             ),
 
             SizedBox(

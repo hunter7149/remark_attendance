@@ -38,7 +38,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                         padding: EdgeInsets.all(10),
                         // margin: EdgeInsets.symmetric(horizontal: 16),
                         decoration: BoxDecoration(
-                            color: AppColors.greyColor,
+                            color: AppColors.modernPlantation,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
@@ -48,8 +48,8 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                             Text(
                               "Attendance status",
                               style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey.shade900,
+                                  fontSize: 16,
+                                  color: Colors.grey.shade100,
                                   fontWeight: FontWeight.w400),
                             ),
                           ],
@@ -98,7 +98,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
                             decoration: BoxDecoration(
-                                color: AppColors.greyColor,
+                                color: AppColors.modernPlantation,
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10))),
@@ -109,28 +109,28 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                   "Date",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey.shade900,
+                                      color: Colors.grey.shade100,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   "In",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey.shade900,
+                                      color: Colors.grey.shade100,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   "Out",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey.shade900,
+                                      color: Colors.grey.shade100,
                                       fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   "Status",
                                   style: TextStyle(
                                       fontSize: 18,
-                                      color: Colors.grey.shade900,
+                                      color: Colors.grey.shade100,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ],
@@ -269,7 +269,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                       Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: AppColors.greyColor,
+                            color: AppColors.modernPlantation,
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(10),
                                 topRight: Radius.circular(10))),
@@ -280,7 +280,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               "CLOCK",
                               style: TextStyle(
                                   fontSize: 16,
-                                  color: Colors.grey.shade900,
+                                  color: Colors.grey.shade100,
                                   fontWeight: FontWeight.w400),
                             ),
                           ],
@@ -432,7 +432,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
-                                  color: AppColors.modernBlue,
+                                  color: AppColors.modernCoral,
                                   borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(10),
                                       topRight: Radius.circular(10))),
@@ -475,63 +475,255 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   height: 20,
                 ),
 
-                ////Short leave section////
-                // Container(
-                //   margin: EdgeInsets.symmetric(horizontal: 16),
-                //   child: Column(
-                //     children: [
-                //       Container(
-                //         padding: EdgeInsets.all(10),
-                //         // margin: EdgeInsets.symmetric(horizontal: 16),
-                //         decoration: BoxDecoration(
-                //             color: AppColors.modernBlue,
-                //             borderRadius: BorderRadius.only(
-                //                 topLeft: Radius.circular(10),
-                //                 topRight: Radius.circular(10))),
-                //         child: Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             Text(
-                //               "Short leave",
-                //               style: TextStyle(
-                //                   fontSize: 18,
-                //                   color: Colors.grey.shade100,
-                //                   fontWeight: FontWeight.w400),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //       Container(
-                //           color: Colors.grey.shade200,
-                //           padding: EdgeInsets.symmetric(
-                //               horizontal: 24, vertical: 24),
-                //           child: Column(
-                //             children: [
-                //               Text(
-                //                 "You can request a temporary movement time for official or personal reason",
-                //                 style: TextStyle(
-                //                     fontSize: 18,
-                //                     color: Colors.grey.shade900,
-                //                     fontWeight: FontWeight.w400),
-                //               ),
-                //               SizedBox(
-                //                 height: 10,
-                //               ),
-                //               COMMONWIDGET.button(
-                //                   height: 40,
-                //                   title: "New short leave",
-                //                   backgroudcolor: AppColors.modernBlue,
-                //                   funtion: () {
-                //                     print("Pressed");
-                //                     return shortLeaveTransactionAlert(
-                //                         controller: controller);
-                //                   }),
-                //             ],
-                //           ))
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: 20),
+                //Short leave section////
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        // margin: EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                            color: AppColors.modernPurple,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Short leave",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey.shade100,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          color: Colors.grey.shade200,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 24),
+                          child: Column(
+                            children: [
+                              Text(
+                                "You can request a temporary movement time for official or personal reason",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey.shade900,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              COMMONWIDGET.button(
+                                  height: 40,
+                                  title: "New short leave",
+                                  backgroudcolor: AppColors.modernPurple,
+                                  funtion: () {
+                                    print("Pressed");
+                                    return shortLeaveTransactionAlert(
+                                        controller: controller);
+                                  }),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Obx(() => Container(
+                      // height: 400,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      // padding: EdgeInsets.symmetric(horizontal: 5),
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: controller.isLeaveHistory.value
+                          ? SpinKitThreeInOut(
+                              color: AppColors.modernPurple,
+                            )
+                          : controller.leaveHistory.isEmpty
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      child: Image.asset(
+                                        "assets/images/empty.png",
+                                        fit: BoxFit.cover,
+                                        color: AppColors.modernGreen,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "No data provided!",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.modernPurple,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "On date",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "Start date",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "Leave type",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "Status",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    //------Dynamic items------//
+                                    Container(
+                                      height: 300,
+                                      width: double.maxFinite,
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: controller.leaveHistory
+                                              .map((element) => Container(
+                                                    // margin:
+                                                    //     EdgeInsets.symmetric(vertical: 5),
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors
+                                                            .grey.shade200),
+                                                    child: Row(
+                                                      // mainAxisAlignment:
+                                                      //     MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            element["START_DATE"]
+                                                                .toString()
+                                                                .split("T")[0],
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element["END_DATE"]
+                                                                .toString()
+                                                                .split("T")[0],
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element[
+                                                                "LEAVE_TYPE"],
+                                                            textAlign:
+                                                                TextAlign.end,
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element[
+                                                                "APRVL_FNL_STS_TYPE"],
+                                                            textAlign:
+                                                                TextAlign.end,
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      ),
+                                    ),
+                                    //---Buttom curve design---------//
+                                    // Container(
+                                    //   height: 35,
+                                    //   padding: EdgeInsets.all(10),
+                                    //   decoration: BoxDecoration(
+                                    //       color: AppColors.greyColor,
+                                    //       borderRadius: BorderRadius.only(
+                                    //           bottomLeft: Radius.circular(10),
+                                    //           bottomRight: Radius.circular(10))),
+                                    // )
+                                  ],
+                                ),
+                    )),
+
+                SizedBox(height: 20),
                 ////Movement section////
                 // Container(
                 //   margin: EdgeInsets.symmetric(horizontal: 16),
@@ -1939,7 +2131,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                         Expanded(
                             child: InkWell(
                           onTap: () {
-                            Get.back();
+                            // Get.back();
                             print(
                                 "New start date time : ${controller.startDate}");
                             print(
@@ -1948,16 +2140,21 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                             // controller.addtoOfflineData(
                             //     data: data, date: controller.dateTime);
                             // callback();
+                            controller.requestShortLeave();
                           },
-                          child: Container(
-                            height: 40,
-                            decoration: BoxDecoration(
-                                color: AppColors.modernGreen,
-                                borderRadius: BorderRadius.circular(10)),
-                            alignment: Alignment.center,
-                            child: Text("Apply",
-                                style: TextStyle(color: Colors.white)),
-                          ),
+                          child: Obx(() => controller.isShortLeaveLoading.value
+                              ? SpinKitThreeBounce(
+                                  color: AppColors.modernPurple,
+                                )
+                              : Container(
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.modernPurple,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  alignment: Alignment.center,
+                                  child: Text("Apply",
+                                      style: TextStyle(color: Colors.white)),
+                                )),
                         ))
                       ],
                     )

@@ -347,7 +347,130 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
-//----------------------------Dropdown for movement type ------------------------------//
+  RxBool isShortLeaveLoading = false.obs;
+  requestShortLeave() async {
+    if (dropdownsHourValue.value == "Hour") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT START HOUR",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else if (dropdownsMinuteValue.value == "Minute") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT START MINUTE",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else if (dropdownsDurationValue.value == "Minute") {
+      Get.snackbar("EMPTY DATA", "PLEASE SEELCT DURATION",
+          colorText: Colors.white,
+          borderRadius: 2,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade500,
+          duration: Duration(seconds: 2));
+    } else {
+      String UserId = Pref.readData(key: Pref.USER_ID).toString();
+
+      Map<String, dynamic> bindedData = {
+        "HrCrEmp": "${UserId}",
+        "hrCrEmpIdHrCrEmp": "${UserId}",
+        "startDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+        "endDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+        "entryDate":
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+        "alkpLeaveTypeId": 0,
+        "leaveType": "SPL",
+        "remarks": "${sremarks.text}",
+        "reason": "${sreasonOfLeave.text}",
+        "empLocation": "${address.value}",
+        "isPass": 0,
+        "empCode": "",
+        "resMobile": int.tryParse(sphoneNumber.text) ?? 0,
+        "longitude": longitude.value,
+        "latitude": lattitude.value,
+        "splDuration": int.tryParse(dropdownsDurationValue.value) ?? 0,
+        "startHour": int.tryParse(dropdownsHourValue.value) ?? 0,
+        "startMin": int.tryParse(dropdownsMinuteValue.value) ?? 0,
+      };
+
+      if (await IEchecker.checker()) {
+        try {
+          isShortLeaveLoading.value = true;
+          update();
+          await Repository()
+              .requestShortLeaveApplication(body: bindedData)
+              .then((value) {
+            isShortLeaveLoading.value = false;
+            update();
+            print(value);
+            if (value["value"].toString() != "-1") {
+              Get.snackbar(
+                  "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
+                  colorText: Colors.white,
+                  borderRadius: 2,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red.shade500,
+                  duration: Duration(seconds: 2));
+            }
+          });
+        } on Exception catch (e) {
+          isShortLeaveLoading.value = false;
+          update();
+          Get.snackbar("ERROR", "SERVER ERROR",
+              colorText: Colors.white,
+              borderRadius: 2,
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.red.shade500,
+              duration: Duration(seconds: 2));
+        }
+      } else {
+        isShortLeaveLoading.value = false;
+        update();
+        Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+            colorText: Colors.white,
+            borderRadius: 2,
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
+      }
+    }
+  }
+
+  RxList<dynamic> leaveHistory = <dynamic>[].obs;
+  RxBool isLeaveHistory = false.obs;
+  requestHistory() async {
+    if (await IEchecker.checker()) {
+      try {
+        isLeaveHistory.value = true;
+        update();
+        await Repository()
+            .requestHitory(body: {"leaveType": "SPL"}).then((value) {
+          if (value["value"] != [] || value["value"] != null) {
+            leaveHistory.clear();
+            leaveHistory.value = value['value'] ?? [];
+            leaveHistory.refresh();
+            update();
+            isLeaveHistory.value = false;
+            update();
+          }
+        });
+      } on Exception catch (e) {
+        leaveHistory.value = [];
+        leaveHistory.refresh();
+        isLeaveHistory.value = false;
+        update();
+      }
+    } else {
+      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
 
   //************************************************Short leave codes ends************************************************//
   RxBool isCheckedIn = false.obs;
@@ -374,9 +497,9 @@ class AttendancescreenController extends GetxController {
   RxBool isCheckingInOut = false.obs;
   requestCheckIn() async {
     if (await IEchecker.checker()) {
+      getlocation();
       await CheckInOutSync();
       String UserId = Pref.readData(key: Pref.USER_ID).toString();
-
       Map<String, dynamic> bindedData = {
         "HrCrEmp": "${UserId}",
         "hrCrEmpIdHrCrEmp": "${UserId}",
@@ -417,28 +540,37 @@ class AttendancescreenController extends GetxController {
           update();
           await Repository().requestCheckIn(map: bindedData).then((value) {
             print("Check in api value ------------------- > ${value}");
-            Pref.writeData(key: Pref.CHECKED_IN, value: true);
-            isCheckedInUpdater(value: true);
-            lastCheckInUpdater(
-                time:
-                    DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-            isCheckingInOut.value = false;
-            latestActivity.clear();
-            latestActivity.value = {
-              "title": "CHECKED IN",
-              "time": "${bindedData['startDate']}",
-              "mode": "ONLINE",
-            };
-            latestActivity.refresh;
-            Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
-            update();
+            if (value["value"].toString() != "-1") {
+              Pref.writeData(key: Pref.CHECKED_IN, value: true);
+              isCheckedInUpdater(value: true);
+              lastCheckInUpdater(
+                  time: DateFormat('MM/dd/yyyy hh:mm:ss a')
+                      .format(DateTime.now()));
+              isCheckingInOut.value = false;
+              latestActivity.clear();
+              latestActivity.value = {
+                "title": "CHECKED IN",
+                "time": "${bindedData['startDate']}",
+                "mode": "ONLINE",
+              };
+              latestActivity.refresh;
+              Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
+              update();
 
-            Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
-                colorText: Colors.white,
-                borderRadius: 2,
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.green.shade500,
-                duration: Duration(seconds: 2));
+              Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
+                  colorText: Colors.white,
+                  borderRadius: 2,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.green.shade500,
+                  duration: Duration(seconds: 2));
+            } else {
+              Get.snackbar("ERROR!", "${value["result"]}",
+                  colorText: Colors.white,
+                  borderRadius: 2,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red.shade500,
+                  duration: Duration(seconds: 2));
+            }
           });
         } on Exception catch (e) {
           offlineCheckIn(bindedData: bindedData);
@@ -452,7 +584,7 @@ class AttendancescreenController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
-        await getLocation();
+        await getlocation();
         // requestCheckIn();
       }
     } else {
@@ -590,7 +722,7 @@ class AttendancescreenController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
-        getLocation();
+        getlocation();
         // requestCheckOut();
       }
     } else {
@@ -626,6 +758,7 @@ class AttendancescreenController extends GetxController {
                 duration: Duration(seconds: 2));
           });
         } on Exception catch (e) {
+          print("CHECK IN DATA SYNC FAILED DUE TO SERVER EXCEPTION----${e}");
           // Get.snackbar("Failed", "Try again",
           //     colorText: Colors.white,
           //     borderRadius: 2,
@@ -648,12 +781,13 @@ class AttendancescreenController extends GetxController {
                 duration: Duration(seconds: 2));
           });
         } on Exception catch (e) {
-          Get.snackbar("Check out data sync Failed", "Try again",
-              colorText: Colors.white,
-              borderRadius: 2,
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.red.shade500,
-              duration: Duration(seconds: 2));
+          print("CHECK OUT DATA SYNC FAILED DUE TO SERVER EXCEPTION----${e}");
+          // Get.snackbar("Check out data sync Failed", "Try again",
+          //     colorText: Colors.white,
+          //     borderRadius: 2,
+          //     snackPosition: SnackPosition.BOTTOM,
+          //     backgroundColor: Colors.red.shade500,
+          //     duration: Duration(seconds: 2));
         }
       }
     }
@@ -694,7 +828,7 @@ class AttendancescreenController extends GetxController {
   RxString address = "".obs;
   RxBool isLocationLoading = false.obs;
 
-  getLocation() async {
+  getlocation() async {
     isLocationLoading.value = true;
     update();
     Location location = new Location();
@@ -726,7 +860,6 @@ class AttendancescreenController extends GetxController {
     LocationData locationData = _locationData;
     lattitude.value = locationData.latitude ?? 0.0;
     longitude.value = locationData.longitude ?? 0.0;
-
     update();
     List<gcode.Placemark> placemarks =
         await gcode.placemarkFromCoordinates(lattitude.value, longitude.value);
@@ -752,10 +885,11 @@ class AttendancescreenController extends GetxController {
   void onInit() {
     super.onInit();
     isCheckedInUpdater(value: Pref.readData(key: Pref.CHECKED_IN) ?? false);
-    getLocation();
+    getlocation();
     requestPersonalAttendance();
     CheckInOutSync();
     checkLatest();
+    requestHistory();
   }
 
   @override

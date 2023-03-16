@@ -51,4 +51,9 @@ class Repository extends Providers {
       await tokenBaseApi(
               endPoint: AppUrl.history, method: Method.POST, map: body)
           .then((value) => value);
+  Future<dynamic> requestShortLeaveApplication(
+          {required Map<String, dynamic> body}) async =>
+      await tokenBaseApi(
+              endPoint: AppUrl.checkInOut, method: Method.POST, map: body)
+          .then((value) => value);
 }
