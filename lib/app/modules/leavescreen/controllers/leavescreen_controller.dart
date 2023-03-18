@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 class LeavescreenController extends GetxController {
   DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now().add(Duration(days: 1));
+  DateTime endDate = DateTime.now();
   TextEditingController numberOfDays = TextEditingController(text: "1");
   TextEditingController reasonOfLeave = TextEditingController();
   TextEditingController addressDuringLeave = TextEditingController();
@@ -80,13 +80,33 @@ class LeavescreenController extends GetxController {
     update();
   }
 
-  daysCounter() {
-    Duration difference = endDate.difference(startDate);
-    int daysBetween = difference.inDays;
+  void daysCounter() {
+    if (endDate.isBefore(startDate)) {
+      // Swap the start and end dates
+      DateTime tempDate = startDate;
+      startDate = endDate;
+      endDate = tempDate;
+      Duration difference = endDate.difference(startDate);
+      int daysBetween = difference.inDays + 2; // add 1 to include both dates
 
-    numberOfDays.text = (daysBetween).toString();
-    daytimereseter();
-    update();
+      numberOfDays.text = daysBetween.toString();
+      daytimereseter();
+      update();
+    } else if (endDate.isAtSameMomentAs(startDate)) {
+      Duration difference = endDate.difference(startDate);
+      int daysBetween = 1; // add 1 to include both dates
+
+      numberOfDays.text = daysBetween.toString();
+      daytimereseter();
+      update();
+    } else {
+      Duration difference = endDate.difference(startDate);
+      int daysBetween = difference.inDays + 2; // add 1 to include both dates
+
+      numberOfDays.text = daysBetween.toString();
+      daytimereseter();
+      update();
+    }
   }
 
   daytimereseter() {

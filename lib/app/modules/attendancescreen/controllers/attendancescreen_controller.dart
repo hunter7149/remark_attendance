@@ -187,6 +187,7 @@ class AttendancescreenController extends GetxController {
     }
   }
 
+  RxBool isMovemementReq = false.obs;
   requestMovement() async {
     if (dropdownHourValue.value == "Hour") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT START HOUR",
@@ -238,24 +239,34 @@ class AttendancescreenController extends GetxController {
 
       if (await IEchecker.checker()) {
         try {
-          isShortLeaveLoading.value = true;
+          isMovemementReq.value = true;
           update();
           await Repository().requestApplication(body: bindedData).then((value) {
-            isShortLeaveLoading.value = false;
+            isMovemementReq.value = false;
             update();
             print(value);
+            Get.back();
+
             if (value["value"].toString() != "-1") {
               Get.snackbar(
                   "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
                   colorText: Colors.white,
                   borderRadius: 2,
                   snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.red.shade500,
+                  backgroundColor: Colors.green.shade500,
+                  duration: Duration(seconds: 2));
+            } else {
+              Get.snackbar(
+                  "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
+                  colorText: Colors.white,
+                  borderRadius: 2,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.green.shade500,
                   duration: Duration(seconds: 2));
             }
           });
         } on Exception catch (e) {
-          isShortLeaveLoading.value = false;
+          isMovemementReq.value = false;
           update();
           Get.snackbar("ERROR", "SERVER ERROR",
               colorText: Colors.white,
@@ -265,7 +276,7 @@ class AttendancescreenController extends GetxController {
               duration: Duration(seconds: 2));
         }
       } else {
-        isShortLeaveLoading.value = false;
+        isMovemementReq.value = false;
         update();
         Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
             colorText: Colors.white,
@@ -274,6 +285,38 @@ class AttendancescreenController extends GetxController {
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
       }
+    }
+  }
+
+  RxList<dynamic> mleaveHistory = <dynamic>[].obs;
+  RxBool ismLeaveHistory = false.obs;
+  requesMovmenttHistory() async {
+    if (await IEchecker.checker()) {
+      try {
+        ismLeaveHistory.value = true;
+        update();
+        await Repository()
+            .requestHitory(body: {"leaveType": "TOUR"}).then((value) {
+          if (value["value"] != [] || value["value"] != null) {
+            mleaveHistory.clear();
+            mleaveHistory.value = value['value'] ?? [];
+            mleaveHistory.refresh();
+            update();
+            ismLeaveHistory.value = false;
+            update();
+          }
+        });
+      } on Exception catch (e) {
+        mleaveHistory.value = [];
+        mleaveHistory.refresh();
+        ismLeaveHistory.value = false;
+        update();
+      }
+    } else {
+      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
@@ -978,6 +1021,7 @@ class AttendancescreenController extends GetxController {
     CheckInOutSync();
     checkLatest();
     requestHistory();
+    requesMovmenttHistory();
   }
 
   @override

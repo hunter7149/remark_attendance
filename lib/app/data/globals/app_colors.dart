@@ -14,4 +14,6 @@ class AppColors {
   static Color modernPurple = Color(0xff6867AC);
   static Color modernChocolate = Color(0xff854442);
   static Color modernCoral = Color(0xffF54D3D);
+  static Color modernChocolate2 = Color(0xff704F4F);
+  static Color modernDeepSea = Color(0xff0F3D3E);
 }

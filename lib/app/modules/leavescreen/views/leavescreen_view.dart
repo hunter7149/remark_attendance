@@ -243,153 +243,201 @@ class LeavescreenView extends GetView<LeavescreenController> {
                   SizedBox(
                     height: 10,
                   ),
-                  Obx(() => controller.leaveHistory.length == 0
-                      ? Container()
-                      : Container(
-                          // height: 400,
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 16,
-                          ),
-                          // padding: EdgeInsets.symmetric(horizontal: 5),
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
-                                decoration: BoxDecoration(
-                                    color: AppColors.greyColor,
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10))),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Leave type",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "Start date",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "End date",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    Text(
-                                      "Status",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.grey.shade900,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //------Dynamic items------//
-                              Container(
-                                // height: 300,
-                                width: double.maxFinite,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: controller.leaveHistory
-                                        .map((element) => Container(
-                                              // margin:
-                                              //     EdgeInsets.symmetric(vertical: 5),
-                                              padding: EdgeInsets.all(10),
-                                              decoration: BoxDecoration(
-                                                  color: Colors.white),
-                                              child: Row(
-                                                // mainAxisAlignment:
-                                                //     MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      element["LEAVE_TYPE"],
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      element["START_DATE"]
-                                                          .toString()
-                                                          .split("T")[0],
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      element["END_DATE"]
-                                                          .toString()
-                                                          .split("T")[0],
-                                                      textAlign: TextAlign.end,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Text(
-                                                      element[
-                                                          "APRVL_FNL_STS_TYPE"],
-                                                      textAlign: TextAlign.end,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ))
-                                        .toList(),
+                  Obx(() => Container(
+                        // height: 400,
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        // padding: EdgeInsets.symmetric(horizontal: 5),
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.modernSexyRed,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Leave type",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade100,
+                                        fontWeight: FontWeight.w500),
                                   ),
-                                ),
+                                  Text(
+                                    "Start date",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade100,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "End date",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade100,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  Text(
+                                    "Status",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey.shade100,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                              //---Buttom curve design---------//
-                              Container(
-                                height: 35,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: AppColors.greyColor,
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10))),
-                              )
-                            ],
-                          ),
-                        )),
+                            ),
+                            //------Dynamic items------//
+                            controller.isLeaveHistory.value
+                                ? SpinKitDoubleBounce(
+                                    color: AppColors.modernGreen,
+                                  )
+                                : controller.leaveHistory.length == 0
+                                    ? Container(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              height: 50,
+                                              child: Image.asset(
+                                                "assets/images/empty.png",
+                                                fit: BoxFit.cover,
+                                                color: AppColors.modernGreen,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "No data provided!",
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Container(
+                                        // height: 300,
+                                        width: double.maxFinite,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: controller.leaveHistory
+                                                .map((element) => Container(
+                                                      // margin:
+                                                      //     EdgeInsets.symmetric(vertical: 5),
+                                                      padding:
+                                                          EdgeInsets.all(10),
+                                                      decoration: BoxDecoration(
+                                                          color: Colors
+                                                              .grey.shade200),
+                                                      child: Row(
+                                                        // mainAxisAlignment:
+                                                        //     MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              element[
+                                                                  "LEAVE_TYPE"],
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade900,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              element["START_DATE"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade900,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              element["END_DATE"]
+                                                                  .toString()
+                                                                  .split(
+                                                                      "T")[0],
+                                                              textAlign:
+                                                                  TextAlign.end,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade900,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              element[
+                                                                  "APRVL_FNL_STS_TYPE"],
+                                                              textAlign:
+                                                                  TextAlign.end,
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .shade900,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ))
+                                                .toList(),
+                                          ),
+                                        ),
+                                      ),
+                            //---Buttom curve design---------//
+                            // Container(
+                            //   height: 35,
+                            //   padding: EdgeInsets.all(10),
+                            //   decoration: BoxDecoration(
+                            //       color: AppColors.greyColor,
+                            //       borderRadius: BorderRadius.only(
+                            //           bottomLeft: Radius.circular(10),
+                            //           bottomRight: Radius.circular(10))),
+                            // )
+                          ],
+                        ),
+                      )),
                 ],
               )),
             ),

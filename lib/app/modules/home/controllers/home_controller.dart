@@ -173,14 +173,19 @@ class HomeController extends GetxController {
     ]
   }.obs;
   RxMap<String, dynamic> userProfile = <String, dynamic>{}.obs;
+  RxBool isSignOut = false.obs;
   requestSignOut() async {
     String UserId = Pref.readData(key: Pref.USER_ID).toString();
     if (await IEchecker.checker()) {
       try {
+        isSignOut.value = true;
+        update();
         await Repository().requestLogOut(map: {
           "HrCrEmp": "${UserId}",
         }).then((value) {
           if (value["result"] == "Sucessfuly Logout.") {
+            isSignOut.value = false;
+            update();
             Get.snackbar("Success", "${value['result']}",
                 colorText: Colors.white,
                 backgroundColor: Colors.green,
@@ -191,6 +196,8 @@ class HomeController extends GetxController {
             Pref.removeData(key: Pref.LOGIN_INFORMATION);
             Get.offNamed(Routes.LOGINSCREEN);
           } else {
+            isSignOut.value = false;
+            update();
             Get.snackbar("Success", "${value['result']}",
                 colorText: Colors.white,
                 backgroundColor: Colors.red,
@@ -198,12 +205,16 @@ class HomeController extends GetxController {
           }
         });
       } on Exception catch (e) {
+        isSignOut.value = false;
+        update();
         Get.snackbar("FAILED", "SERVER ERROR",
             colorText: Colors.white,
             backgroundColor: Colors.red,
             snackPosition: SnackPosition.BOTTOM);
       }
     } else {
+      isSignOut.value = false;
+      update();
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
           backgroundColor: Colors.red,

@@ -162,7 +162,8 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                 //     EdgeInsets.symmetric(vertical: 5),
                                                 padding: EdgeInsets.all(10),
                                                 decoration: BoxDecoration(
-                                                    color: Colors.white),
+                                                    color:
+                                                        Colors.grey.shade200),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -170,8 +171,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                   children: [
                                                     Text(
                                                       "  ${element["ATTN_DATE"]}",
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           color: Colors
                                                               .grey.shade900,
                                                           fontWeight:
@@ -179,8 +182,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                     ),
                                                     Text(
                                                       "${element["IN_TIME"]}",
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           color: Colors
                                                               .grey.shade900,
                                                           fontWeight:
@@ -188,8 +193,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                     ),
                                                     Text(
                                                       "${element["OUT_TIME"]}",
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           color: Colors
                                                               .grey.shade900,
                                                           fontWeight:
@@ -197,8 +204,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                     ),
                                                     Text(
                                                       "${element["ATTN_DAY_STS_TYPE"]}",
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: 14,
+                                                          fontSize: 12,
                                                           color: Colors
                                                               .grey.shade900,
                                                           fontWeight:
@@ -238,15 +247,15 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                           )
                                         ]),
                           //---Buttom curve design---------//
-                          Container(
-                            height: 35,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: AppColors.greyColor,
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10))),
-                          )
+                          // Container(
+                          //   height: 35,
+                          //   padding: EdgeInsets.all(10),
+                          //   decoration: BoxDecoration(
+                          //       color: AppColors.greyColor,
+                          //       borderRadius: BorderRadius.only(
+                          //           bottomLeft: Radius.circular(10),
+                          //           bottomRight: Radius.circular(10))),
+                          // )
                         ],
                       ),
                     )),
@@ -415,7 +424,9 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 //--------------------Last Chekc In View--------------//
                 Obx(() => controller.latestActivity.isEmpty
                     ? Container()
-                    : space(horizontal: 16)),
+                    : SizedBox(
+                        height: 20,
+                      )),
                 Obx(() => controller.latestActivity.isEmpty
                     ? Container()
                     : Container(
@@ -644,13 +655,15 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                                 .toString()
                                                                 .split("T")[0],
                                                             style: TextStyle(
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .grey
                                                                     .shade900,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500),
+                                                            textAlign: TextAlign
+                                                                .center,
                                                           ),
                                                         ),
                                                         Expanded(
@@ -661,7 +674,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .grey
                                                                     .shade900,
@@ -674,10 +687,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                           child: Text(
                                                             element[
                                                                 "LEAVE_TYPE"],
-                                                            textAlign:
-                                                                TextAlign.end,
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .grey
                                                                     .shade900,
@@ -690,10 +703,10 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                           child: Text(
                                                             element[
                                                                 "APRVL_FNL_STS_TYPE"],
-                                                            textAlign:
-                                                                TextAlign.end,
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                                 color: Colors
                                                                     .grey
                                                                     .shade900,
@@ -768,7 +781,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               ),
                               COMMONWIDGET.button(
                                   height: 40,
-                                  title: "Request",
+                                  title: "Apply new movement",
                                   backgroudcolor: Color(0xff25ae7a),
                                   funtion: () {
                                     print("Pressed");
@@ -780,13 +793,198 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
+                Obx(() => Container(
+                      // height: 400,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: controller.ismLeaveHistory.value
+                          ? SpinKitThreeInOut(
+                              color: AppColors.modernPurple,
+                            )
+                          : controller.mleaveHistory.isEmpty
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      height: 50,
+                                      child: Image.asset(
+                                        "assets/images/empty.png",
+                                        fit: BoxFit.cover,
+                                        color: AppColors.modernGreen,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      "No data provided!",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      decoration: BoxDecoration(
+                                          color: AppColors.modernGreen,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Start date",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "End date",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "Leave type",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            "Status",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade100,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    //------Dynamic items------//
+                                    Container(
+                                      // height: 300,
+                                      width: double.maxFinite,
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          children: controller.mleaveHistory
+                                              .map((element) => Container(
+                                                    // margin:
+                                                    //     EdgeInsets.symmetric(vertical: 5),
+                                                    padding: EdgeInsets.all(10),
+                                                    decoration: BoxDecoration(
+                                                        color: Colors
+                                                            .grey.shade200),
+                                                    child: Row(
+                                                      // mainAxisAlignment:
+                                                      //     MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            element["START_DATE"]
+                                                                .toString()
+                                                                .split("T")[0],
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element["END_DATE"]
+                                                                .toString()
+                                                                .split("T")[0],
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element[
+                                                                "LEAVE_TYPE"],
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            element[
+                                                                "APRVL_FNL_STS_TYPE"],
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize: 12,
+                                                                color: Colors
+                                                                    .grey
+                                                                    .shade900,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                    )),
+
+                SizedBox(
+                  height: 20,
+                )
               ],
             ),
           ),
         ));
   }
 
-  static space({double? vertical, double? horizontal}) {
+  static spacae({double? vertical, double? horizontal}) {
     return Container(
       color: Colors.grey.shade600,
       height: 1,
@@ -822,9 +1020,11 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Movement Transaction",
-                        style: TextStyle(),
+                      Expanded(
+                        child: Text(
+                          "Movement Transaction",
+                          style: TextStyle(),
+                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -1627,7 +1827,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                         Expanded(
                             child: InkWell(
                           onTap: () {
-                            Get.back();
+                            // Get.back();
                             print(
                                 "New start date time : ${controller.startDate}");
                             print(
@@ -1680,9 +1880,11 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Short Leave Transaction",
-                        style: TextStyle(),
+                      Expanded(
+                        child: Text(
+                          "Short Leave Transaction",
+                          style: TextStyle(),
+                        ),
                       ),
                       InkWell(
                         onTap: () {

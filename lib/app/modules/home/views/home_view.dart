@@ -86,7 +86,7 @@ class HomeView extends GetView<HomeController> {
                       // height: 400,
                       padding: EdgeInsets.all(24),
                       decoration: BoxDecoration(
-                        color: AppColors.modernPlantation,
+                        color: AppColors.modernDeepSea,
                         // color: Colors.grey.shade100,
                         borderRadius: BorderRadius.circular(10),
 
@@ -119,80 +119,83 @@ class HomeView extends GetView<HomeController> {
                                 SizedBox(
                                   width: 10,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "${controller.userProfile["name"]}",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "${controller.userProfile["designation"]}", //des
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "${controller.userProfile["department"]}", //dept
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Responsibility: ${controller.userProfile["responsibility"] ?? "N/A"}", //respons
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "Reporting to: ${controller.userProfile["rboss"] ?? "NO DATA"}", //report
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "${controller.userProfile["mobile"]}", //phone
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "${controller.userProfile["email"]}", //email
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        "${controller.userProfile["name"]}",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${controller.userProfile["designation"]}", //des
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${controller.userProfile["department"]}", //dept
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "Responsibility: ${controller.userProfile["responsibility"] ?? "N/A"}", //respons
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "Reporting to: ${controller.userProfile["rboss"] ?? "NO DATA"}", //report
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${controller.userProfile["mobile"]}", //phone
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${controller.userProfile["email"]}", //email
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey.shade100,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ]),
                           SizedBox(
