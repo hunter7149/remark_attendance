@@ -954,6 +954,10 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
+  initAttendance() {
+    String attnActivity = attendanceHistory[0]['ATTN_DAY_STS_TYPE'];
+  }
+
   RxDouble lattitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
   RxString address = "".obs;
