@@ -10,7 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
-  Platform.isAndroid ? await FirebaseService.initialize() : () {};
+  // Platform.isAndroid ? await FirebaseService.initialize() : () {};
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,

@@ -489,6 +489,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 ),
 
                 ExpandablePanel(
+                  controller: ExpandableController(initialExpanded: true),
                   theme: ExpandableThemeData(
                       tapBodyToCollapse: true,
                       // hasIcon: false,
@@ -789,6 +790,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 ),
 
                 ExpandablePanel(
+                  controller: ExpandableController(initialExpanded: true),
                   theme: ExpandableThemeData(
                       tapBodyToCollapse: true,
                       // hasIcon: false,
