@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,6 +28,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
             }),
         body: SafeArea(
           child: SingleChildScrollView(
+            controller: controller.scrollController,
             child: Column(
               children: [
                 //------------------Attendance status-----------------//
@@ -486,494 +488,585 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                   height: 20,
                 ),
 
-                //Short leave section////
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        // margin: EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                            color: AppColors.modernPurple,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Short leave",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
+                ExpandablePanel(
+                  theme: ExpandableThemeData(
+                      tapBodyToCollapse: true,
+                      // hasIcon: false,
+                      headerAlignment: ExpandablePanelHeaderAlignment.center,
+                      // iconPlacement: ExpandablePanelIconPlacement.right,
+
+                      animationDuration: const Duration(milliseconds: 500),
+                      // tapBodyToExpand: true,
+                      expandIcon: Icons.arrow_circle_down,
+                      collapseIcon: Icons.arrow_circle_up),
+                  header: Container(
+                    height: 80,
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    width: double.maxFinite,
+                    color: AppColors.modernPurple,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.time_to_leave,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "Short leave management",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                              textAlign: TextAlign.start,
                             ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  collapsed: Container(),
+                  expanded: Container(
+
+                      // height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      // padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    // margin: EdgeInsets.symmetric(horizontal: 16),
+                                    decoration: BoxDecoration(
+                                        color: AppColors.modernPurple,
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Short leave",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.grey.shade100,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                      color: Colors.grey.shade200,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 24),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "You can request a temporary movement time for official or personal reason",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: Colors.grey.shade900,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          COMMONWIDGET.button(
+                                              height: 40,
+                                              title: "New short leave",
+                                              backgroudcolor:
+                                                  AppColors.modernPurple,
+                                              funtion: () {
+                                                print("Pressed");
+                                                return shortLeaveTransactionAlert(
+                                                    controller: controller);
+                                              }),
+                                        ],
+                                      ))
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Obx(() => Container(
+                                  // height: 400,
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  // padding: EdgeInsets.symmetric(horizontal: 5),
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: controller.isLeaveHistory.value
+                                      ? SpinKitThreeInOut(
+                                          color: AppColors.modernPurple,
+                                        )
+                                      : controller.leaveHistory.isEmpty
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    "assets/images/empty.png",
+                                                    fit: BoxFit.cover,
+                                                    color:
+                                                        AppColors.modernGreen,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "No data provided!",
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 10),
+                                                  decoration: BoxDecoration(
+                                                      color: AppColors
+                                                          .modernPurple,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      10))),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "On date",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "Start date",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "Leave type",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "Status",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                //------Dynamic items------//
+                                                Container(
+                                                  height: 300,
+                                                  width: double.maxFinite,
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      children:
+                                                          controller
+                                                              .leaveHistory
+                                                              .map(
+                                                                  (element) =>
+                                                                      Container(
+                                                                        // margin:
+                                                                        //     EdgeInsets.symmetric(vertical: 5),
+                                                                        padding:
+                                                                            EdgeInsets.all(10),
+                                                                        decoration:
+                                                                            BoxDecoration(color: Colors.grey.shade200),
+                                                                        child:
+                                                                            Row(
+                                                                          // mainAxisAlignment:
+                                                                          //     MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["START_DATE"].toString().split("T")[0],
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                                textAlign: TextAlign.center,
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["END_DATE"].toString().split("T")[0],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["LEAVE_TYPE"],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["APRVL_FNL_STS_TYPE"],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ))
+                                                              .toList(),
+                                                    ),
+                                                  ),
+                                                ),
+                                                //---Buttom curve design---------//
+                                                // Container(
+                                                //   height: 35,
+                                                //   padding: EdgeInsets.all(10),
+                                                //   decoration: BoxDecoration(
+                                                //       color: AppColors.greyColor,
+                                                //       borderRadius: BorderRadius.only(
+                                                //           bottomLeft: Radius.circular(10),
+                                                //           bottomRight: Radius.circular(10))),
+                                                // )
+                                              ],
+                                            ),
+                                )),
+                            SizedBox(height: 20),
                           ],
                         ),
-                      ),
-                      Container(
-                          color: Colors.grey.shade200,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 24),
-                          child: Column(
-                            children: [
-                              Text(
-                                "You can request a temporary movement time for official or personal reason",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              COMMONWIDGET.button(
-                                  height: 40,
-                                  title: "New short leave",
-                                  backgroudcolor: AppColors.modernPurple,
-                                  funtion: () {
-                                    print("Pressed");
-                                    return shortLeaveTransactionAlert(
-                                        controller: controller);
-                                  }),
-                            ],
-                          ))
-                    ],
-                  ),
+                      )),
                 ),
+                //Short leave section////
                 SizedBox(
                   height: 20,
                 ),
-                Obx(() => Container(
-                      // height: 400,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 16,
+
+                ExpandablePanel(
+                  theme: ExpandableThemeData(
+                      tapBodyToCollapse: true,
+                      // hasIcon: false,
+                      headerAlignment: ExpandablePanelHeaderAlignment.center,
+                      // iconPlacement: ExpandablePanelIconPlacement.right,
+
+                      animationDuration: const Duration(milliseconds: 500),
+                      // tapBodyToExpand: true,
+                      expandIcon: Icons.arrow_circle_down,
+                      collapseIcon: Icons.arrow_circle_up),
+                  header: Container(
+                    height: 80,
+                    margin: EdgeInsets.symmetric(horizontal: 16),
+                    width: double.maxFinite,
+                    color: AppColors.modernGreen,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.lock_clock,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "Movement management",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ],
                       ),
-                      // padding: EdgeInsets.symmetric(horizontal: 5),
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: controller.isLeaveHistory.value
-                          ? SpinKitThreeInOut(
-                              color: AppColors.modernPurple,
-                            )
-                          : controller.leaveHistory.isEmpty
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      child: Image.asset(
-                                        "assets/images/empty.png",
-                                        fit: BoxFit.cover,
+                    ),
+                  ),
+                  collapsed: Container(),
+                  expanded: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 16),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    // margin: EdgeInsets.symmetric(horizontal: 16),
+                                    decoration: BoxDecoration(
                                         color: AppColors.modernGreen,
-                                      ),
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Movement",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.grey.shade100,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "No data provided!",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                )
-                              : Column(
-                                  children: [
-                                    Container(
+                                  ),
+                                  Container(
+                                      color: Colors.grey.shade200,
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: BoxDecoration(
-                                          color: AppColors.modernPurple,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10))),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                          horizontal: 24, vertical: 24),
+                                      child: Column(
                                         children: [
                                           Text(
-                                            "On date",
+                                            "You can request a temporary movement time for official or personal reason",
                                             style: TextStyle(
                                                 fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
+                                                color: Colors.grey.shade900,
+                                                fontWeight: FontWeight.w400),
                                           ),
-                                          Text(
-                                            "Start date",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
+                                          SizedBox(
+                                            height: 10,
                                           ),
-                                          Text(
-                                            "Leave type",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          Text(
-                                            "Status",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
+                                          COMMONWIDGET.button(
+                                              height: 40,
+                                              title: "Apply new movement",
+                                              backgroudcolor: Color(0xff25ae7a),
+                                              funtion: () {
+                                                print("Pressed");
+                                                return movementTransactionAlert(
+                                                    controller: controller);
+                                              }),
                                         ],
-                                      ),
-                                    ),
-                                    //------Dynamic items------//
-                                    Container(
-                                      height: 300,
-                                      width: double.maxFinite,
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children: controller.leaveHistory
-                                              .map((element) => Container(
-                                                    // margin:
-                                                    //     EdgeInsets.symmetric(vertical: 5),
-                                                    padding: EdgeInsets.all(10),
-                                                    decoration: BoxDecoration(
-                                                        color: Colors
-                                                            .grey.shade200),
-                                                    child: Row(
-                                                      // mainAxisAlignment:
-                                                      //     MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            element["START_DATE"]
-                                                                .toString()
-                                                                .split("T")[0],
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element["END_DATE"]
-                                                                .toString()
-                                                                .split("T")[0],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element[
-                                                                "LEAVE_TYPE"],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element[
-                                                                "APRVL_FNL_STS_TYPE"],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ))
-                                              .toList(),
-                                        ),
-                                      ),
-                                    ),
-                                    //---Buttom curve design---------//
-                                    // Container(
-                                    //   height: 35,
-                                    //   padding: EdgeInsets.all(10),
-                                    //   decoration: BoxDecoration(
-                                    //       color: AppColors.greyColor,
-                                    //       borderRadius: BorderRadius.only(
-                                    //           bottomLeft: Radius.circular(10),
-                                    //           bottomRight: Radius.circular(10))),
-                                    // )
-                                  ],
-                                ),
-                    )),
-
-                SizedBox(height: 20),
-                //Movement section////
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        // margin: EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                            color: AppColors.modernGreen,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Movement",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.grey.shade100,
-                                  fontWeight: FontWeight.w400),
+                                      ))
+                                ],
+                              ),
                             ),
+                            SizedBox(height: 20),
+                            Obx(() => Container(
+                                  // height: 400,
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: controller.ismLeaveHistory.value
+                                      ? SpinKitThreeInOut(
+                                          color: AppColors.modernGreen,
+                                        )
+                                      : controller.mleaveHistory.isEmpty
+                                          ? Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  height: 50,
+                                                  child: Image.asset(
+                                                    "assets/images/empty.png",
+                                                    fit: BoxFit.cover,
+                                                    color:
+                                                        AppColors.modernGreen,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  "No data provided!",
+                                                  style:
+                                                      TextStyle(fontSize: 20),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                Container(
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 10),
+                                                  decoration: BoxDecoration(
+                                                      color:
+                                                          AppColors.modernGreen,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(10),
+                                                              topRight: Radius
+                                                                  .circular(
+                                                                      10))),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "Start date",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "End date",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "Leave type",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                      Text(
+                                                        "Status",
+                                                        style: TextStyle(
+                                                            fontSize: 18,
+                                                            color: Colors
+                                                                .grey.shade100,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                //------Dynamic items------//
+                                                Container(
+                                                  // height: 300,
+                                                  width: double.maxFinite,
+                                                  child: SingleChildScrollView(
+                                                    child: Column(
+                                                      children:
+                                                          controller
+                                                              .mleaveHistory
+                                                              .map(
+                                                                  (element) =>
+                                                                      Container(
+                                                                        // margin:
+                                                                        //     EdgeInsets.symmetric(vertical: 5),
+                                                                        padding:
+                                                                            EdgeInsets.all(10),
+                                                                        decoration:
+                                                                            BoxDecoration(color: Colors.grey.shade200),
+                                                                        child:
+                                                                            Row(
+                                                                          // mainAxisAlignment:
+                                                                          //     MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["START_DATE"].toString().split("T")[0],
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                                textAlign: TextAlign.center,
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["END_DATE"].toString().split("T")[0],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["LEAVE_TYPE"],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: Text(
+                                                                                element["APRVL_FNL_STS_TYPE"],
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontSize: 12, color: Colors.grey.shade900, fontWeight: FontWeight.w500),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ))
+                                                              .toList(),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                )),
                           ],
                         ),
-                      ),
-                      Container(
-                          color: Colors.grey.shade200,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 24),
-                          child: Column(
-                            children: [
-                              Text(
-                                "You can request a temporary movement time for official or personal reason",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey.shade900,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              COMMONWIDGET.button(
-                                  height: 40,
-                                  title: "Apply new movement",
-                                  backgroudcolor: Color(0xff25ae7a),
-                                  funtion: () {
-                                    print("Pressed");
-                                    return movementTransactionAlert(
-                                        controller: controller);
-                                  }),
-                            ],
-                          ))
-                    ],
-                  ),
+                      )),
                 ),
-                SizedBox(height: 20),
-                Obx(() => Container(
-                      // height: 400,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-
-                      width: double.maxFinite,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: controller.ismLeaveHistory.value
-                          ? SpinKitThreeInOut(
-                              color: AppColors.modernPurple,
-                            )
-                          : controller.mleaveHistory.isEmpty
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      child: Image.asset(
-                                        "assets/images/empty.png",
-                                        fit: BoxFit.cover,
-                                        color: AppColors.modernGreen,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "No data provided!",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                  ],
-                                )
-                              : Column(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: BoxDecoration(
-                                          color: AppColors.modernGreen,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              topRight: Radius.circular(10))),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Start date",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          Text(
-                                            "End date",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          Text(
-                                            "Leave type",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          Text(
-                                            "Status",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: Colors.grey.shade100,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    //------Dynamic items------//
-                                    Container(
-                                      // height: 300,
-                                      width: double.maxFinite,
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          children: controller.mleaveHistory
-                                              .map((element) => Container(
-                                                    // margin:
-                                                    //     EdgeInsets.symmetric(vertical: 5),
-                                                    padding: EdgeInsets.all(10),
-                                                    decoration: BoxDecoration(
-                                                        color: Colors
-                                                            .grey.shade200),
-                                                    child: Row(
-                                                      // mainAxisAlignment:
-                                                      //     MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            element["START_DATE"]
-                                                                .toString()
-                                                                .split("T")[0],
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element["END_DATE"]
-                                                                .toString()
-                                                                .split("T")[0],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element[
-                                                                "LEAVE_TYPE"],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Text(
-                                                            element[
-                                                                "APRVL_FNL_STS_TYPE"],
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey
-                                                                    .shade900,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ))
-                                              .toList(),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                    )),
+                //Movement section////
 
                 SizedBox(
                   height: 20,
@@ -2347,7 +2440,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                           },
                           child: Obx(() => controller.isShortLeaveLoading.value
                               ? SpinKitThreeBounce(
-                                  color: AppColors.modernPurple,
+                                  color: AppColors.modernGreen,
                                 )
                               : Container(
                                   height: 40,

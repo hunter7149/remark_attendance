@@ -11,6 +11,15 @@ import '../../../api/repository/repository.dart';
 import '../../../api/service/connection_checker.dart';
 
 class AttendancescreenController extends GetxController {
+  ScrollController scrollController = ScrollController();
+  scrollToLast() {
+    scrollController.animateTo(
+      scrollController.position.extentInside,
+      curve: Curves.easeOut,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
   //************************************************Movement codes starts************************************************//
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(Duration(days: 1));
@@ -683,6 +692,7 @@ class AttendancescreenController extends GetxController {
                 "title": "CHECKED IN",
                 "time": "${bindedData['startDate']}",
                 "mode": "ONLINE",
+                "date": DateTime.now().toString().split(" ")[0],
               };
               latestActivity.refresh;
               Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
@@ -737,6 +747,7 @@ class AttendancescreenController extends GetxController {
       "title": "CHECKED IN",
       "time": "${bindedData['startDate']}",
       "mode": "OFFLINE",
+      "date": DateTime.now().toString().split(" ")[0],
     };
     latestActivity.refresh;
     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
@@ -760,6 +771,7 @@ class AttendancescreenController extends GetxController {
       "title": "CHECKED OUT",
       "time": "${bindedData['startDate']}",
       "mode": "OFFLINE",
+      "date": DateTime.now().toString().split(" ")[0],
     };
     latestActivity.refresh;
     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
@@ -829,6 +841,7 @@ class AttendancescreenController extends GetxController {
               "title": "CHECKED OUT",
               "time": "${bindedData['startDate']}",
               "mode": "ONLINE",
+              "date": DateTime.now().toString().split(" ")[0],
             };
             latestActivity.refresh;
             Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
@@ -954,9 +967,53 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
-  initAttendance() {
-    String attnActivity = attendanceHistory[0]['ATTN_DAY_STS_TYPE'];
+  resetActivityDaily() {
+    Map<String, dynamic> data = Pref.readData(key: Pref.LATEST_CHECK) ?? {};
+    if (data.isNotEmpty) {
+      DateTime recievedDate = DateTime.parse(data['date']);
+      DateTime currentDate =
+          DateTime.parse(DateTime.now().toString().split(" ")[0]);
+      if (recievedDate.isBefore(currentDate)) {
+        print(
+            "[----------------------------Check in/out button reseted to default !--------------------]");
+        isCheckedInUpdater(value: false);
+      }
+    }
   }
+  // initAttendance() {
+  //   String attnActivity = attendanceHistory[0]['ATTN_DAY_STS_TYPE'];
+  //   if (attnActivity == "IN") {
+  //     Pref.writeData(key: Pref.CHECKED_IN, value: true);
+  //     isCheckedInUpdater(value: true);
+  //     lastCheckInUpdater(
+  //         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+  //     isCheckingInOut.value = false;
+  //     latestActivity.clear();
+  //     latestActivity.value = {
+  //       "title": "CHECKED IN",
+  //       "time": "${attendanceHistory[0]['IN_TIME']}",
+  //       "mode": "ONLINE",
+  //     };
+  //     latestActivity.refresh();
+  //     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
+  //     update();
+  //   } else if (attnActivity == "OUT") {
+  //     Pref.writeData(key: Pref.CHECKED_IN, value: false);
+  //     isCheckedInUpdater(value: false);
+  //     lastCheckInUpdater(
+  //         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
+  //     isCheckingInOut.value = false;
+  //     latestActivity.clear();
+  //     latestActivity.value = {
+  //       "title": "CHECKED OUT",
+  //       "time": "${attendanceHistory[0]['OUT_TIME']}",
+  //       "mode": "ONLINE",
+  //     };
+  //     latestActivity.refresh;
+  //     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
+  //     update();
+  //   }
+  // }
 
   RxDouble lattitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
@@ -1013,17 +1070,21 @@ class AttendancescreenController extends GetxController {
 
   checkLatest() {
     latestActivity.value = Pref.readData(key: Pref.LATEST_CHECK) ?? {};
+
     update();
   }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     isCheckedInUpdater(value: Pref.readData(key: Pref.CHECKED_IN) ?? false);
     getlocation();
-    requestPersonalAttendance();
+    await requestPersonalAttendance();
+
     CheckInOutSync();
-    checkLatest();
+    // initAttendance();
+    await checkLatest();
+    await resetActivityDaily();
     requestHistory();
     requesMovmenttHistory();
   }
