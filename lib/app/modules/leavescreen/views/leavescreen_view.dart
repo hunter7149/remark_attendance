@@ -21,7 +21,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: COMMONWIDGET.globalAppBar(
-            leadingIcon: FontAwesomeIcons.calendar,
+            leadingIcon: Icons.arrow_back,
             tittle: "Leaves Management",
             backFunction: () {
               Get.back();

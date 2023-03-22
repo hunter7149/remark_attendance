@@ -1,5 +1,6 @@
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -170,22 +171,25 @@ class COMMONWIDGET {
       leadingWidth: 25,
       title: Text(tittle),
       actions: [
-        IconButton(
-          icon: Icon(Icons.arrow_back),
-          // Image.asset("assets/images/back_arrow.jpg"),
-          color: backIconColor ?? Colors.grey.shade700,
-          tooltip: 'Comment Icon',
-          onPressed: backFunction,
-        ), //IconButton
+        // IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   // Image.asset("assets/images/back_arrow.jpg"),
+        //   color: backIconColor ?? Colors.grey.shade700,
+        //   tooltip: 'Comment Icon',
+        //   onPressed: backFunction,
+        // ), //IconButton
         //IconButton
       ], //<Widget>[]
       // backgroundColor: Colors.greenAccent[400],
       // elevation: 50.0,
       leading: IconButton(
-        icon: Icon(leadingIcon ?? Icons.menu),
+        icon: Icon(leadingIcon ?? Icons.arrow_back),
         tooltip: 'Menu Icon',
         color: Colors.grey.shade700,
-        onPressed: leadingFunction ?? () {},
+        onPressed: leadingFunction ??
+            () {
+              Get.back();
+            },
       ),
     );
   }

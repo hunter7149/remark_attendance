@@ -21,7 +21,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: COMMONWIDGET.globalAppBar(
-            leadingIcon: FontAwesomeIcons.clock,
+            leadingIcon: Icons.arrow_back,
             tittle: "Attendance Management",
             backFunction: () {
               Get.back();
@@ -171,49 +171,66 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      "  ${element["ATTN_DATE"]}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "  ${element["ATTN_DATE"]}",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      "${element["IN_TIME"]}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${element["IN_TIME"]}",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      "${element["OUT_TIME"]}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${element["OUT_TIME"]}",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      "${element["ATTN_DAY_STS_TYPE"]}",
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                          fontWeight:
-                                                              FontWeight.w500),
+                                                    Expanded(
+                                                      child: Text(
+                                                        "${element["ATTN_DAY_STS_TYPE"]}",
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color:
+                                                                "${element["ATTN_DAY_STS_TYPE"]}" ==
+                                                                        "LATE"
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                        .grey
+                                                                        .shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -504,7 +521,13 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                     height: 80,
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     width: double.maxFinite,
-                    color: AppColors.modernPurple,
+                    // color: AppColors.modernPurple,
+                    decoration: BoxDecoration(
+                        // border: Border.all(
+                        //   width: 0.8,
+                        //   color: Colors.white,
+                        // ),
+                        color: AppColors.modernPurple),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -524,12 +547,23 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               textAlign: TextAlign.start,
                             ),
                           ),
+                          Icon(
+                            Icons.touch_app,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   collapsed: Container(),
                   expanded: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 17),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          border: Border.all(
+                              width: 1, color: AppColors.modernPurple)),
 
                       // height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
@@ -548,10 +582,11 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                     padding: EdgeInsets.all(10),
                                     // margin: EdgeInsets.symmetric(horizontal: 16),
                                     decoration: BoxDecoration(
-                                        color: AppColors.modernPurple,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10))),
+                                      color: AppColors.modernPurple,
+                                      // borderRadius: BorderRadius.only(
+                                      //     topLeft: Radius.circular(10),
+                                      //     topRight: Radius.circular(10))
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -651,59 +686,68 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                       horizontal: 10,
                                                       vertical: 10),
                                                   decoration: BoxDecoration(
-                                                      color: AppColors
-                                                          .modernPurple,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(10),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      10))),
+                                                    color:
+                                                        AppColors.modernPurple,
+                                                    // borderRadius:
+                                                    //     BorderRadius.only(
+                                                    //         topLeft: Radius
+                                                    //             .circular(10),
+                                                    //         topRight: Radius
+                                                    //             .circular(
+                                                    //                 10))
+                                                  ),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        "On date",
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            color: Colors
-                                                                .grey.shade100,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Entry date",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Colors.grey
+                                                                  .shade100,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        "Start date",
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            color: Colors
-                                                                .grey.shade100,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "On date",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Colors.grey
+                                                                  .shade100,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        "Leave type",
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            color: Colors
-                                                                .grey.shade100,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Leave type",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Colors.grey
+                                                                  .shade100,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        "Status",
-                                                        style: TextStyle(
-                                                            fontSize: 18,
-                                                            color: Colors
-                                                                .grey.shade100,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w500),
+                                                      Expanded(
+                                                        child: Text(
+                                                          "Status",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              color: Colors.grey
+                                                                  .shade100,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
@@ -825,12 +869,23 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                               textAlign: TextAlign.start,
                             ),
                           ),
+                          Icon(
+                            Icons.touch_app,
+                            color: Colors.white,
+                          ),
                         ],
                       ),
                     ),
                   ),
                   collapsed: Container(),
                   expanded: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 17),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                          border: Border.all(
+                              width: 1, color: AppColors.modernGreen)),
                       width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
                         child: Column(
@@ -846,10 +901,11 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                     padding: EdgeInsets.all(10),
                                     // margin: EdgeInsets.symmetric(horizontal: 16),
                                     decoration: BoxDecoration(
-                                        color: AppColors.modernGreen,
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10))),
+                                      color: AppColors.modernGreen,
+                                      // borderRadius: BorderRadius.only(
+                                      //     topLeft: Radius.circular(10),
+                                      //     topRight: Radius.circular(10))
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -946,15 +1002,16 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                       horizontal: 10,
                                                       vertical: 10),
                                                   decoration: BoxDecoration(
-                                                      color:
-                                                          AppColors.modernGreen,
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(10),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      10))),
+                                                    color:
+                                                        AppColors.modernGreen,
+                                                    // borderRadius:
+                                                    //     BorderRadius.only(
+                                                    //         topLeft: Radius
+                                                    //             .circular(10),
+                                                    //         topRight: Radius
+                                                    //             .circular(
+                                                    //                 10))
+                                                  ),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -1064,6 +1121,9 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                               ],
                                             ),
                                 )),
+                            SizedBox(
+                              height: 20,
+                            ),
                           ],
                         ),
                       )),

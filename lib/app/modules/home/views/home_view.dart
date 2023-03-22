@@ -35,11 +35,11 @@ class HomeView extends GetView<HomeController> {
           // ),
           elevation: 0,
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          title: Text(
-            'Dashboard',
-            style: TextStyle(color: Colors.grey.shade600),
-          ),
+          backgroundColor: AppColors.modernBlue,
+          // title: Text(
+          //   'Dashboard',
+          //   style: TextStyle(color: Colors.grey.shade100),
+          // ),
           centerTitle: true,
           actions: [
             ZoomTapAnimation(
@@ -50,18 +50,21 @@ class HomeView extends GetView<HomeController> {
                 children: [
                   Text(
                     "Sign out",
-                    style: TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.white),
                   ),
                   Container(
                     margin: EdgeInsets.all(10),
                     padding: EdgeInsets.all(7),
                     decoration: BoxDecoration(
+                        color: AppColors.modernSexyRed,
                         borderRadius: BorderRadius.circular(100),
                         border: Border.all(
-                            width: 0.7, color: Colors.grey.shade600)),
+                          width: 0.7,
+                          color: AppColors.modernSexyRed,
+                        )),
                     child: Icon(
                       Icons.logout_rounded,
-                      color: Colors.grey.shade700,
+                      color: Colors.white,
                       size: 20,
                     ),
                   ),
@@ -72,11 +75,11 @@ class HomeView extends GetView<HomeController> {
         ),
         body: SafeArea(
             child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          // padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(children: [
-            SizedBox(
-              height: 20,
-            ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             //-------------------Profile Section-----------------//
             Obx(
               () => controller.userProfile.isEmpty
@@ -84,11 +87,13 @@ class HomeView extends GetView<HomeController> {
                   : Container(
                       width: double.maxFinite,
                       // height: 400,
-                      padding: EdgeInsets.all(24),
+                      padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.modernDeepSea,
+                        color: AppColors.modernBlue,
                         // color: Colors.grey.shade100,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(50),
+                            bottomRight: Radius.circular(50)),
 
                         // border: Border.all(width: 0.5, color: Colors.grey.shade400)
                       ),
@@ -112,7 +117,10 @@ class HomeView extends GetView<HomeController> {
                                       placeholder: (context, url) => Center(
                                           child: CircularProgressIndicator()),
                                       errorWidget: (context, url, error) =>
-                                          Image.asset('assets/logo/user.png'),
+                                          Image.asset(
+                                        'assets/logo/user.png',
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -204,32 +212,34 @@ class HomeView extends GetView<HomeController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              // ZoomTapAnimation(
-                              //   onTap: () {
-                              //     Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                              //         arguments: controller.userInfo);
-                              //   },
-                              //   onLongTap: () {
-                              //     Get.toNamed(Routes.PROFILEEDITSCREEN,
-                              //         arguments: controller.userInfo);
-                              //   },
-                              //   child: Container(
-                              //     height: 40,
-                              //     width: 100,
-                              //     decoration: BoxDecoration(
-                              //         color: AppColors.modernCoral,
-                              //         borderRadius: BorderRadius.circular(8)),
-                              //     child: Center(
-                              //       child: Text(
-                              //         "Details",
-                              //         style: TextStyle(
-                              //             fontSize: 16,
-                              //             color: Colors.grey.shade100,
-                              //             fontWeight: FontWeight.w500),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // )
+                              ZoomTapAnimation(
+                                onTap: () {
+                                  Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                                      arguments: controller.userInfo);
+                                },
+                                onLongTap: () {
+                                  Get.toNamed(Routes.PROFILEEDITSCREEN,
+                                      arguments: controller.userInfo);
+                                },
+                                child: Container(
+                                  height: 40,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.modernRed,
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(50),
+                                          topLeft: Radius.circular(50))),
+                                  child: Center(
+                                    child: Text(
+                                      "Details",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.grey.shade100,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
                           )
                         ],
@@ -252,6 +262,7 @@ class HomeView extends GetView<HomeController> {
             Expanded(
               flex: 3,
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 // height: MediaQuery.of(context).size.height / 1.5,
                 child: GridView.count(
                     //scrollDirection: Axis.vertical,

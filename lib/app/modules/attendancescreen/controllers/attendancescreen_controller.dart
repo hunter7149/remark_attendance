@@ -1,4 +1,5 @@
 import 'package:attendance/app/api/service/prefrences.dart';
+import 'package:attendance/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' as gcode;
 import 'package:get/get.dart';
@@ -306,13 +307,22 @@ class AttendancescreenController extends GetxController {
         update();
         await Repository()
             .requestHitory(body: {"leaveType": "TOUR"}).then((value) {
-          if (value["value"] != [] || value["value"] != null) {
+          if (value["value"] != [] &&
+              value["value"] != null &&
+              value["value"] != "") {
             mleaveHistory.clear();
             mleaveHistory.value = value['value'] ?? [];
             mleaveHistory.refresh();
             update();
             ismLeaveHistory.value = false;
             update();
+          } else {
+            if (value['result']
+                .toString()
+                .contains("Username And password Not")) {
+              Get.put(HomeController());
+              Get.find<HomeController>().requestSignOut();
+            }
           }
         });
       } on Exception catch (e) {
@@ -589,13 +599,22 @@ class AttendancescreenController extends GetxController {
         update();
         await Repository()
             .requestHitory(body: {"leaveType": "SPL"}).then((value) {
-          if (value["value"] != [] || value["value"] != null) {
+          if (value["value"] != [] &&
+              value["value"] != null &&
+              value["value"] != "") {
             leaveHistory.clear();
             leaveHistory.value = value['value'] ?? [];
             leaveHistory.refresh();
             update();
             isLeaveHistory.value = false;
             update();
+          } else {
+            if (value['result']
+                .toString()
+                .contains("Username And password Not")) {
+              Get.put(HomeController());
+              Get.find<HomeController>().requestSignOut();
+            }
           }
         });
       } on Exception catch (e) {
@@ -653,6 +672,12 @@ class AttendancescreenController extends GetxController {
         "leaveType": "IN",
         "remarks": "",
         "reason": "",
+        // "empLocation": "Simpletree Anarkali,Gulshan,Dhaka-1212",
+        // "isPass": 0,
+        // "empCode": "",
+        // "resMobile": 0,
+        // "longitude": 90.4165467,
+        // "latitude": 23.7868417,
         "empLocation": "${address.value}",
         "isPass": 0,
         "empCode": "",
@@ -803,6 +828,12 @@ class AttendancescreenController extends GetxController {
         "leaveType": "OUT",
         "remarks": "",
         "reason": "",
+        //         "empLocation": "Simpletree Anarkali,Gulshan,Dhaka-1212",
+        // "isPass": 0,
+        // "empCode": "",
+        // "resMobile": 0,
+        // "longitude": 90.4165467,
+        // "latitude": 23.7868417,
         "empLocation": "${address.value}",
         "isPass": 0,
         "empCode": "",
@@ -947,10 +978,14 @@ class AttendancescreenController extends GetxController {
       await Repository()
           .getPersonalAttendance(employeeId: userId)
           .then((value) {
+        if (value['result'].toString().contains("Username And password Not")) {
+          Get.put(HomeController());
+          Get.find<HomeController>().requestSignOut();
+        }
         print("Recieved personal attendance ---->${value["value"]}");
         attendanceHistory.clear();
-        attendanceHistory.value = value["value"] == [] ||
-                value["value"] == null ||
+        attendanceHistory.value = value["value"] == [] &&
+                value["value"] == null &&
                 value["value"] == ""
             ? []
             : value["value"];
@@ -1085,8 +1120,8 @@ class AttendancescreenController extends GetxController {
     // initAttendance();
     await checkLatest();
     await resetActivityDaily();
-    requestHistory();
-    requesMovmenttHistory();
+    await requestHistory();
+    await requesMovmenttHistory();
   }
 
   @override
