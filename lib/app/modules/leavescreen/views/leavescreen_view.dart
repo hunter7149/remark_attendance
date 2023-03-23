@@ -631,8 +631,10 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                     lastDate: DateTime(2100),
                                     // dateLabelText: 'Date',
                                     onChanged: (val) {
-                                      controller.dateChanger(value: val);
+                                      controller.startDate =
+                                          DateTime.parse(val);
                                       controller.daysCounter();
+                                      // controller.dateChanger(value: val);
                                     },
                                     validator: (val) {
                                       print(val);

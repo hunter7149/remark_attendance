@@ -87,7 +87,7 @@ class LeavescreenController extends GetxController {
       startDate = endDate;
       endDate = tempDate;
       Duration difference = endDate.difference(startDate);
-      int daysBetween = difference.inDays + 2; // add 1 to include both dates
+      int daysBetween = difference.inDays + 1; // add 1 to include both dates
 
       numberOfDays.text = daysBetween.toString();
       daytimereseter();
@@ -99,9 +99,13 @@ class LeavescreenController extends GetxController {
       numberOfDays.text = daysBetween.toString();
       daytimereseter();
       update();
+    } else if (startDate.add(Duration(days: 1)) == endDate) {
+      numberOfDays.text = 2.toString();
+      daytimereseter();
+      update();
     } else {
       Duration difference = endDate.difference(startDate);
-      int daysBetween = difference.inDays + 2; // add 1 to include both dates
+      int daysBetween = difference.inDays + 1; // add 1 to include both dates
 
       numberOfDays.text = daysBetween.toString();
       daytimereseter();

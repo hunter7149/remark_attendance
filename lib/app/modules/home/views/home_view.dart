@@ -291,9 +291,9 @@ class HomeView extends GetView<HomeController> {
                       menuItem(
                           icon: FontAwesomeIcons.tasks,
                           color: Colors.indigo,
-                          notification: true,
+                          notification: false,
                           title: "Tasks",
-                          valid: true,
+                          valid: false,
                           function: () async {
                             Get.toNamed(Routes.TASKSCREEN);
                           }),
