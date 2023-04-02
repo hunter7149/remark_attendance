@@ -16,6 +16,7 @@ abstract class Routes {
   static const PROFILEVIEWSCREEN = _Paths.PROFILEVIEWSCREEN;
   static const PROFILEEDITSCREEN = _Paths.PROFILEEDITSCREEN;
   static const PERSONALINFO = _Paths.PERSONALINFO;
+  static const APROVALREQUESTLISTSCREEN = _Paths.APROVALREQUESTLISTSCREEN;
 }
 
 abstract class _Paths {
@@ -33,4 +34,5 @@ abstract class _Paths {
   static const PROFILEVIEWSCREEN = '/profileviewscreen';
   static const PROFILEEDITSCREEN = '/profileeditscreen';
   static const PERSONALINFO = '/personalinfo';
+  static const APROVALREQUESTLISTSCREEN = '/aprovalrequestlistscreen';
 }

@@ -297,15 +297,15 @@ class HomeView extends GetView<HomeController> {
                           function: () async {
                             Get.toNamed(Routes.TASKSCREEN);
                           }),
-                      // menuItem(
-                      //     icon: Icons.payments,
-                      //     color: Colors.green,
-                      //     notification: false,
-                      //     title: "Payments",
-                      //     valid: true,
-                      //     function: () async {
-                      //       Get.toNamed(Routes.PAYMENTSCREEN);
-                      //     }),
+                      menuItem(
+                          icon: Icons.approval_rounded,
+                          color: Colors.green,
+                          notification: false,
+                          title: "Approvals",
+                          valid: true,
+                          function: () async {
+                            Get.toNamed(Routes.APPROVALSCREEN);
+                          }),
                     ]),
               ),
             ),

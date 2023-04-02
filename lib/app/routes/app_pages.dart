@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/approvalscreen/bindings/approvalscreen_binding.dart';
 import '../modules/approvalscreen/views/approvalscreen_view.dart';
+import '../modules/aprovalrequestlistscreen/bindings/aprovalrequestlistscreen_binding.dart';
+import '../modules/aprovalrequestlistscreen/views/aprovalrequestlistscreen_view.dart';
 import '../modules/attendancescreen/bindings/attendancescreen_binding.dart';
 import '../modules/attendancescreen/views/attendancescreen_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -99,6 +101,11 @@ class AppPages {
       name: _Paths.PERSONALINFO,
       page: () => const PersonalinfoView(),
       binding: PersonalinfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.APROVALREQUESTLISTSCREEN,
+      page: () => const AprovalrequestlistscreenView(),
+      binding: AprovalrequestlistscreenBinding(),
     ),
   ];
 }

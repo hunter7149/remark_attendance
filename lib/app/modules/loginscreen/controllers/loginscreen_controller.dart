@@ -57,7 +57,7 @@ class LoginscreenController extends GetxController {
             } else {
               isLogingIn.value = false;
               update();
-              Get.snackbar("Failed", "Check username and password",
+              Get.snackbar("Failed", "${value['result'] ?? "Try again"}",
                   colorText: Colors.white,
                   backgroundColor: Colors.red,
                   snackPosition: SnackPosition.BOTTOM);
