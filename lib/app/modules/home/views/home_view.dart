@@ -293,7 +293,7 @@ class HomeView extends GetView<HomeController> {
                           color: Colors.indigo,
                           notification: false,
                           title: "Tasks",
-                          valid: false,
+                          valid: true,
                           function: () async {
                             Get.toNamed(Routes.TASKSCREEN);
                           }),

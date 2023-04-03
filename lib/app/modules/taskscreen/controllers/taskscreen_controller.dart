@@ -5,8 +5,8 @@ class TaskscreenController extends GetxController {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
   TextEditingController numberOfDays = TextEditingController(text: "1");
-  TextEditingController reasonOfLeave = TextEditingController();
-  TextEditingController addressDuringLeave = TextEditingController();
+  TextEditingController assignment = TextEditingController();
+  TextEditingController specialRemark = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
 
   dateChanger({required String value}) {
@@ -53,10 +53,27 @@ class TaskscreenController extends GetxController {
   }
 
   RxString dropdownPriorityTypeValue = 'High'.obs;
-  RxList<String> priorityType = <String>['High', 'Urgent', 'Normal'].obs;
+  RxList<String> priorityType = <String>['High', 'Low', 'Normal'].obs;
   DropdownPriorityTypeValueUpdater(String type) {
     dropdownPriorityTypeValue.value = type;
 
+    update();
+  }
+
+  RxString dropdownReportingEmpValue = 'Mohammad Khalid Bin Oalid'.obs;
+  RxString dropdownEmployeeTypeValue = 'Mohammad Khalid Bin Oalid'.obs;
+  RxList<String> employeeList = <String>[
+    'Mohammad Khalid Bin Oalid',
+    'Amit Kumar Basu',
+    'Ahsan Habib'
+  ].obs;
+  DropdownEmployeeValueUpdater(String type) {
+    dropdownEmployeeTypeValue.value = type;
+    update();
+  }
+
+  DropdownReportingValueUpdater(String type) {
+    dropdownReportingEmpValue.value = type;
     update();
   }
 
@@ -71,6 +88,7 @@ class TaskscreenController extends GetxController {
       "taskDeadline": "10-03-2023",
       "taskStatus": "Assigned",
       "taskPriority": "high",
+      "subtask": []
     },
     {
       "taskId": 102,
@@ -81,6 +99,30 @@ class TaskscreenController extends GetxController {
       "taskDeadline": "10-03-2023",
       "taskStatus": "Assigned",
       "taskPriority": "normal",
+      "subtask": [
+        {
+          "taskId": 102,
+          "taskTitle": "Setup flutter in laptop",
+          "taskDetails": "Setup flutter enviroment in laptop",
+          "taskProvider": "Abul Bashar Howlader",
+          "taskAssignDate": "09-03-2023",
+          "taskDeadline": "10-03-2023",
+          "taskStatus": "Assigned",
+          "taskPriority": "normal",
+          "subtask": []
+        },
+        {
+          "taskId": 102,
+          "taskTitle": "Setup flutter in laptop",
+          "taskDetails": "Setup flutter enviroment in laptop",
+          "taskProvider": "Abul Bashar Howlader",
+          "taskAssignDate": "09-03-2023",
+          "taskDeadline": "10-03-2023",
+          "taskStatus": "Assigned",
+          "taskPriority": "normal",
+          "subtask": []
+        }
+      ]
     }
   ].obs;
 

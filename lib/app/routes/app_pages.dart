@@ -26,6 +26,10 @@ import '../modules/profileviewscreen/bindings/profileviewscreen_binding.dart';
 import '../modules/profileviewscreen/views/profileviewscreen_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
+import '../modules/taskdetailscreen/bindings/taskdetailscreen_binding.dart';
+import '../modules/taskdetailscreen/views/taskdetailscreen_view.dart';
+import '../modules/taskhomescreen/bindings/taskhomescreen_binding.dart';
+import '../modules/taskhomescreen/views/taskhomescreen_view.dart';
 import '../modules/taskscreen/bindings/taskscreen_binding.dart';
 import '../modules/taskscreen/views/taskscreen_view.dart';
 
@@ -106,6 +110,16 @@ class AppPages {
       name: _Paths.APROVALREQUESTLISTSCREEN,
       page: () => const AprovalrequestlistscreenView(),
       binding: AprovalrequestlistscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.TASKDETAILSCREEN,
+      page: () => const TaskdetailscreenView(),
+      binding: TaskdetailscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.TASKHOMESCREEN,
+      page: () => const TaskhomescreenView(),
+      binding: TaskhomescreenBinding(),
     ),
   ];
 }

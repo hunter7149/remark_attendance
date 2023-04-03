@@ -17,6 +17,8 @@ abstract class Routes {
   static const PROFILEEDITSCREEN = _Paths.PROFILEEDITSCREEN;
   static const PERSONALINFO = _Paths.PERSONALINFO;
   static const APROVALREQUESTLISTSCREEN = _Paths.APROVALREQUESTLISTSCREEN;
+  static const TASKDETAILSCREEN = _Paths.TASKDETAILSCREEN;
+  static const TASKHOMESCREEN = _Paths.TASKHOMESCREEN;
 }
 
 abstract class _Paths {
@@ -35,4 +37,6 @@ abstract class _Paths {
   static const PROFILEEDITSCREEN = '/profileeditscreen';
   static const PERSONALINFO = '/personalinfo';
   static const APROVALREQUESTLISTSCREEN = '/aprovalrequestlistscreen';
+  static const TASKDETAILSCREEN = '/taskdetailscreen';
+  static const TASKHOMESCREEN = '/taskhomescreen';
 }

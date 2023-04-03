@@ -1,19 +1,19 @@
 PODS:
   - device_info (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (10.7.0):
-    - FirebaseCore (= 10.7.0)
-  - Firebase/Messaging (10.7.0):
+  - Firebase/CoreOnly (10.3.0):
+    - FirebaseCore (= 10.3.0)
+  - Firebase/Messaging (10.3.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 10.7.0)
-  - firebase_core (2.9.0):
-    - Firebase/CoreOnly (= 10.7.0)
+    - FirebaseMessaging (~> 10.3.0)
+  - firebase_core (2.7.0):
+    - Firebase/CoreOnly (= 10.3.0)
     - Flutter
-  - firebase_messaging (14.4.0):
-    - Firebase/Messaging (= 10.7.0)
+  - firebase_messaging (14.2.5):
+    - Firebase/Messaging (= 10.3.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (10.7.0):
+  - FirebaseCore (10.3.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
@@ -24,7 +24,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (10.7.0):
+  - FirebaseMessaging (10.3.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
@@ -39,7 +39,7 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - geocoding_ios (1.0.5):
+  - geocoding (1.0.5):
     - Flutter
   - GoogleDataTransport (9.2.1):
     - GoogleUtilities/Environment (~> 7.7)
@@ -87,7 +87,7 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
-  - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
+  - geocoding (from `.symlinks/plugins/geocoding/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
@@ -118,8 +118,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
-  geocoding_ios:
-    :path: ".symlinks/plugins/geocoding_ios/ios"
+  geocoding:
+    :path: ".symlinks/plugins/geocoding/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   package_info_plus:
@@ -133,27 +133,27 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   device_info: d7d233b645a32c40dfdc212de5cf646ca482f175
-  Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
-  firebase_core: d85432877e814811e040e7659f9c82faeab66e04
-  firebase_messaging: 45c0514ca78426630338a42fb7b55af962c7ccd2
-  FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
+  Firebase: f92fc551ead69c94168d36c2b26188263860acd9
+  firebase_core: 128d8c43c3a453a4a67463314fc3761bedff860b
+  firebase_messaging: 8ac28baba96e69a58ad26b4bb5f9ee67c3e5efe2
+  FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: 8845798510aae74703467480f71ac613788d0696
   FirebaseInstallations: 59c0e4c7a816a0f76710d83f77e5369b3e45eb96
-  FirebaseMessaging: ac9062bcc35ed56e15a0241d8fd317022499baf8
+  FirebaseMessaging: e345b219fd15d325f0cf2fef28cb8ce00d851b3f
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  geocoding_ios: a389ea40f6f548de6e63006a2e31bf66ff80769a
+  geocoding: 32cfcdb16d38d907caaba65e2e42ad10d38bee58
   GoogleDataTransport: ea169759df570f4e37bdee1623ec32a7e64e67c4
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
+  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   platform_device_id: 81b3e2993881f87d0c82ef151dc274df4869aef5
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
 
-PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
+PODFILE CHECKSUM: 21b64fbb12492d731c9be90cbe0f2d328bef4b49
 
 COCOAPODS: 1.12.0
