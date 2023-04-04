@@ -102,9 +102,9 @@ class TaskscreenController extends GetxController {
       "subtask": [
         {
           "taskId": 102,
-          "taskTitle": "Setup flutter in laptop",
-          "taskDetails": "Setup flutter enviroment in laptop",
-          "taskProvider": "Abul Bashar Howlader",
+          "taskTitle": "Task 2",
+          "taskDetails": "Destroy Russia",
+          "taskProvider": "Joe Biden",
           "taskAssignDate": "09-03-2023",
           "taskDeadline": "10-03-2023",
           "taskStatus": "Assigned",
@@ -112,15 +112,27 @@ class TaskscreenController extends GetxController {
           "subtask": []
         },
         {
-          "taskId": 102,
-          "taskTitle": "Setup flutter in laptop",
-          "taskDetails": "Setup flutter enviroment in laptop",
-          "taskProvider": "Abul Bashar Howlader",
+          "taskId": 103,
+          "taskTitle": "Task 3",
+          "taskDetails": "Destroy America",
+          "taskProvider": "Vladimir putin",
           "taskAssignDate": "09-03-2023",
           "taskDeadline": "10-03-2023",
           "taskStatus": "Assigned",
           "taskPriority": "normal",
-          "subtask": []
+          "subtask": [
+            {
+              "taskId": 102,
+              "taskTitle": "Task 2",
+              "taskDetails": "Destroy Russia",
+              "taskProvider": "Joe Biden",
+              "taskAssignDate": "09-03-2023",
+              "taskDeadline": "10-03-2023",
+              "taskStatus": "Assigned",
+              "taskPriority": "normal",
+              "subtask": []
+            },
+          ]
         }
       ]
     }

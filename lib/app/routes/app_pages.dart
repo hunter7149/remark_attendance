@@ -113,7 +113,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TASKDETAILSCREEN,
-      page: () => const TaskdetailscreenView(),
+      page: () => TaskdetailscreenView(),
       binding: TaskdetailscreenBinding(),
     ),
     GetPage(

@@ -5,15 +5,31 @@ class TaskdetailscreenController extends GetxController {
   RxList<Map<String, dynamic>> subtask = <Map<String, dynamic>>[{}].obs;
   initData({required dynamic data}) {
     taskInfo.clear();
-    taskInfo.value = data;
+    taskInfo.value = data ?? {} as Map<String, dynamic>;
 
     taskInfo.refresh();
-    if (taskInfo.isEmpty) {
+    if (taskInfo.isNotEmpty) {
+      subtask.clear();
+      subtask.value = taskInfo['subtask']?.cast<Map<String, dynamic>>() ?? [{}];
+
+      subtask.refresh();
+      update();
+    } else {
       Get.back();
     }
-    subtask.clear();
-    subtask.value = taskInfo['subtask'] as List<Map<String, dynamic>> ?? [];
-    subtask.refresh();
+  }
+
+  newDataSetter({required int index}) {
+    taskInfo.clear();
+    taskInfo.value = subtask[index];
+    taskInfo.refresh();
+    if (taskInfo.isNotEmpty) {
+      subtask.clear();
+      print(taskInfo['subtask'].runtimeType);
+      subtask.value = taskInfo['subtask']?.cast<Map<String, dynamic>>() ?? [{}];
+
+      subtask.refresh();
+    }
     update();
   }
 
