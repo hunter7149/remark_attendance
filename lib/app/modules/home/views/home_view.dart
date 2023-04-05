@@ -212,34 +212,34 @@ class HomeView extends GetView<HomeController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              ZoomTapAnimation(
-                                onTap: () {
-                                  Get.toNamed(Routes.PROFILEVIEWSCREEN,
-                                      arguments: controller.userInfo);
-                                },
-                                onLongTap: () {
-                                  Get.toNamed(Routes.PROFILEEDITSCREEN,
-                                      arguments: controller.userInfo);
-                                },
-                                child: Container(
-                                  height: 40,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                      color: AppColors.modernRed,
-                                      borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(50),
-                                          topLeft: Radius.circular(50))),
-                                  child: Center(
-                                    child: Text(
-                                      "Details",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.grey.shade100,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                              )
+                              // ZoomTapAnimation(
+                              //   onTap: () {
+                              //     Get.toNamed(Routes.PROFILEVIEWSCREEN,
+                              //         arguments: controller.userInfo);
+                              //   },
+                              //   onLongTap: () {
+                              //     Get.toNamed(Routes.PROFILEEDITSCREEN,
+                              //         arguments: controller.userInfo);
+                              //   },
+                              //   child: Container(
+                              //     height: 40,
+                              //     width: 100,
+                              //     decoration: BoxDecoration(
+                              //         color: AppColors.modernRed,
+                              //         borderRadius: BorderRadius.only(
+                              //             bottomRight: Radius.circular(50),
+                              //             topLeft: Radius.circular(50))),
+                              //     child: Center(
+                              //       child: Text(
+                              //         "Details",
+                              //         style: TextStyle(
+                              //             fontSize: 16,
+                              //             color: Colors.grey.shade100,
+                              //             fontWeight: FontWeight.w500),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           )
                         ],
@@ -288,24 +288,24 @@ class HomeView extends GetView<HomeController> {
                           function: () async {
                             Get.toNamed(Routes.LEAVESCREEN);
                           }),
-                      menuItem(
-                          icon: FontAwesomeIcons.tasks,
-                          color: Colors.indigo,
-                          notification: false,
-                          title: "Tasks",
-                          valid: true,
-                          function: () async {
-                            Get.toNamed(Routes.TASKSCREEN);
-                          }),
-                      menuItem(
-                          icon: Icons.approval_rounded,
-                          color: Colors.green,
-                          notification: false,
-                          title: "Approvals",
-                          valid: true,
-                          function: () async {
-                            Get.toNamed(Routes.APPROVALSCREEN);
-                          }),
+                      // menuItem(
+                      //     icon: FontAwesomeIcons.tasks,
+                      //     color: Colors.indigo,
+                      //     notification: false,
+                      //     title: "Tasks",
+                      //     valid: true,
+                      //     function: () async {
+                      //       Get.toNamed(Routes.TASKSCREEN);
+                      //     }),
+                      // menuItem(
+                      //     icon: Icons.approval_rounded,
+                      //     color: Colors.green,
+                      //     notification: false,
+                      //     title: "Approvals",
+                      //     valid: true,
+                      //     function: () async {
+                      //       Get.toNamed(Routes.APPROVALSCREEN);
+                      // }),
                     ]),
               ),
             ),

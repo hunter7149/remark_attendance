@@ -7,8 +7,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class LeavescreenController extends GetxController {
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.now();
   TextEditingController numberOfDays = TextEditingController(text: "1");
   TextEditingController reasonOfLeave = TextEditingController();
   TextEditingController addressDuringLeave = TextEditingController();
@@ -80,6 +78,9 @@ class LeavescreenController extends GetxController {
     update();
   }
 
+  DateTime startDate = DateTime.parse(DateTime.now().toString().split(" ")[0]);
+
+  DateTime endDate = DateTime.parse(DateTime.now().toString().split(" ")[0]);
   void daysCounter() {
     if (endDate.isBefore(startDate)) {
       // Swap the start and end dates
@@ -91,34 +92,33 @@ class LeavescreenController extends GetxController {
 
       numberOfDays.text = daysBetween.toString();
       daytimereseter();
-      update();
-    } else if (endDate.isAtSameMomentAs(startDate)) {
+    } else if ((endDate.toString().split(" ")[0]) ==
+        (startDate.toString().split(" ")[0])) {
       Duration difference = endDate.difference(startDate);
       int daysBetween = 1; // add 1 to include both dates
 
       numberOfDays.text = daysBetween.toString();
       daytimereseter();
-      update();
-    } else if (startDate.add(Duration(days: 1)) == endDate) {
+    } else if (startDate.add(Duration(days: 1)).toString().split(" ")[0] ==
+        endDate.toString().split(" ")[0]) {
       numberOfDays.text = 2.toString();
       daytimereseter();
-      update();
     } else {
       Duration difference = endDate.difference(startDate);
       int daysBetween = difference.inDays + 1; // add 1 to include both dates
 
       numberOfDays.text = daysBetween.toString();
       daytimereseter();
-      update();
     }
   }
 
   daytimereseter() {
     if (int.parse(numberOfDays.text) < 1) {
       numberOfDays.text = "1";
+      startDate = DateTime.parse(DateTime.now().toString().split(" ")[0]);
       endDate = startDate.add(Duration(days: 1));
       update();
-    }
+    } else {}
   }
 
   RxBool isLeaveRequest = false.obs;
@@ -273,9 +273,11 @@ class LeavescreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    // startDate = DateTime.now();
     requestLeaveType();
     requestHistory();
     checkHistory();
+    // daysCounter();
   }
 
   @override

@@ -632,7 +632,7 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                     // dateLabelText: 'Date',
                                     onChanged: (val) {
                                       controller.startDate =
-                                          DateTime.parse(val);
+                                          DateTime.parse(val.split(" ")[0]);
                                       controller.daysCounter();
                                       // controller.dateChanger(value: val);
                                     },
@@ -642,7 +642,8 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                     },
                                     onSaved: (val) {
                                       controller.startDate =
-                                          DateTime.parse(val!);
+                                          DateTime.parse(val!.split(" ")[0]);
+                                      controller.daysCounter();
                                       print(controller.startDate);
                                     },
                                   ),
@@ -693,7 +694,8 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                     lastDate: DateTime(2100),
                                     // dateLabelText: 'Date',
                                     onChanged: (val) {
-                                      controller.endDate = DateTime.parse(val);
+                                      controller.endDate =
+                                          DateTime.parse(val.split(" ")[0]);
                                       controller.daysCounter();
                                       print(controller.endDate);
                                     },
@@ -702,7 +704,9 @@ class LeavescreenView extends GetView<LeavescreenController> {
                                       return null;
                                     },
                                     onSaved: (val) {
-                                      controller.endDate = DateTime.parse(val!);
+                                      controller.endDate =
+                                          DateTime.parse(val!.split(" ")[0]);
+                                      controller.daysCounter();
                                       print(controller.endDate);
                                     },
                                   ),
