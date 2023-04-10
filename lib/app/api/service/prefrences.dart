@@ -14,6 +14,7 @@ class Pref {
   static var LATEST_LEAVE = "latest_leave";
   static var LATEST_CHECK = "latest_check";
   static var USER_PROFILE = "user_profile";
+  static var NOTICE_LIST = "notice_list";
 
   static void writeData({required String key, required dynamic value}) =>
       box.write(key, value);

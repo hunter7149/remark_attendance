@@ -1,7 +1,12 @@
+import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/app_colors.dart';
+import 'package:attendance/app/modules/noticescreen/controllers/noticescreen_controller.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class COMMONWIDGET {
@@ -153,6 +158,12 @@ class COMMONWIDGET {
     );
   }
 
+  static Future<String> getVersionNumber() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    return version;
+  }
+
   static globalAppBar(
       {IconData? leadingIcon,
       Color? leadingIconColor,
@@ -192,5 +203,25 @@ class COMMONWIDGET {
             },
       ),
     );
+  }
+
+  static saveNotification(RemoteMessage message) {
+    RxList<Map<String, dynamic>> noticelist = <Map<String, dynamic>>[].obs;
+    noticelist.value = GetStorage().read(Pref.NOTICE_LIST) ?? [];
+    noticelist.refresh();
+    if (message.notification != null) {
+      Map<String, dynamic> data = {
+        "title": message.notification!.title ?? "",
+        "body": message.notification!.body ?? "",
+      };
+
+      noticelist.add(data);
+      noticelist.refresh();
+      // GetStorage().remove(Pref.NOTICE_LIST);
+      GetStorage().write(Pref.NOTICE_LIST, noticelist);
+    }
+    Get.put(NoticescreenController());
+    Get.find<NoticescreenController>().loadNotices();
+    print(noticelist);
   }
 }

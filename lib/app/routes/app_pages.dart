@@ -16,6 +16,9 @@ import '../modules/management/bindings/management_binding.dart';
 import '../modules/management/views/management_view.dart';
 import '../modules/movementscreen/bindings/movementscreen_binding.dart';
 import '../modules/movementscreen/views/movementscreen_view.dart';
+
+import '../modules/noticescreen/bindings/noticescreen_binding.dart';
+import '../modules/noticescreen/views/noticescreen_view.dart';
 import '../modules/paymentscreen/bindings/paymentscreen_binding.dart';
 import '../modules/paymentscreen/views/paymentscreen_view.dart';
 import '../modules/personalinfo/bindings/personalinfo_binding.dart';
@@ -120,6 +123,11 @@ class AppPages {
       name: _Paths.TASKHOMESCREEN,
       page: () => const TaskhomescreenView(),
       binding: TaskhomescreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTICESCREEN,
+      page: () => const NoticescreenView(),
+      binding: NoticescreenBinding(),
     ),
   ];
 }

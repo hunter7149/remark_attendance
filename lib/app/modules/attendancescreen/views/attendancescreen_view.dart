@@ -4,6 +4,7 @@ import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controllers/attendancescreen_controller.dart';
 
@@ -256,7 +258,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                 height: 10,
                                               ),
                                               Text(
-                                                "No data provided!",
+                                                "No attendance history!",
                                                 style: TextStyle(fontSize: 20),
                                               ),
                                               SizedBox(
@@ -670,7 +672,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  "No data provided!",
+                                                  "No short leave history!",
                                                   style:
                                                       TextStyle(fontSize: 20),
                                                 ),
@@ -986,7 +988,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                                   height: 10,
                                                 ),
                                                 Text(
-                                                  "No data provided!",
+                                                  "No movement history!",
                                                   style:
                                                       TextStyle(fontSize: 20),
                                                 ),
@@ -1132,7 +1134,26 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
 
                 SizedBox(
                   height: 20,
-                )
+                ),
+                !kDebugMode
+                    ? ZoomTapAnimation(
+                        onTap: () {
+                          debugConsole(controller: controller);
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColors.modernRed,
+                          ),
+                          child: Center(
+                              child: Text(
+                            "Show",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                        ))
+                    : Container()
               ],
             ),
           ),
@@ -2511,6 +2532,261 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                       borderRadius: BorderRadius.circular(10)),
                                   alignment: Alignment.center,
                                   child: Text("Apply",
+                                      style: TextStyle(color: Colors.white)),
+                                )),
+                        ))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ));
+  }
+
+  static debugConsole({required AttendancescreenController controller}) {
+    return Get.generalDialog(
+        barrierDismissible: false,
+        transitionBuilder: (ctx, anim1, anim2, child) => BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4 * anim1.value,
+                sigmaY: 4 * anim1.value,
+              ),
+              child: FadeTransition(
+                child: child,
+                opacity: anim1,
+              ),
+            ),
+        pageBuilder: (ctx, anim1, anim2) => MediaQuery(
+              data: MediaQuery.of(ctx).copyWith(textScaleFactor: 1.0),
+              child: WillPopScope(
+                onWillPop: () async => false,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Debug data",
+                          style: TextStyle(),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5),
+                          child: Center(
+                              child: Icon(
+                            Icons.close,
+                            color: Colors.red.shade800,
+                            size: 20,
+                          )),
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade200,
+                              borderRadius: BorderRadius.circular(100)),
+                        ),
+                      )
+                    ],
+                  ),
+                  content: Container(
+                    height: MediaQuery.of(Get.context!).size.height / 1.5,
+                    width: double.maxFinite,
+                    child: SingleChildScrollView(
+                        child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: AppColors.modernSexyRed,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Time",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade100,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Longitude",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade100,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Lattitude",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade100,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Name",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.grey.shade100,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //------Dynamic items------//
+                          controller.debugList.length == 0
+                              ? Container(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: Image.asset(
+                                          "assets/images/empty.png",
+                                          fit: BoxFit.cover,
+                                          color: AppColors.modernGreen,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        "No data provided!",
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(
+                                  // height: 300,
+                                  width: double.maxFinite,
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      children: controller.debugList
+                                          .map((element) => Container(
+                                                // margin:
+                                                //     EdgeInsets.symmetric(vertical: 5),
+                                                padding: EdgeInsets.all(10),
+                                                decoration: BoxDecoration(
+                                                    color:
+                                                        Colors.grey.shade200),
+                                                child: Row(
+                                                  // mainAxisAlignment:
+                                                  //     MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        element["time"],
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        element["longitude"]
+                                                            .toString()
+                                                            .split("T")[0],
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        element["lattitude"]
+                                                            .toString()
+                                                            .split("T")[0],
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        element["name"],
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style: TextStyle(
+                                                            fontSize: 8,
+                                                            color: Colors
+                                                                .grey.shade900,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w500),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                          .toList(),
+                                    ),
+                                  ),
+                                ),
+                          //---Buttom curve design---------//
+                          // Container(
+                          //   height: 35,
+                          //   padding: EdgeInsets.all(10),
+                          //   decoration: BoxDecoration(
+                          //       color: AppColors.greyColor,
+                          //       borderRadius: BorderRadius.only(
+                          //           bottomLeft: Radius.circular(10),
+                          //           bottomRight: Radius.circular(10))),
+                          // )
+                        ],
+                      ),
+                    )),
+                  ),
+                  actionsPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  actions: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Obx(() => controller.isShortLeaveLoading.value
+                              ? SpinKitThreeBounce(
+                                  color: AppColors.modernGreen,
+                                )
+                              : Container(
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.modernPurple,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  alignment: Alignment.center,
+                                  child: Text("Hide",
                                       style: TextStyle(color: Colors.white)),
                                 )),
                         ))

@@ -29,6 +29,49 @@
             {
               "client_id": "365464532035-inuf145i75s1sqab111h46uk53mscohv.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "365464532035-6uvjjp71v6kndvicjnmauamqu1tjcd8b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.attendance"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365464532035:android:9b219cab2c06d5f42a90f6",
+        "android_client_info": {
+          "package_name": "com.remark.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "365464532035-inuf145i75s1sqab111h46uk53mscohv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo4OdtFMspqE8Tdp7fJ0uiaDg0qaEDsrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365464532035-inuf145i75s1sqab111h46uk53mscohv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "365464532035-6uvjjp71v6kndvicjnmauamqu1tjcd8b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.attendance"
+              }
             }
           ]
         }

@@ -56,4 +56,9 @@ class Repository extends Providers {
       await tokenBaseApi(
               endPoint: AppUrl.checkInOut, method: Method.POST, map: body)
           .then((value) => value);
+
+  Future<dynamic> checkAppUpdate() async => await commonApiCall(
+      endPoint: AppUrl.checkInOut,
+      method: Method.POST,
+      map: {}).then((value) => value);
 }

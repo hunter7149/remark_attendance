@@ -306,6 +306,15 @@ class HomeView extends GetView<HomeController> {
                       //     function: () async {
                       //       Get.toNamed(Routes.APPROVALSCREEN);
                       // }),
+                      menuItem(
+                          icon: Icons.notifications_active,
+                          color: Colors.deepPurple,
+                          notification: false,
+                          title: "Notices",
+                          valid: true,
+                          function: () async {
+                            Get.toNamed(Routes.NOTICESCREEN);
+                          }),
                     ]),
               ),
             ),

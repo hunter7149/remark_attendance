@@ -1,10 +1,14 @@
+import 'dart:ffi';
+
 import 'package:attendance/app/api/service/prefrences.dart';
+import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class FirebaseService {
   static final FirebaseMessaging _firebaseMessaging =
@@ -38,23 +42,70 @@ class FirebaseService {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        _flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                // color: Colors.blue,
-                importance: Importance.max,
-                priority: Priority.high,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
-                // icon: "@mipmap/ic_launcher",
+        // if (notification.title == "Hi") {
+        //   Get.toNamed(Routes.NOTICESCREEN);
+        // }
+        COMMONWIDGET.saveNotification(message);
+        showDialog(
+          context: Get.context!,
+          builder: (_) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "${message.notification!.title}",
+                    style: TextStyle(),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      child: Center(
+                          child: Icon(
+                        Icons.close,
+                        color: Colors.red.shade800,
+                        size: 20,
+                      )),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(100)),
+                    ),
+                  )
+                ],
               ),
-            ));
+              content: Container(
+                  // height: 300,
+                  width: double.maxFinite,
+                  child: Text("${message.notification!.body}",
+                      style: TextStyle(color: Colors.black))),
+              actionsPadding:
+                  EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              actions: [],
+            );
+          },
+        );
+        // _flutterLocalNotificationsPlugin.show(
+        //     notification.hashCode,
+        //     notification.title,
+        //     notification.body,
+        //     NotificationDetails(
+        //       android: AndroidNotificationDetails(
+        //         channel.id,
+        //         channel.name,
+        //         channelDescription: channel.description,
+        //         // color: Colors.blue,
+        //         importance: Importance.max,
+        //         priority: Priority.high,
+        //         // TODO add a proper drawable resource to android, for now using
+        //         //      one that already exists in example app.
+        //         // icon: "@mipmap/ic_launcher",
+        //       ),
+        //     ));
       }
     });
 
@@ -64,7 +115,7 @@ class FirebaseService {
 
       if (notification != null && android != null) {
         if (notification.title == "Hi") {
-          Get.toNamed(Routes.LEAVESCREEN);
+          Get.toNamed(Routes.NOTICESCREEN);
         }
         showDialog(
             // context: context,
@@ -76,10 +127,6 @@ class FirebaseService {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(notification.body!),
-                      Container(
-                        height: 202,
-                        color: Colors.red,
-                      )
                     ],
                   ),
                 ),
@@ -97,6 +144,7 @@ class FirebaseService {
     // If you're going to use other Firebase services in the background, such as Firestore,
     // make sure you call `initializeApp` before using other Firebase services.
     await Firebase.initializeApp();
+    COMMONWIDGET.saveNotification(message);
     print('Handling a background message ${message.messageId}');
   }
 

@@ -1084,12 +1084,15 @@ class AttendancescreenController extends GetxController {
     );
     _locationData = await location.getLocation();
     // print(_locationData.latitude);
+
     LocationData locationData = _locationData;
     lattitude.value = locationData.latitude ?? 0.0;
     longitude.value = locationData.longitude ?? 0.0;
     update();
-    List<gcode.Placemark> placemarks =
-        await gcode.placemarkFromCoordinates(lattitude.value, longitude.value);
+
+    List<gcode.Placemark> placemarks = await gcode.placemarkFromCoordinates(
+        double.parse(lattitude.value.toStringAsFixed(4)),
+        double.parse(longitude.value.toStringAsFixed(4)));
     address.value = "${placemarks[0].street}" +
         "," +
         "${placemarks[0].subLocality}" +
@@ -1098,6 +1101,14 @@ class AttendancescreenController extends GetxController {
         "-" +
         "${placemarks[0].postalCode}";
     isLocationLoading.value = false;
+    Map<String, dynamic> tempLocation = {
+      "time": DateTime.now().toString().split(" ")[1],
+      "lattitude": "${double.parse(lattitude.value.toStringAsFixed(4))}",
+      "longitude": "${double.parse(longitude.value.toStringAsFixed(4))}",
+      "name": address.value
+    };
+    debugList.add(tempLocation);
+    debugList.refresh();
     update();
     print("${address.value}");
     return locationData;
@@ -1109,6 +1120,11 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
+  //------------Debug module---------------//
+
+  RxList<Map<String, dynamic>> debugList = <Map<String, dynamic>>[].obs;
+
+  runDebugCode() {}
   @override
   Future<void> onInit() async {
     super.onInit();
