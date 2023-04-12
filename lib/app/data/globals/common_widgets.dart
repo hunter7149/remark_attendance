@@ -206,8 +206,11 @@ class COMMONWIDGET {
   }
 
   static saveNotification(RemoteMessage message) {
-    RxList<Map<String, dynamic>> noticelist = <Map<String, dynamic>>[].obs;
+    RxList<dynamic> noticelist = <dynamic>[].obs;
+    print(
+        "Recieved data type: ---------------- ${GetStorage().read(Pref.NOTICE_LIST)}");
     noticelist.value = GetStorage().read(Pref.NOTICE_LIST) ?? [];
+
     noticelist.refresh();
     if (message.notification != null) {
       Map<String, dynamic> data = {

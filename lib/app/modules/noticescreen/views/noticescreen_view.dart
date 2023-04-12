@@ -22,40 +22,80 @@ class NoticescreenView extends GetView<NoticescreenController> {
               ? Container()
               : Container(
                   padding: EdgeInsets.all(16),
-                  margin: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  margin: EdgeInsets.symmetric(horizontal: 16),
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: ListView.builder(
                       itemCount: controller.notices.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          padding: EdgeInsets.all(10),
-                          height: 80,
-                          width: double.maxFinite,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: AppColors.modernGreen,
-                              ),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
-                                    child: Text(
-                                  controller.notices[index]['title'] ?? "",
-                                  style: TextStyle(color: Colors.black),
-                                )),
-                                SizedBox(
-                                  height: 20,
+                        return Dismissible(
+                          background: Container(
+                            color: AppColors.modernRed,
+                            child: Icon(
+                              Icons.delete,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                          // key: Key("${index}"),
+                          key: UniqueKey(),
+                          onDismissed: (direction) {
+                            controller.deleteNotice(index: index);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            // padding: EdgeInsets.all(10),
+                            height: 80,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: controller.notices[index]['title']
+                                              .toString()
+                                              .toLowerCase() ==
+                                          "urgent"
+                                      ? AppColors.modernRed
+                                      : AppColors.modernGreen,
                                 ),
-                                Expanded(
-                                    child: Text(
-                                        controller.notices[index]['body'] ?? "",
-                                        style: TextStyle(color: Colors.black)))
-                              ],
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(children: [
+                                    Container(
+                                      padding: EdgeInsets.all(5),
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          color: controller.notices[index]
+                                                          ['title']
+                                                      .toString()
+                                                      .toLowerCase() ==
+                                                  "urgent"
+                                              ? AppColors.modernRed
+                                              : AppColors.modernGreen,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(9),
+                                              bottomRight: Radius.circular(9))),
+                                      child: Text(
+                                        controller.notices[index]['title'] ??
+                                            "",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 16),
+                                      ),
+                                    )
+                                  ]),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                          controller.notices[index]['body'] ??
+                                              "",
+                                          style:
+                                              TextStyle(color: Colors.black)))
+                                ],
+                              ),
                             ),
                           ),
                         );
