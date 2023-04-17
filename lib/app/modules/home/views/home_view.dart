@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
+import 'package:weather_icons/weather_icons.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controllers/home_controller.dart';
@@ -314,6 +315,15 @@ class HomeView extends GetView<HomeController> {
                           valid: true,
                           function: () async {
                             Get.toNamed(Routes.NOTICESCREEN);
+                          }),
+                      menuItem(
+                          icon: Icons.thunderstorm,
+                          color: Colors.green,
+                          notification: false,
+                          title: "Weather",
+                          valid: true,
+                          function: () async {
+                            Get.toNamed(Routes.WEATHERSCREEN);
                           }),
                     ]),
               ),

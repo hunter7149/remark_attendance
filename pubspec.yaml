@@ -26,6 +26,9 @@ dependencies:
   install_plugin_v2: ^1.0.0
   downloads_path_provider_28: ^0.1.2
   permission_handler: ^10.2.0
+  weather_icons: ^3.0.0
+  simple_gradient_text: ^1.2.4
+  intl: ^0.18.0
 
   get: 4.6.5
   flutter: 

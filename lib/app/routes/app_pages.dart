@@ -16,7 +16,6 @@ import '../modules/management/bindings/management_binding.dart';
 import '../modules/management/views/management_view.dart';
 import '../modules/movementscreen/bindings/movementscreen_binding.dart';
 import '../modules/movementscreen/views/movementscreen_view.dart';
-
 import '../modules/noticescreen/bindings/noticescreen_binding.dart';
 import '../modules/noticescreen/views/noticescreen_view.dart';
 import '../modules/paymentscreen/bindings/paymentscreen_binding.dart';
@@ -35,6 +34,8 @@ import '../modules/taskhomescreen/bindings/taskhomescreen_binding.dart';
 import '../modules/taskhomescreen/views/taskhomescreen_view.dart';
 import '../modules/taskscreen/bindings/taskscreen_binding.dart';
 import '../modules/taskscreen/views/taskscreen_view.dart';
+import '../modules/weatherscreen/bindings/weatherscreen_binding.dart';
+import '../modules/weatherscreen/views/weatherscreen_view.dart';
 
 part 'app_routes.dart';
 
@@ -128,6 +129,11 @@ class AppPages {
       name: _Paths.NOTICESCREEN,
       page: () => const NoticescreenView(),
       binding: NoticescreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEATHERSCREEN,
+      page: () => const WeatherscreenView(),
+      binding: WeatherscreenBinding(),
     ),
   ];
 }

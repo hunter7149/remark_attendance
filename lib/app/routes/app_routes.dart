@@ -21,6 +21,7 @@ abstract class Routes {
   static const TASKHOMESCREEN = _Paths.TASKHOMESCREEN;
   static const NOTICES = _Paths.NOTICES;
   static const NOTICESCREEN = _Paths.NOTICESCREEN;
+  static const WEATHERSCREEN = _Paths.WEATHERSCREEN;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const TASKHOMESCREEN = '/taskhomescreen';
   static const NOTICES = '/notices';
   static const NOTICESCREEN = '/noticescreen';
+  static const WEATHERSCREEN = '/weatherscreen';
 }
