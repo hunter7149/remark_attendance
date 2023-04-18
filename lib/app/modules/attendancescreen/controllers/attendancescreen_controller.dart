@@ -179,7 +179,7 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
-//----------------------------Dropdown for movement type ------------------------------//
+  //----------------------------Dropdown for movement type ------------------------------//
   daysCounter() {
     Duration difference = endDate.difference(startDate);
     int daysBetween = difference.inDays;
@@ -1120,6 +1120,30 @@ class AttendancescreenController extends GetxController {
     update();
   }
 
+  //----------------Weather Code------------//
+
+  RxMap<String, dynamic> weatherData = <String, dynamic>{}.obs;
+  RxBool isWeatherLoading = false.obs;
+
+  requestWeather() async {
+    isWeatherLoading.value = true;
+    update();
+    await getlocation();
+    if (lattitude.value != 0.0 && longitude.value != 0.0) {
+      await Repository()
+          .requestWeather(
+              lattitude: lattitude.value, longitude: longitude.value)
+          .then((value) {
+        if (value != null) {
+          print(value);
+          weatherData.value = value;
+          weatherData.refresh();
+        }
+        isWeatherLoading.value = false;
+        update();
+      });
+    }
+  }
   //------------Debug module---------------//
 
   RxList<Map<String, dynamic>> debugList = <Map<String, dynamic>>[].obs;
@@ -1138,6 +1162,7 @@ class AttendancescreenController extends GetxController {
     await resetActivityDaily();
     await requestHistory();
     await requesMovmenttHistory();
+    await requestWeather();
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:weather_icons/weather_icons.dart';
 
 import '../controllers/weatherscreen_controller.dart';
 
@@ -22,8 +23,21 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
               Get.back();
             }),
         body: Obx(() => controller.isWeatherLoading.value
-            ? SpinKitSquareCircle(
-                color: AppColors.modernGreen,
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 40,
+                    child: SpinKitSquareCircle(
+                      color: AppColors.modernDeepSea,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  GradientText("Fetching weather data..",
+                      colors: [AppColors.mainBlue, AppColors.modernGreen])
+                ],
               )
             : SafeArea(
                 child: Container(
@@ -36,7 +50,7 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
-                            color: AppColors.modernPlantation,
+                            color: AppColors.modernDeepSea,
                             borderRadius: BorderRadius.circular(15)),
                         child: Column(
                           children: [
@@ -87,73 +101,143 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            GradientText(
+                              COMMONWIDGET().getWeatherDescription(
+                                  controller.weatherData["current_weather"]
+                                      ["weathercode"]),
+                              colors: [
+                                // AppColors.modernLightBrown,
+                                AppColors.modernBlue,
+                                AppColors.modernCoolPink,
+                              ],
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                           ],
                         ),
                       ),
-                      Obx(() => Container(
-                            height: 200,
-                            width: double.maxFinite,
-                            child: ListView.builder(
-                                itemCount: controller
-                                    .weatherData["hourly"]["time"].length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    // height: 240,
-                                    width: 130,
-                                    // color: Colors.red,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: AppColors.modernBlue)),
-                                    margin: EdgeInsets.all(10),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        // SizedBox(
-                                        //   height: 10,
-                                        // ),
-                                        Text(
-                                          "${controller.onlyTime(dateString: controller.weatherData["hourly"]["time"][index])}",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          height: 80,
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  width: 1,
-                                                  color:
-                                                      AppColors.modernPurple),
-                                              borderRadius:
-                                                  BorderRadius.circular(100)),
-                                          child: Center(
-                                            child: GradientText(
-                                              "${controller.weatherData["hourly"]["temperature_2m"][index]}°C",
-                                              //  "${controller.weatherData["hourly"]["relativehumidity_2m"][index]}",
-                                              //  "${controller.weatherData["hourly"]["apparent_temperature"][index]}",
-                                              //  "${controller.weatherData["hourly"]["temperature_2m"][index]}",
-                                              colors: [
-                                                // AppColors.modernLightBrown,
-                                                AppColors.modernBlue,
-                                                AppColors.modernGreen,
-                                              ],
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hourly forecast",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          ),
+                        ],
+                      ),
+                      Obx(() => controller.weatherData["hourly"]["time"].isEmpty
+                          ? Container(
+                              height: 200,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    child: Image.asset(
+                                      "assets/images/noweather.png",
+                                      fit: BoxFit.cover,
+                                      color: AppColors.greyColor,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Hourly forecast unavailable!",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColors.greyColor),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                ],
+                              ),
+                            )
+                          : Container(
+                              height: 200,
+                              width: double.maxFinite,
+                              child: ListView.builder(
+                                  itemCount: 24,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      // height: 240,
+                                      width: 130,
+                                      // color: Colors.red,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.modernDeepSea,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                              width: 1,
+                                              color: AppColors.modernDeepSea)),
+                                      margin: EdgeInsets.all(10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // SizedBox(
+                                          //   height: 10,
+                                          // ),
+                                          GradientText(
+                                            "${controller.onlyTime(dateString: controller.weatherData["hourly"]["time"][index])}",
+                                            colors: [
+                                              // AppColors.modernLightBrown,
+                                              AppColors.modernGreen,
+                                              AppColors.modernPlantation,
+                                            ],
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+
+                                          Container(
+                                            height: 80,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color:
+                                                        AppColors.modernGreen),
+                                                borderRadius:
+                                                    BorderRadius.circular(100)),
+                                            child: Center(
+                                              child: GradientText(
+                                                "${controller.weatherData["hourly"]["temperature_2m"][index]}°C",
+                                                //  "${controller.weatherData["hourly"]["relativehumidity_2m"][index]}",
+                                                //  "${controller.weatherData["hourly"]["apparent_temperature"][index]}",
+                                                //  "${controller.weatherData["hourly"]["temperature_2m"][index]}",
+                                                colors: [
+                                                  // AppColors.modernLightBrown,
+                                                  AppColors.modernBlue,
+                                                  AppColors.modernGreen,
+                                                ],
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                          ))
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                            ))
                     ],
                   ),
                 ),

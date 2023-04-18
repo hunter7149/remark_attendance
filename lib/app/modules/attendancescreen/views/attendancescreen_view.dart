@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ntp/ntp.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controllers/attendancescreen_controller.dart';
@@ -344,16 +345,31 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                 stream:
                                     Stream.periodic(const Duration(seconds: 1)),
                                 builder: (context, snapshot) {
-                                  return Text(
-                                      DateFormat('hh:mm:ss a')
-                                          .format(DateTime.now()),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.pink.shade600,
-                                          fontWeight: FontWeight.w700));
+                                  return GradientText(
+                                    DateFormat('hh:mm:ss a')
+                                        .format(DateTime.now()),
+                                    colors: [
+                                      // AppColors.modernLightBrown,
+                                      AppColors.modernGreen,
+                                      AppColors.modernBlue,
+                                    ],
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )
+
+                                      //  Text(
+                                      //     DateFormat('hh:mm:ss a')
+                                      //         .format(DateTime.now()),
+                                      //     style: TextStyle(
+                                      //         fontSize: 20,
+                                      //         color: Colors.pink.shade600,
+                                      //         fontWeight: FontWeight.w700)
+                                      //         )
+                                      ;
                                 }),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Text(
                                 "Date:" +
@@ -362,7 +378,30 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey.shade100,
-                                    fontWeight: FontWeight.w400))
+                                    fontWeight: FontWeight.w400)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Obx(() => controller.isWeatherLoading.value
+                                ? Container(
+                                    height: 20,
+                                    child: SpinKitPulse(
+                                      color: AppColors.modernSexyRed,
+                                    ),
+                                  )
+                                : controller.weatherData.isEmpty
+                                    ? Container()
+                                    : GradientText(
+                                        "${controller.weatherData["current_weather"]["temperature"]}${controller.weatherData["hourly_units"]["temperature_2m"]}",
+                                        colors: [
+                                          // AppColors.modernLightBrown,
+                                          AppColors.modernCoral,
+                                          AppColors.modernSexyRed,
+                                        ],
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ))
                           ],
                         ),
                       ),
@@ -418,8 +457,8 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: controller.isLocationLoading.value
                                     ? [
-                                        SpinKitThreeBounce(
-                                          color: AppColors.modernBlue,
+                                        SpinKitRipple(
+                                          color: AppColors.modernGreen,
                                         )
                                       ]
                                     : [
