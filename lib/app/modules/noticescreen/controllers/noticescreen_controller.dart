@@ -13,6 +13,7 @@ class NoticescreenController extends GetxController {
       notices.value = List<Map<String, dynamic>>.from(data);
     }
     notices.refresh();
+
     update();
   }
 

@@ -1174,7 +1174,7 @@ class AttendancescreenView extends GetView<AttendancescreenController> {
                 SizedBox(
                   height: 20,
                 ),
-                !kDebugMode
+                kDebugMode
                     ? ZoomTapAnimation(
                         onTap: () {
                           debugConsole(controller: controller);
