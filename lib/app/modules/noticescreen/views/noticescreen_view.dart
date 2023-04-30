@@ -19,7 +19,23 @@ class NoticescreenView extends GetView<NoticescreenController> {
             }),
         body: SafeArea(
           child: Obx(() => controller.notices[0].isEmpty
-              ? Container()
+              ? Center(
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/images/emptynotice.jpeg",
+                          height: 200,
+                        ),
+                        Text(
+                          "No pending notice!",
+                          style: TextStyle(color: Colors.grey.shade700),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               : Container(
                   padding: EdgeInsets.all(16),
                   margin: EdgeInsets.symmetric(horizontal: 16),

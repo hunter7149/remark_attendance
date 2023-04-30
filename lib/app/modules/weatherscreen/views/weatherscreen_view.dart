@@ -50,7 +50,7 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                       Container(
                         height: 300,
                         decoration: BoxDecoration(
-                            color: AppColors.modernDeepSea,
+                            color: Color(0xFF035956),
                             borderRadius: BorderRadius.circular(15)),
                         child: Column(
                           children: [
@@ -179,7 +179,7 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                                       width: 130,
                                       // color: Colors.red,
                                       decoration: BoxDecoration(
-                                          color: AppColors.modernDeepSea,
+                                          color: Color(0xFF035956),
                                           borderRadius:
                                               BorderRadius.circular(15),
                                           border: Border.all(
@@ -196,9 +196,8 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                                           GradientText(
                                             "${controller.onlyTime(dateString: controller.weatherData["hourly"]["time"][index])}",
                                             colors: [
-                                              // AppColors.modernLightBrown,
-                                              AppColors.modernGreen,
-                                              AppColors.modernPlantation,
+                                              AppColors.modernLightBrown,
+                                              AppColors.modernCoral,
                                             ],
                                             style: TextStyle(
                                                 fontSize: 16,
@@ -223,8 +222,8 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
                                                 //  "${controller.weatherData["hourly"]["temperature_2m"][index]}",
                                                 colors: [
                                                   // AppColors.modernLightBrown,
-                                                  AppColors.modernBlue,
-                                                  AppColors.modernGreen,
+                                                  AppColors.modernSexyRed,
+                                                  AppColors.modernCoolPink,
                                                 ],
                                                 style: TextStyle(
                                                     fontSize: 16,
