@@ -22,6 +22,7 @@ class NoticescreenController extends GetxController {
     notices.refresh();
     GetStorage().write(Pref.NOTICE_LIST, notices);
     update();
+    loadNotices();
   }
 
   @override
