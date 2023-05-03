@@ -300,8 +300,11 @@ class LeavescreenView extends GetView<LeavescreenController> {
                             ),
                             //------Dynamic items------//
                             controller.isLeaveHistory.value
-                                ? SpinKitDoubleBounce(
-                                    color: AppColors.modernGreen,
+                                ? Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SpinKitRipple(
+                                      color: AppColors.modernSexyRed,
+                                    ),
                                   )
                                 : controller.leaveHistory.length == 0
                                     ? Container(

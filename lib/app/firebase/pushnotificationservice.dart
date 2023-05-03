@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
@@ -72,8 +71,8 @@ class FirebaseService {
       AndroidNotification? android = message.notification?.android;
 
       if (notification != null && android != null) {
-        if (notification.title == "Hi") {
-          Get.toNamed(Routes.NOTICESCREEN);
+        if (notification.title!.toLowerCase().contains("weather")) {
+          Get.toNamed(Routes.WEATHERSCREEN);
         }
         COMMONWIDGET.saveNotification(message);
         showDialog(

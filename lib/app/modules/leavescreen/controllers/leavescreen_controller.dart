@@ -43,7 +43,7 @@ class LeavescreenController extends GetxController {
       await Repository().requestLeaveType(employeeId: userId).then((value) {
         print(value);
         if (value != null && value['value'] != null && value['value'] != []) {
-          List<dynamic> leaves = value['value'];
+          List<dynamic> leaves = value['value'] ?? [];
           leaveType.clear();
           DropdownLeaveTypeValueUpdater(
               "${leaves[0]['LEAVE_TYPE']}-(${leaves[0]['LEAVE_DAYS']} Days)");

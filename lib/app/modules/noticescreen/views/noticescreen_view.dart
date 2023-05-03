@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,8 @@ class NoticescreenView extends GetView<NoticescreenController> {
               Get.back();
             }),
         body: SafeArea(
-          child: Obx(() => controller.notices[0].isEmpty
+          child: Obx(() => controller.notices.isEmpty ||
+                  controller.notices[0].isEmpty
               ? Center(
                   child: Container(
                     child: Column(
@@ -61,7 +64,7 @@ class NoticescreenView extends GetView<NoticescreenController> {
                           child: Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             // padding: EdgeInsets.all(10),
-                            height: 80,
+                            height: 100,
                             width: double.maxFinite,
                             decoration: BoxDecoration(
                                 border: Border.all(
@@ -107,6 +110,15 @@ class NoticescreenView extends GetView<NoticescreenController> {
                                   Expanded(
                                       child: Text(
                                           controller.notices[index]['body'] ??
+                                              "",
+                                          style:
+                                              TextStyle(color: Colors.black))),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                          controller.notices[index]['time'] ??
                                               "",
                                           style:
                                               TextStyle(color: Colors.black)))

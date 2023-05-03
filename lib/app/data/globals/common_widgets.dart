@@ -279,6 +279,7 @@ class COMMONWIDGET {
       Map<String, dynamic> data = {
         "title": message.notification!.title ?? "",
         "body": message.notification!.body ?? "",
+        "time": DateTime.now().toString(),
       };
 
       noticelist.add(data);
