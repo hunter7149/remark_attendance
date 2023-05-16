@@ -30,6 +30,7 @@ dependencies:
   simple_gradient_text: ^1.2.4
   intl: ^0.17.0
   proste_bezier_curve: ^2.0.2
+  cloud_firestore: ^4.7.0
 
   get: 4.6.5
   flutter: 

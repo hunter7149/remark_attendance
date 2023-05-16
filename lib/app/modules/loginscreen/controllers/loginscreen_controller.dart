@@ -1,6 +1,7 @@
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -53,6 +54,7 @@ class LoginscreenController extends GetxController {
               Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
               isLogingIn.value = false;
               update();
+              firebaseStore();
               Get.offNamed(Routes.HOME, arguments: {"data": data});
             } else {
               isLogingIn.value = false;
@@ -97,6 +99,20 @@ class LoginscreenController extends GetxController {
   // requestLogin() {
   //   Get.offNamed(Routes.HOME);
   // }
+  firebaseStore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference stringsCollection = firestore.collection('fcm_token');
+    try {
+      await stringsCollection.doc("${email.text}").set({
+        'device': Pref.readData(key: Pref.DEVICE_IDENTITY).toString(),
+        'token': Pref.readData(key: Pref.FCM_TOKEN).toString(),
+        'userId': "${email.text}"
+      });
+      print('String uploaded successfully');
+    } catch (e) {
+      print('Error uploading string: $e');
+    }
+  }
 
   @override
   void onInit() {
