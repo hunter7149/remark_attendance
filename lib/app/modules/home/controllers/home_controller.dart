@@ -1,12 +1,26 @@
+import 'dart:math';
+
 import 'package:attendance/app/api/repository/repository.dart';
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
+import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
+  List<Color> randomeColor = [
+    AppColors.modernBlue,
+    AppColors.modernGreen,
+    AppColors.modernPurple,
+    AppColors.modernRed,
+    AppColors.modernCoolPink,
+    AppColors.modernSexyRed,
+    AppColors.modernChocolate,
+    AppColors.modernPlantation
+  ];
+  RxInt randome = 0.obs;
   RxMap<String, dynamic> userInfo = <String, dynamic>{
     "userId": 123456,
     "profileImage": "web link",
@@ -188,6 +202,8 @@ class HomeController extends GetxController {
             update();
             Get.snackbar("Success", "${value['result']}",
                 colorText: Colors.white,
+                borderRadius: 0,
+                animationDuration: Duration(seconds: 0),
                 backgroundColor: Colors.green,
                 snackPosition: SnackPosition.BOTTOM);
 
@@ -200,6 +216,8 @@ class HomeController extends GetxController {
             update();
             Get.snackbar("Success", "${value['result']}",
                 colorText: Colors.white,
+                borderRadius: 0,
+                animationDuration: Duration(seconds: 0),
                 backgroundColor: Colors.red,
                 snackPosition: SnackPosition.BOTTOM);
           }
@@ -210,6 +228,8 @@ class HomeController extends GetxController {
         Get.snackbar("FAILED", "SERVER ERROR",
             colorText: Colors.white,
             backgroundColor: Colors.red,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM);
       }
     } else {
@@ -217,6 +237,8 @@ class HomeController extends GetxController {
       update();
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           backgroundColor: Colors.red,
           snackPosition: SnackPosition.BOTTOM);
     }
@@ -232,6 +254,7 @@ class HomeController extends GetxController {
     userProfile.clear();
     userProfile.value = data ?? {};
     userProfile.refresh();
+    randome.value = Random().nextInt(7);
     update();
   }
 

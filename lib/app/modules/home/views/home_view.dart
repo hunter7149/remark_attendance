@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:attendance/app/api/service/prefrences.dart';
@@ -36,7 +37,7 @@ class HomeView extends GetView<HomeController> {
           // ),
           elevation: 0,
           automaticallyImplyLeading: false,
-          backgroundColor: AppColors.modernBlue,
+          backgroundColor: controller.randomeColor[controller.randome.value],
           // title: Text(
           //   'Dashboard',
           //   style: TextStyle(color: Colors.grey.shade100),
@@ -90,7 +91,8 @@ class HomeView extends GetView<HomeController> {
                       // height: 400,
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.modernBlue,
+                        color:
+                            controller.randomeColor[controller.randome.value],
                         // color: Colors.grey.shade100,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(50),
@@ -267,7 +269,7 @@ class HomeView extends GetView<HomeController> {
                 // height: MediaQuery.of(context).size.height / 1.5,
                 child: GridView.count(
                     //scrollDirection: Axis.vertical,
-                    crossAxisCount: 2,
+                    crossAxisCount: _getCrossAxisCount(context),
                     childAspectRatio: (0.88),
                     shrinkWrap: true,
                     children: [
@@ -484,5 +486,16 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
             ));
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final itemWidth = 200; // Adjust this value based on your item's width
+    final crossAxisCount = (screenWidth / itemWidth).floor();
+    if (crossAxisCount == 1) {
+      return 2;
+    } else {
+      return crossAxisCount;
+    }
   }
 }

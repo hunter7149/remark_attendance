@@ -180,7 +180,8 @@ class LeavescreenController extends GetxController {
                 color: Colors.white,
               ),
               colorText: Colors.white,
-              borderRadius: 2,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red.shade500,
               duration: Duration(seconds: 2));
@@ -198,7 +199,8 @@ class LeavescreenController extends GetxController {
                 color: Colors.white,
               ),
               colorText: Colors.white,
-              borderRadius: 2,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.green.shade500,
               duration: Duration(seconds: 2));
@@ -211,7 +213,8 @@ class LeavescreenController extends GetxController {
             color: Colors.white,
           ),
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
@@ -255,7 +258,9 @@ class LeavescreenController extends GetxController {
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM);
     }
   }

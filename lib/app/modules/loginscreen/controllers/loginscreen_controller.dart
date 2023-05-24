@@ -25,11 +25,15 @@ class LoginscreenController extends GetxController {
     if (email.text.isEmpty) {
       Get.snackbar("Warning", "Username is empty!",
           colorText: Colors.white,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           backgroundColor: Colors.red,
           snackPosition: SnackPosition.BOTTOM);
     } else if (password.text.isEmpty) {
       Get.snackbar("Warning", "Password is empty!",
           colorText: Colors.white,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           backgroundColor: Colors.red,
           snackPosition: SnackPosition.BOTTOM);
     } else {
@@ -61,6 +65,8 @@ class LoginscreenController extends GetxController {
               update();
               Get.snackbar("Failed", "${value['result'] ?? "Try again"}",
                   colorText: Colors.white,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   backgroundColor: Colors.red,
                   snackPosition: SnackPosition.BOTTOM);
             }
@@ -70,7 +76,8 @@ class LoginscreenController extends GetxController {
           update();
           Get.snackbar("SERVER ERROR", "TRY AGAIN LATER",
               colorText: Colors.white,
-              borderRadius: 2,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red.shade500,
               duration: Duration(seconds: 2));
@@ -78,7 +85,8 @@ class LoginscreenController extends GetxController {
       } else {
         Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
             colorText: Colors.white,
-            borderRadius: 2,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));

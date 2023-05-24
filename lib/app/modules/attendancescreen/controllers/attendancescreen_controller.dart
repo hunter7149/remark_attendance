@@ -202,21 +202,24 @@ class AttendancescreenController extends GetxController {
     if (dropdownHourValue.value == "Hour") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT START HOUR",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
     } else if (dropdownMinuteValue.value == "Minute") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT START MINUTE",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
     } else if (dropdownDurationValue.value == "Minute") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT DURATION",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
@@ -261,7 +264,8 @@ class AttendancescreenController extends GetxController {
               Get.snackbar(
                   "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
                   colorText: Colors.white,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.green.shade500,
                   duration: Duration(seconds: 2));
@@ -269,7 +273,8 @@ class AttendancescreenController extends GetxController {
               Get.snackbar(
                   "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
                   colorText: Colors.white,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.green.shade500,
                   duration: Duration(seconds: 2));
@@ -280,7 +285,8 @@ class AttendancescreenController extends GetxController {
           update();
           Get.snackbar("ERROR", "SERVER ERROR",
               colorText: Colors.white,
-              borderRadius: 2,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red.shade500,
               duration: Duration(seconds: 2));
@@ -290,7 +296,8 @@ class AttendancescreenController extends GetxController {
         update();
         Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
             colorText: Colors.white,
-            borderRadius: 2,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
@@ -333,6 +340,8 @@ class AttendancescreenController extends GetxController {
       }
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           colorText: Colors.white,
           backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM);
@@ -504,21 +513,24 @@ class AttendancescreenController extends GetxController {
     if (dropdownsHourValue.value == "Hour") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT START HOUR",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
     } else if (dropdownsMinuteValue.value == "Minute") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT START MINUTE",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
     } else if (dropdownsDurationValue.value == "Minute") {
       Get.snackbar("EMPTY DATA", "PLEASE SEELCT DURATION",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
@@ -561,7 +573,8 @@ class AttendancescreenController extends GetxController {
               Get.snackbar(
                   "SUCCESS", "${value['result'] ?? "REQUEST ACCEPTED"}",
                   colorText: Colors.white,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.red.shade500,
                   duration: Duration(seconds: 2));
@@ -572,7 +585,8 @@ class AttendancescreenController extends GetxController {
           update();
           Get.snackbar("ERROR", "SERVER ERROR",
               colorText: Colors.white,
-              borderRadius: 2,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.red.shade500,
               duration: Duration(seconds: 2));
@@ -582,7 +596,8 @@ class AttendancescreenController extends GetxController {
         update();
         Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
             colorText: Colors.white,
-            borderRadius: 2,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
@@ -626,6 +641,8 @@ class AttendancescreenController extends GetxController {
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM);
     }
@@ -725,14 +742,16 @@ class AttendancescreenController extends GetxController {
 
               Get.snackbar("Checked in", "Checked in at ${lastCheckIn.value}",
                   colorText: Colors.white,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.green.shade500,
                   duration: Duration(seconds: 2));
             } else {
               Get.snackbar("ERROR!", "${value["result"]}",
                   colorText: Colors.white,
-                  borderRadius: 2,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.red.shade500,
                   duration: Duration(seconds: 2));
@@ -746,7 +765,8 @@ class AttendancescreenController extends GetxController {
       } else {
         Get.snackbar("No location", "Please turn on location and try again",
             colorText: Colors.white,
-            borderRadius: 2,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
@@ -756,7 +776,8 @@ class AttendancescreenController extends GetxController {
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
@@ -781,7 +802,8 @@ class AttendancescreenController extends GetxController {
     Get.snackbar(
         "Server error!", "CHEKCED IN OFFLINE!PLEASE SYNC WHEN SERVER AVAILABLE",
         colorText: Colors.white,
-        borderRadius: 2,
+        borderRadius: 0,
+        animationDuration: Duration(seconds: 0),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.shade500,
         duration: Duration(seconds: 2));
@@ -805,7 +827,8 @@ class AttendancescreenController extends GetxController {
     Get.snackbar("Server error!",
         "CHEKCED OUT OFFLINE!PLEASE SYNC WHEN SERVER AVAILABLE",
         colorText: Colors.white,
-        borderRadius: 2,
+        borderRadius: 0,
+        animationDuration: Duration(seconds: 0),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red.shade500,
         duration: Duration(seconds: 2));
@@ -880,7 +903,8 @@ class AttendancescreenController extends GetxController {
             Get.snackbar(
                 "Checked out", "Checked out at ${bindedData['startDate']}",
                 colorText: Colors.white,
-                borderRadius: 2,
+                borderRadius: 0,
+                animationDuration: Duration(seconds: 0),
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.green.shade500,
                 duration: Duration(seconds: 2));
@@ -893,7 +917,8 @@ class AttendancescreenController extends GetxController {
       } else {
         Get.snackbar("No location", "Please turn on location and try again",
             colorText: Colors.white,
-            borderRadius: 2,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
@@ -903,7 +928,8 @@ class AttendancescreenController extends GetxController {
     } else {
       Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
           colorText: Colors.white,
-          borderRadius: 2,
+          borderRadius: 0,
+          animationDuration: Duration(seconds: 0),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red.shade500,
           duration: Duration(seconds: 2));
@@ -927,7 +953,8 @@ class AttendancescreenController extends GetxController {
             Pref.removeData(key: Pref.CHECK_IN_BACKUP);
             Get.snackbar("SYNC SUCCESS", "Successfully completed sync",
                 colorText: Colors.white,
-                borderRadius: 2,
+                borderRadius: 0,
+                animationDuration: Duration(seconds: 0),
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.green.shade500,
                 duration: Duration(seconds: 2));
@@ -950,7 +977,8 @@ class AttendancescreenController extends GetxController {
             Pref.removeData(key: Pref.CHECK_OUT_BACKUP);
             Get.snackbar("SYNC SUCCESS", "Successfully completed sync",
                 colorText: Colors.white,
-                borderRadius: 2,
+                borderRadius: 0,
+                animationDuration: Duration(seconds: 0),
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.green.shade500,
                 duration: Duration(seconds: 2));
