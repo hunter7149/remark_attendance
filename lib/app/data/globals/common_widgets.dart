@@ -271,8 +271,8 @@ class COMMONWIDGET {
   static saveNotification(RemoteMessage message) {
     RxList<dynamic> noticelist = <dynamic>[].obs;
     print(
-        "Recieved data type: ---------------- ${GetStorage().read(Pref.NOTICE_LIST)}");
-    noticelist.value = GetStorage().read(Pref.NOTICE_LIST) ?? [];
+        "Recieved data type: ---------------- ${Pref.readData(key: Pref.NOTICE_LIST)}");
+    noticelist.value = Pref.readData(key: Pref.NOTICE_LIST) ?? [];
 
     noticelist.refresh();
     if (message.notification != null) {
@@ -285,7 +285,7 @@ class COMMONWIDGET {
       noticelist.add(data);
       noticelist.refresh();
       // GetStorage().remove(Pref.NOTICE_LIST);
-      GetStorage().write(Pref.NOTICE_LIST, noticelist);
+      Pref.writeData(key: Pref.NOTICE_LIST, value: noticelist);
     }
     Get.put(NoticescreenController());
     Get.find<NoticescreenController>().loadNotices();

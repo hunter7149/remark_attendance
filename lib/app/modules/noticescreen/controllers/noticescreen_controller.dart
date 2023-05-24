@@ -8,7 +8,7 @@ class NoticescreenController extends GetxController {
   RxList<Map<String, dynamic>> notices = <Map<String, dynamic>>[{}].obs;
 
   loadNotices() {
-    final dynamic data = GetStorage().read(Pref.NOTICE_LIST);
+    final dynamic data = Pref.readData(key: Pref.NOTICE_LIST);
     if (data != null) {
       notices.value = List<Map<String, dynamic>>.from(data) ?? [];
     }

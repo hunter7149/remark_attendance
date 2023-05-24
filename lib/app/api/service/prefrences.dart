@@ -1,7 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 
 class Pref {
-  static final box = GetStorage();
+  static final box = GetStorage("remark_attendance");
 
   static var LOGIN_INFORMATION = 'login_information';
   static var USER_ID = 'user_id';

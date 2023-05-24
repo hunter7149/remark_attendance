@@ -9,7 +9,7 @@ import 'app/routes/app_pages.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await GetStorage.init();
+  await GetStorage.init('remark_attendance');
   Platform.isAndroid ? await FirebaseService.initialize() : () {};
   runApp(
     GetMaterialApp(

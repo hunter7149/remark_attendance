@@ -579,7 +579,7 @@ class ProfileviewscreenController extends GetxController {
     languageData.clear();
 
     //--------------------Assigning new data-----------------------//
-    GetStorage storage = GetStorage();
+
     dynamic data = Get.arguments;
 
     userProfile = data;
