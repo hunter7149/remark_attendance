@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/RESTRICTION/bindings/restriction_binding.dart';
+import '../modules/RESTRICTION/views/restriction_view.dart';
 import '../modules/approvalscreen/bindings/approvalscreen_binding.dart';
 import '../modules/approvalscreen/views/approvalscreen_view.dart';
 import '../modules/aprovalrequestlistscreen/bindings/aprovalrequestlistscreen_binding.dart';
@@ -134,6 +136,11 @@ class AppPages {
       name: _Paths.WEATHERSCREEN,
       page: () => const WeatherscreenView(),
       binding: WeatherscreenBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESTRICTION,
+      page: () => const RestrictionView(),
+      binding: RestrictionBinding(),
     ),
   ];
 }

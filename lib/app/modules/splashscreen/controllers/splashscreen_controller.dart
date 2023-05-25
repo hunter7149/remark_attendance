@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
@@ -20,8 +22,14 @@ class SplashscreenController extends GetxController {
   isSignedIn() {
     if (Pref.readData(key: Pref.LOGIN_INFORMATION) != "" &&
         Pref.readData(key: Pref.LOGIN_INFORMATION) != null) {
-      dynamic data = Pref.readData(key: Pref.USER_PROFILE) ?? {};
-      Get.offNamed(Routes.HOME, arguments: {"data": data});
+      bool restrictionstatus =
+          Pref.readData(key: Pref.RESTRICTION_STATUS) ?? false;
+      if (restrictionstatus) {
+        Get.toNamed(Routes.RESTRICTION);
+      } else {
+        dynamic data = Pref.readData(key: Pref.USER_PROFILE) ?? {};
+        Get.offNamed(Routes.HOME, arguments: {"data": data});
+      }
     } else {
       Get.offNamed(Routes.LOGINSCREEN);
     }

@@ -196,7 +196,10 @@ class HomeController extends GetxController {
         await Repository().requestLogOut(map: {
           "HrCrEmp": "${UserId}",
         }).then((value) {
-          if (value["result"] == "Sucessfuly Logout.") {
+          if (value["result"]!
+              .toString()
+              .toLowerCase()
+              .contains("Sucessfuly Logout.".toLowerCase())) {
             isSignOut.value = false;
             update();
             Get.snackbar("Success", "${value['result']}",
@@ -213,7 +216,7 @@ class HomeController extends GetxController {
           } else {
             isSignOut.value = false;
             update();
-            Get.snackbar("Success", "${value['result']}",
+            Get.snackbar("Failed", "${value['result']}",
                 colorText: Colors.white,
                 borderRadius: 0,
                 animationDuration: Duration(seconds: 0),

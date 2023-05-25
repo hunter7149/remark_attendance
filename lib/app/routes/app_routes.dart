@@ -22,6 +22,7 @@ abstract class Routes {
   static const NOTICES = _Paths.NOTICES;
   static const NOTICESCREEN = _Paths.NOTICESCREEN;
   static const WEATHERSCREEN = _Paths.WEATHERSCREEN;
+  static const RESTRICTION = _Paths.RESTRICTION;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const NOTICES = '/notices';
   static const NOTICESCREEN = '/noticescreen';
   static const WEATHERSCREEN = '/weatherscreen';
+  static const RESTRICTION = '/restriction';
 }

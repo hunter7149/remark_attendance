@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/repository/repository.dart';
+import '../../../firebase/pushnotificationservice.dart';
 
 class LoginscreenController extends GetxController {
   RxBool obsecure = true.obs;
@@ -57,8 +60,16 @@ class LoginscreenController extends GetxController {
               Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
               isLogingIn.value = false;
               update();
-              firebaseStore();
-              Get.offNamed(Routes.HOME, arguments: {"data": data});
+              Platform.isAndroid ? await FirebaseService.initialize() : () {};
+              Platform.isAndroid ? firebaseStore() : () {};
+
+              bool restrictionstatus =
+                  Pref.readData(key: Pref.RESTRICTION_STATUS) ?? false;
+              if (restrictionstatus) {
+                Get.toNamed(Routes.RESTRICTION);
+              } else {
+                Get.offNamed(Routes.HOME, arguments: {"data": data});
+              }
             } else {
               isLogingIn.value = false;
               update();

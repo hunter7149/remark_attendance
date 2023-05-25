@@ -1,11 +1,13 @@
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
+import 'package:attendance/main.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class FirebaseService {
   static final FirebaseMessaging _firebaseMessaging =
@@ -100,6 +102,19 @@ class FirebaseService {
     // If you're going to use other Firebase services in the background, such as Firestore,
     // make sure you call `initializeApp` before using other Firebase services.
     await Firebase.initializeApp();
+    await GetStorage.init('remark_attendance');
+    if (message.notification != null) {
+      if (message.notification!.title!.toLowerCase().contains("restrict")) {
+        Pref.writeData(key: Pref.RESTRICTION_STATUS, value: true);
+        Pref.writeData(
+            key: Pref.RESTRICTION_MESSAGE, value: message.notification!.body);
+        main();
+        // Get.offNamed(Routes.RESTRICTION);
+      } else if (message.notification!.title!.toLowerCase().contains("allow")) {
+        Pref.writeData(key: Pref.RESTRICTION_STATUS, value: false);
+        Pref.removeData(key: Pref.RESTRICTION_MESSAGE);
+      } else {}
+    }
     COMMONWIDGET.saveNotification(message);
     print('Handling a background message ${message.messageId}');
   }

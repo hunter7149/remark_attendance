@@ -8,6 +8,8 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
+import '../../routes/app_pages.dart';
+
 class COMMONWIDGET {
   String getWeatherDescription(int code) {
     switch (code) {
@@ -267,7 +269,67 @@ class COMMONWIDGET {
     );
   }
 
+  static restriction({required String message}) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/restricted.jpg',
+            height: 300,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Text(
+            "${message}",
+            style: TextStyle(color: Colors.grey.shade700, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ZoomTapAnimation(
+                onTap: () {
+                  Get.offNamed(Routes.LOGINSCREEN);
+                },
+                child: Container(
+                  height: 60,
+                  width: 60,
+                  decoration: BoxDecoration(
+                      color: AppColors.mainBlue,
+                      borderRadius: BorderRadius.circular(100)),
+                  child: Center(
+                      child: Text(
+                    "OK",
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  )),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   static saveNotification(RemoteMessage message) {
+    if (message.notification != null) {
+      if (message.notification!.title!.toLowerCase().contains("restrict")) {
+        Pref.writeData(key: Pref.RESTRICTION_STATUS, value: true);
+        Pref.writeData(
+            key: Pref.RESTRICTION_MESSAGE, value: message.notification!.body);
+        Get.offNamed(Routes.RESTRICTION);
+      } else if (message.notification!.title!.toLowerCase().contains("allow")) {
+        Pref.writeData(key: Pref.RESTRICTION_STATUS, value: false);
+        Pref.removeData(key: Pref.RESTRICTION_MESSAGE);
+      } else {}
+    }
     RxList<dynamic> noticelist = <dynamic>[].obs;
     print(
         "Recieved data type: ---------------- ${Pref.readData(key: Pref.NOTICE_LIST)}");
@@ -278,7 +340,6 @@ class COMMONWIDGET {
       Map<String, dynamic> data = {
         "title": message.notification!.title ?? "",
         "body": message.notification!.body ?? "",
-        "time": DateTime.now().toString(),
       };
 
       noticelist.add(data);
