@@ -2,13 +2,10 @@ import 'dart:ui';
 
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../data/globals/common_widgets.dart';

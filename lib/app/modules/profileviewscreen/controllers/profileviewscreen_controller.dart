@@ -1,7 +1,6 @@
 import 'package:attendance/app/modules/profileviewscreen/components/text_controllers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ProfileviewscreenController extends GetxController {
   ScrollController scrollController = ScrollController();

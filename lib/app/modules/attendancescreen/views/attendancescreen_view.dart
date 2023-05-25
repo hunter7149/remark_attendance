@@ -7,11 +7,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:ntp/ntp.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 

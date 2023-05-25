@@ -1,13 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../data/globals/app_colors.dart';
-import '../../../data/globals/common_widgets.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/approvalscreen_controller.dart';
 

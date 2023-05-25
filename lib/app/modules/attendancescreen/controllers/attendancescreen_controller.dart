@@ -3,7 +3,6 @@ import 'package:attendance/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' as gcode;
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:ntp/ntp.dart';
@@ -280,7 +279,7 @@ class AttendancescreenController extends GetxController {
                   duration: Duration(seconds: 2));
             }
           });
-        } on Exception catch (e) {
+        } on Exception {
           isMovemementReq.value = false;
           update();
           Get.snackbar("ERROR", "SERVER ERROR",
@@ -332,7 +331,7 @@ class AttendancescreenController extends GetxController {
             }
           }
         });
-      } on Exception catch (e) {
+      } on Exception {
         mleaveHistory.value = [];
         mleaveHistory.refresh();
         ismLeaveHistory.value = false;
@@ -580,7 +579,7 @@ class AttendancescreenController extends GetxController {
                   duration: Duration(seconds: 2));
             }
           });
-        } on Exception catch (e) {
+        } on Exception {
           isShortLeaveLoading.value = false;
           update();
           Get.snackbar("ERROR", "SERVER ERROR",
@@ -632,7 +631,7 @@ class AttendancescreenController extends GetxController {
             }
           }
         });
-      } on Exception catch (e) {
+      } on Exception {
         leaveHistory.value = [];
         leaveHistory.refresh();
         isLeaveHistory.value = false;
@@ -757,7 +756,7 @@ class AttendancescreenController extends GetxController {
                   duration: Duration(seconds: 2));
             }
           });
-        } on Exception catch (e) {
+        } on Exception {
           offlineCheckIn(bindedData: bindedData);
           isCheckingInOut.value = false;
           update();
@@ -909,7 +908,7 @@ class AttendancescreenController extends GetxController {
                 backgroundColor: Colors.green.shade500,
                 duration: Duration(seconds: 2));
           });
-        } on Exception catch (e) {
+        } on Exception {
           offlineCheckOut(bindedData: bindedData);
           isCheckingInOut.value = false;
           update();

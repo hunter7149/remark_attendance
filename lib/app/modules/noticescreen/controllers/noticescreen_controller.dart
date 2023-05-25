@@ -1,7 +1,5 @@
 import 'package:attendance/app/api/service/prefrences.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:get_storage/get_storage.dart';
 
 class NoticescreenController extends GetxController {

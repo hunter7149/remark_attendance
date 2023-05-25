@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
@@ -7,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class FirebaseService {
   static final FirebaseMessaging _firebaseMessaging =

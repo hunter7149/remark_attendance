@@ -7,7 +7,6 @@ import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class HomeController extends GetxController {
   List<Color> randomeColor = [
@@ -222,7 +221,7 @@ class HomeController extends GetxController {
                 snackPosition: SnackPosition.BOTTOM);
           }
         });
-      } on Exception catch (e) {
+      } on Exception {
         isSignOut.value = false;
         update();
         Get.snackbar("FAILED", "SERVER ERROR",

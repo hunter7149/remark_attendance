@@ -5,9 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:weather_icons/weather_icons.dart';
 
 import '../controllers/weatherscreen_controller.dart';
 
@@ -24,12 +22,13 @@ class WeatherscreenView extends GetView<WeatherscreenController> {
             }),
         body: Obx(() => controller.isWeatherLoading.value
             ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 40,
-                    child: SpinKitSquareCircle(
-                      color: AppColors.modernDeepSea,
+                    height: 60,
+                    child: SpinKitPulsingGrid(
+                      color: AppColors.modernGreen,
                     ),
                   ),
                   SizedBox(

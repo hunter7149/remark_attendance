@@ -28,7 +28,7 @@ class TaskscreenController extends GetxController {
       daytimereseter();
       update();
     } else if (endDate.isAtSameMomentAs(startDate)) {
-      Duration difference = endDate.difference(startDate);
+      // Duration difference = endDate.difference(startDate);
       int daysBetween = 1; // add 1 to include both dates
 
       numberOfDays.text = daysBetween.toString();

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/modules/profileviewscreen/components/text_controllers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -29,7 +28,7 @@ class ProfileviewscreenView extends GetView<ProfileviewscreenController> {
                 width: MediaQuery.of(context).size.width,
                 // padding: EdgeInsets.symmetric(horizontal: 16),
                 child: Scrollbar(
-                  isAlwaysShown: true,
+                  thumbVisibility: true,
                   radius: Radius.circular(100),
                   interactive: true,
                   thickness: 10,

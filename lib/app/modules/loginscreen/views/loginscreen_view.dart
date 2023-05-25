@@ -1,6 +1,5 @@
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/app_strings.dart';
-import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 

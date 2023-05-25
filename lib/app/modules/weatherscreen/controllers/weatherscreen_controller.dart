@@ -1,6 +1,5 @@
 import 'package:attendance/app/api/repository/repository.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as gcode;
@@ -57,12 +56,12 @@ class WeatherscreenController extends GetxController {
         "-" +
         "${placemarks[0].postalCode}";
     isLocationLoading.value = false;
-    Map<String, dynamic> tempLocation = {
-      "time": DateTime.now().toString().split(" ")[1],
-      "lattitude": "${double.parse(lattitude.value.toStringAsFixed(4))}",
-      "longitude": "${double.parse(longitude.value.toStringAsFixed(4))}",
-      "name": address.value
-    };
+    // Map<String, dynamic> tempLocation = {
+    //   "time": DateTime.now().toString().split(" ")[1],
+    //   "lattitude": "${double.parse(lattitude.value.toStringAsFixed(4))}",
+    //   "longitude": "${double.parse(longitude.value.toStringAsFixed(4))}",
+    //   "name": address.value
+    // };
 
     update();
     print("${address.value}");

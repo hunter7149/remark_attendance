@@ -1,16 +1,12 @@
-import 'dart:math';
 import 'dart:ui';
 
-import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/app_colors.dart';
-import 'package:attendance/app/data/globals/common_widgets.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
-import 'package:weather_icons/weather_icons.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controllers/home_controller.dart';

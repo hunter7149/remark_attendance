@@ -1,7 +1,4 @@
 import 'package:attendance/app/api/url/app_url.dart';
-import 'package:attendance/app/data/globals/app_strings.dart';
-import 'package:get/get_connect/http/src/request/request.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../provider/provider.dart';
 import '../service/api_service.dart';

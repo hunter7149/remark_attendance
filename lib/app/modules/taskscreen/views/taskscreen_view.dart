@@ -6,7 +6,6 @@ import 'package:attendance/app/routes/app_pages.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';

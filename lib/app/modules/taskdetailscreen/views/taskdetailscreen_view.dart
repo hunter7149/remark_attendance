@@ -1,10 +1,8 @@
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';
-import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../controllers/taskdetailscreen_controller.dart';

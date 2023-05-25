@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/data/globals/common_widgets.dart';

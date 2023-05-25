@@ -2,7 +2,6 @@ import 'package:attendance/app/api/repository/repository.dart';
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -57,7 +56,7 @@ class LeavescreenController extends GetxController {
       });
       isLeaveTypeLoading.value = false;
       update();
-    } on Exception catch (e) {
+    } on Exception {
       leaveType.clear();
       isLeaveTypeLoading.value = false;
       update();
@@ -206,7 +205,7 @@ class LeavescreenController extends GetxController {
               duration: Duration(seconds: 2));
         }
       });
-    } on Exception catch (e) {
+    } on Exception {
       Get.snackbar("Server error!", "TRY AGAIN WHEN SERVER AVAILABLE\n",
           icon: Icon(
             Icons.error,
@@ -249,7 +248,7 @@ class LeavescreenController extends GetxController {
             update();
           }
         });
-      } on Exception catch (e) {
+      } on Exception {
         leaveHistory.value = [];
         leaveHistory.refresh();
         isLeaveHistory.value = false;

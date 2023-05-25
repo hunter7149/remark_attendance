@@ -3,7 +3,6 @@ import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../api/repository/repository.dart';
@@ -71,7 +70,7 @@ class LoginscreenController extends GetxController {
                   snackPosition: SnackPosition.BOTTOM);
             }
           });
-        } on Exception catch (e) {
+        } on Exception {
           isLogingIn.value = false;
           update();
           Get.snackbar("SERVER ERROR", "TRY AGAIN LATER",
