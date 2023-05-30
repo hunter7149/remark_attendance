@@ -133,6 +133,7 @@ class FirebaseService {
 
     print(token);
     Pref.writeData(key: Pref.FCM_TOKEN, value: token.toString());
+    Pref.readData(key: Pref.FCM_TOKEN);
     return token.toString();
   }
 

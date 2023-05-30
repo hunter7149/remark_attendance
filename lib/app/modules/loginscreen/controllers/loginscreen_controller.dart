@@ -60,14 +60,14 @@ class LoginscreenController extends GetxController {
               Pref.writeData(key: Pref.USER_PASSWORD, value: password.text);
               isLogingIn.value = false;
               update();
-              Platform.isAndroid ? await FirebaseService.initialize() : () {};
-              Platform.isAndroid ? firebaseStore() : () {};
 
               bool restrictionstatus =
                   Pref.readData(key: Pref.RESTRICTION_STATUS) ?? false;
               if (restrictionstatus) {
+                // await initFirebaseNotice();
                 Get.toNamed(Routes.RESTRICTION);
               } else {
+                // await initFirebaseNotice();
                 Get.offNamed(Routes.HOME, arguments: {"data": data});
               }
             } else {
@@ -117,20 +117,31 @@ class LoginscreenController extends GetxController {
   // requestLogin() {
   //   Get.offNamed(Routes.HOME);
   // }
-  firebaseStore() async {
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference stringsCollection = firestore.collection('fcm_token');
-    try {
-      await stringsCollection.doc("${email.text}").set({
-        'device': Pref.readData(key: Pref.DEVICE_IDENTITY).toString(),
-        'token': Pref.readData(key: Pref.FCM_TOKEN).toString(),
-        'userId': "${email.text}"
-      });
-      print('String uploaded successfully');
-    } catch (e) {
-      print('Error uploading string: $e');
-    }
-  }
+
+  // initFirebaseNotice() async {
+  //   Platform.isAndroid ? await FirebaseService.initialize() : () {};
+  //   Platform.isAndroid ? await firebaseStore() : () {};
+  // }
+
+  // firebaseStore() async {
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   CollectionReference stringsCollection = firestore.collection('fcm_token');
+  //   String fcmtoken = Pref.readData(key: Pref.FCM_TOKEN).toString();
+  //   if (fcmtoken != null && fcmtoken != '' && fcmtoken != 'null') {
+  //     try {
+  //       await stringsCollection.doc("${email.text}").set({
+  //         'device': Pref.readData(key: Pref.DEVICE_IDENTITY).toString(),
+  //         'token': fcmtoken,
+  //         'userId': "${email.text}"
+  //       });
+  //       print('String uploaded successfully');
+  //     } catch (e) {
+  //       print('Error uploading string: $e');
+  //     }
+  //   } else {
+  //     firebaseStore();
+  //   }
+  // }
 
   @override
   void onInit() {

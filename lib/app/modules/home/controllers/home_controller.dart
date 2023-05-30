@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:attendance/app/api/repository/repository.dart';
@@ -6,8 +7,11 @@ import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/modules/sync/checkinoutsync.dart';
 import 'package:attendance/app/routes/app_pages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../firebase/pushnotificationservice.dart';
 
 class HomeController extends GetxController {
   List<Color> randomeColor = [
@@ -263,6 +267,7 @@ class HomeController extends GetxController {
   offlineDataSync() async {
     isSyncing.value = true;
     update();
+
     await CHECKINOUTSYNC().CheckInOutSync();
     isSyncing.value = false;
     update();
@@ -283,14 +288,42 @@ class HomeController extends GetxController {
     update();
   }
 
+  firebaseStore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference stringsCollection = firestore.collection('fcm_token');
+    String fcmtoken = Pref.readData(key: Pref.FCM_TOKEN).toString();
+    String email = Pref.readData(key: Pref.USER_ID);
+    if (fcmtoken != null && fcmtoken != '' && fcmtoken != 'null') {
+      try {
+        await stringsCollection.doc("${email}").set({
+          'device': Pref.readData(key: Pref.DEVICE_IDENTITY).toString(),
+          'token': fcmtoken,
+          'userId': "${email}"
+        });
+        print('String uploaded successfully');
+      } catch (e) {
+        print('Error uploading string: $e');
+      }
+    } else {
+      firebaseStore();
+    }
+  }
+
+  initFirebaseNotice() async {
+    Platform.isAndroid ? await FirebaseService.initialize() : () {};
+    Platform.isAndroid ? await firebaseStore() : () {};
+  }
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     dynamic data = Get.arguments;
+
     offlineSyncDataCounter();
     dynamic allData = data['data'];
     print(allData);
     dataBinder(data: allData);
+    await initFirebaseNotice();
   }
 
   @override
