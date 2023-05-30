@@ -4,6 +4,7 @@ import 'package:attendance/app/data/globals/app_colors.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -247,7 +248,7 @@ class HomeView extends GetView<HomeController> {
             ),
 
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             //--------------Grey Divider----------------//
             // Container(
@@ -256,7 +257,73 @@ class HomeView extends GetView<HomeController> {
             //   width: double.maxFinite,
             //   color: Colors.grey.shade500,
             // ),
+            Obx(
+              () => (controller.offlineCheckInCount.value == 0 &&
+                      controller.offlineCheckOutCount.value == 0)
+                  ? Container()
+                  : Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      margin: EdgeInsets.symmetric(horizontal: 26),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: AppColors.modernLightBrown,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // Icon(
+                          //   Icons.notifications_active,
+                          //   color: Colors.white,
+                          // ),
 
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              controller.offlineCheckInCount.value == 0
+                                  ? Container()
+                                  : Text(
+                                      "${controller.offlineCheckInCount.value} CheckIn data pending for sync",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                              controller.offlineCheckOutCount.value == 0
+                                  ? Container()
+                                  : Text(
+                                      "${controller.offlineCheckOutCount.value} CheckOut data pending for sync",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          ZoomTapAnimation(
+                            onTap: () {
+                              controller.offlineDataSync();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: controller.isSyncing.value
+                                  ? SpinKitSquareCircle(
+                                      color: AppColors.modernLightBrown,
+                                    )
+                                  : Icon(
+                                      Icons.sync,
+                                      color: AppColors.modernLightBrown,
+                                    ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             //------------------Option Section--------------------//
             Expanded(
               flex: 3,

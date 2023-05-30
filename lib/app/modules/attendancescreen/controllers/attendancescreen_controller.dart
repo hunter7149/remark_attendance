@@ -1,5 +1,7 @@
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/modules/home/controllers/home_controller.dart';
+import 'package:attendance/app/modules/sync/checkinoutsync.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart' as gcode;
 import 'package:get/get.dart';
@@ -673,17 +675,18 @@ class AttendancescreenController extends GetxController {
   requestCheckIn() async {
     if (await IEchecker.checker()) {
       getlocation();
-      await CheckInOutSync();
       String UserId = Pref.readData(key: Pref.USER_ID).toString();
+      DateTime currentTime =
+          await IEchecker.checker() ? await NTP.now() : await DateTime.now();
       Map<String, dynamic> bindedData = {
         "HrCrEmp": "${UserId}",
         "hrCrEmpIdHrCrEmp": "${UserId}",
         "startDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "endDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "entryDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "alkpLeaveTypeId": 1,
         "leaveType": "IN",
         "remarks": "",
@@ -705,16 +708,6 @@ class AttendancescreenController extends GetxController {
         "startMin": 0,
       };
 
-      //  {
-      //   "hrCrEmpIdHrCrEmp": "${UserId}",
-      //   "onDate":
-      //       "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
-      //   "isPass": 0,
-      //   "empLocation": "${address.value}",
-      //   "attnType": "IN",
-      //   "lattitude": lattitude.value,
-      //   "longitude": longitude.value,
-      // };
       if (lattitude != 0.0 && longitude != 0.0) {
         try {
           isCheckingInOut.value = true;
@@ -773,18 +766,62 @@ class AttendancescreenController extends GetxController {
         // requestCheckIn();
       }
     } else {
-      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
-          colorText: Colors.white,
-          borderRadius: 0,
-          animationDuration: Duration(seconds: 0),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.shade500,
-          duration: Duration(seconds: 2));
+      await getlocation();
+      if (lattitude != 0.0 && longitude != 0.0) {
+        String UserId = Pref.readData(key: Pref.USER_ID).toString();
+        DateTime currentTime =
+            await IEchecker.checker() ? await NTP.now() : await DateTime.now();
+        Map<String, dynamic> bindedData = {
+          "HrCrEmp": "${UserId}",
+          "hrCrEmpIdHrCrEmp": "${UserId}",
+          "startDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "endDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "entryDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "alkpLeaveTypeId": 1,
+          "leaveType": "IN",
+          "remarks": "",
+          "reason": "",
+          // "empLocation": "Simpletree Anarkali,Gulshan,Dhaka-1212",
+          // "isPass": 0,
+          // "empCode": "",
+          // "resMobile": 0,
+          // "longitude": 90.4165467,
+          // "latitude": 23.7868417,
+          "empLocation": "${address.value}",
+          "isPass": 0,
+          "empCode": "",
+          "resMobile": 0,
+          "longitude": longitude.value,
+          "latitude": lattitude.value,
+          "splDuration": 0,
+          "startHour": 0,
+          "startMin": 0,
+        };
+        offlineCheckIn(bindedData: bindedData);
+        isCheckingInOut.value = false;
+        update();
+      } else {
+        Get.closeAllSnackbars();
+        Get.snackbar("No location", "Please turn on location and try again",
+            colorText: Colors.white,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
+        await getlocation();
+      }
+      //No internet??
     }
   }
 
   offlineCheckIn({required Map<String, dynamic> bindedData}) {
-    Pref.writeData(key: Pref.CHECK_IN_BACKUP, value: bindedData);
+    List<dynamic> previousData = Pref.readData(key: Pref.CHECK_IN_BACKUP) ?? [];
+    previousData.add(bindedData);
+    Pref.writeData(key: Pref.CHECK_IN_BACKUP, value: previousData);
     Pref.writeData(key: Pref.CHECKED_IN, value: true);
     isCheckedInUpdater(value: true);
     latestActivity.clear();
@@ -808,8 +845,12 @@ class AttendancescreenController extends GetxController {
         duration: Duration(seconds: 2));
   }
 
-  offlineCheckOut({required Map<String, dynamic> bindedData}) {
-    Pref.writeData(key: Pref.CHECK_OUT_BACKUP, value: bindedData);
+  offlineCheckOut({required Map<String, dynamic> bindedData}) async {
+    List<dynamic> previousCheckOut =
+        Pref.readData(key: Pref.CHECK_OUT_BACKUP) ?? [];
+    kDebugMode ? print(previousCheckOut) : () {};
+    previousCheckOut.add(bindedData);
+    Pref.writeData(key: Pref.CHECK_OUT_BACKUP, value: previousCheckOut);
     Pref.writeData(key: Pref.CHECKED_IN, value: false);
     isCheckedInUpdater(value: false);
     latestActivity.clear();
@@ -835,17 +876,18 @@ class AttendancescreenController extends GetxController {
 
   requestCheckOut() async {
     if (await IEchecker.checker()) {
-      await CheckInOutSync();
       String UserId = Pref.readData(key: Pref.USER_ID).toString();
+      DateTime currentTime =
+          await IEchecker.checker() ? await NTP.now() : await DateTime.now();
       Map<String, dynamic> bindedData = {
         "HrCrEmp": "${UserId}",
         "hrCrEmpIdHrCrEmp": "${UserId}",
         "startDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "endDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "entryDate":
-            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(await NTP.now()).toString()}",
+            "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
         "alkpLeaveTypeId": 1,
         "leaveType": "OUT",
         "remarks": "",
@@ -921,76 +963,62 @@ class AttendancescreenController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red.shade500,
             duration: Duration(seconds: 2));
-        getlocation();
+        await getlocation();
         // requestCheckOut();
       }
     } else {
-      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
-          colorText: Colors.white,
-          borderRadius: 0,
-          animationDuration: Duration(seconds: 0),
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red.shade500,
-          duration: Duration(seconds: 2));
-    }
-  }
-
-  CheckInOutSync() async {
-    Map<String, dynamic> inData =
-        Pref.readData(key: Pref.CHECK_IN_BACKUP) ?? {};
-    Map<String, dynamic> outData =
-        Pref.readData(key: Pref.CHECK_OUT_BACKUP) ?? {};
-
-    if (inData.isEmpty && outData.isEmpty) {
-      print("No sync available");
-    } else {
-      if (inData.isNotEmpty) {
-        print("Check in sync available");
-        try {
-          await Repository().requestCheckIn(map: inData).then((value) {
-            print("Check in api value ------------------- > ${value}");
-            Pref.removeData(key: Pref.CHECK_IN_BACKUP);
-            Get.snackbar("SYNC SUCCESS", "Successfully completed sync",
-                colorText: Colors.white,
-                borderRadius: 0,
-                animationDuration: Duration(seconds: 0),
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.green.shade500,
-                duration: Duration(seconds: 2));
-          });
-        } on Exception catch (e) {
-          print("CHECK IN DATA SYNC FAILED DUE TO SERVER EXCEPTION----${e}");
-          // Get.snackbar("Failed", "Try again",
-          //     colorText: Colors.white,
-          //     borderRadius: 2,
-          //     snackPosition: SnackPosition.BOTTOM,
-          //     backgroundColor: Colors.red.shade500,
-          //     duration: Duration(seconds: 2));
-        }
-      }
-      if (outData.isNotEmpty) {
-        print("Check out sync available");
-        try {
-          await Repository().requestCheckIn(map: outData).then((value) {
-            print("Check in api value ------------------- > ${value}");
-            Pref.removeData(key: Pref.CHECK_OUT_BACKUP);
-            Get.snackbar("SYNC SUCCESS", "Successfully completed sync",
-                colorText: Colors.white,
-                borderRadius: 0,
-                animationDuration: Duration(seconds: 0),
-                snackPosition: SnackPosition.BOTTOM,
-                backgroundColor: Colors.green.shade500,
-                duration: Duration(seconds: 2));
-          });
-        } on Exception catch (e) {
-          print("CHECK OUT DATA SYNC FAILED DUE TO SERVER EXCEPTION----${e}");
-          // Get.snackbar("Check out data sync Failed", "Try again",
-          //     colorText: Colors.white,
-          //     borderRadius: 2,
-          //     snackPosition: SnackPosition.BOTTOM,
-          //     backgroundColor: Colors.red.shade500,
-          //     duration: Duration(seconds: 2));
-        }
+      if (lattitude.value != 0.0 && longitude.value != 0.0) {
+        String UserId = Pref.readData(key: Pref.USER_ID).toString();
+        DateTime currentTime =
+            await IEchecker.checker() ? await NTP.now() : await DateTime.now();
+        Map<String, dynamic> bindedData = {
+          "HrCrEmp": "${UserId}",
+          "hrCrEmpIdHrCrEmp": "${UserId}",
+          "startDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "endDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "entryDate":
+              "${DateFormat('MM/dd/yyyy hh:mm:ss a').format(currentTime).toString()}",
+          "alkpLeaveTypeId": 1,
+          "leaveType": "OUT",
+          "remarks": "",
+          "reason": "",
+          //         "empLocation": "Simpletree Anarkali,Gulshan,Dhaka-1212",
+          // "isPass": 0,
+          // "empCode": "",
+          // "resMobile": 0,
+          // "longitude": 90.4165467,
+          // "latitude": 23.7868417,
+          "empLocation": "${address.value}",
+          "isPass": 0,
+          "empCode": "",
+          "resMobile": 0,
+          "longitude": longitude.value,
+          "latitude": lattitude.value,
+          "splDuration": 0,
+          "startHour": 0,
+          "startMin": 0,
+        };
+        offlineCheckOut(bindedData: bindedData);
+        isCheckingInOut.value = false;
+        update();
+        // Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
+        //     colorText: Colors.white,
+        //     borderRadius: 0,
+        //     animationDuration: Duration(seconds: 0),
+        //     snackPosition: SnackPosition.BOTTOM,
+        //     backgroundColor: Colors.red.shade500,
+        //     duration: Duration(seconds: 2));
+      } else {
+        Get.snackbar("No location", "Please turn on location and try again",
+            colorText: Colors.white,
+            borderRadius: 0,
+            animationDuration: Duration(seconds: 0),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red.shade500,
+            duration: Duration(seconds: 2));
+        await getlocation();
       }
     }
   }
@@ -1042,40 +1070,6 @@ class AttendancescreenController extends GetxController {
       }
     }
   }
-  // initAttendance() {
-  //   String attnActivity = attendanceHistory[0]['ATTN_DAY_STS_TYPE'];
-  //   if (attnActivity == "IN") {
-  //     Pref.writeData(key: Pref.CHECKED_IN, value: true);
-  //     isCheckedInUpdater(value: true);
-  //     lastCheckInUpdater(
-  //         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-  //     isCheckingInOut.value = false;
-  //     latestActivity.clear();
-  //     latestActivity.value = {
-  //       "title": "CHECKED IN",
-  //       "time": "${attendanceHistory[0]['IN_TIME']}",
-  //       "mode": "ONLINE",
-  //     };
-  //     latestActivity.refresh();
-  //     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
-  //     update();
-  //   } else if (attnActivity == "OUT") {
-  //     Pref.writeData(key: Pref.CHECKED_IN, value: false);
-  //     isCheckedInUpdater(value: false);
-  //     lastCheckInUpdater(
-  //         time: DateFormat('MM/dd/yyyy hh:mm:ss a').format(DateTime.now()));
-  //     isCheckingInOut.value = false;
-  //     latestActivity.clear();
-  //     latestActivity.value = {
-  //       "title": "CHECKED OUT",
-  //       "time": "${attendanceHistory[0]['OUT_TIME']}",
-  //       "mode": "ONLINE",
-  //     };
-  //     latestActivity.refresh;
-  //     Pref.writeData(key: Pref.LATEST_CHECK, value: latestActivity);
-  //     update();
-  //   }
-  // }
 
   RxDouble lattitude = 0.0.obs;
   RxDouble longitude = 0.0.obs;
@@ -1116,18 +1110,24 @@ class AttendancescreenController extends GetxController {
     lattitude.value = locationData.latitude ?? 0.0;
     longitude.value = locationData.longitude ?? 0.0;
     update();
-
-    List<gcode.Placemark> placemarks = await gcode.placemarkFromCoordinates(
-        double.parse(lattitude.value.toStringAsFixed(4)),
-        double.parse(longitude.value.toStringAsFixed(4)));
-    address.value = "${placemarks[0].street}" +
-        "," +
-        "${placemarks[0].subLocality}" +
-        "," +
-        "${placemarks[0].locality}" +
-        "-" +
-        "${placemarks[0].postalCode}";
-    isLocationLoading.value = false;
+    if (await IEchecker.checker()) {
+      List<gcode.Placemark> placemarks = await gcode.placemarkFromCoordinates(
+              double.parse(lattitude.value.toStringAsFixed(4)),
+              double.parse(longitude.value.toStringAsFixed(4))) ??
+          [];
+      address.value = "${placemarks[0].street}" +
+          "," +
+          "${placemarks[0].subLocality}" +
+          "," +
+          "${placemarks[0].locality}" +
+          "-" +
+          "${placemarks[0].postalCode}";
+      isLocationLoading.value = false;
+    } else {
+      address.value = "${lattitude.value},${longitude.value}";
+      isLocationLoading.value = false;
+    }
+    update();
     Map<String, dynamic> tempLocation = {
       "time": DateTime.now().toString().split(" ")[1],
       "lattitude": "${double.parse(lattitude.value.toStringAsFixed(4))}",
@@ -1157,18 +1157,20 @@ class AttendancescreenController extends GetxController {
     update();
     await getlocation();
     if (lattitude.value != 0.0 && longitude.value != 0.0) {
-      await Repository()
-          .requestWeather(
-              lattitude: lattitude.value, longitude: longitude.value)
-          .then((value) {
-        if (value != null) {
-          print(value);
-          weatherData.value = value;
-          weatherData.refresh();
-        }
-        isWeatherLoading.value = false;
-        update();
-      });
+      if (await IEchecker.checker()) {
+        await Repository()
+            .requestWeather(
+                lattitude: lattitude.value, longitude: longitude.value)
+            .then((value) {
+          if (value != null) {
+            print(value);
+            weatherData.value = value;
+            weatherData.refresh();
+          }
+          isWeatherLoading.value = false;
+          update();
+        });
+      }
     }
   }
   //------------Debug module---------------//
@@ -1182,8 +1184,7 @@ class AttendancescreenController extends GetxController {
     isCheckedInUpdater(value: Pref.readData(key: Pref.CHECKED_IN) ?? false);
     getlocation();
     await requestPersonalAttendance();
-
-    CheckInOutSync();
+    await CHECKINOUTSYNC().CheckInOutSync();
     // initAttendance();
     await checkLatest();
     await resetActivityDaily();

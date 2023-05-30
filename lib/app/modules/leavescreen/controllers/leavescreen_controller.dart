@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../home/controllers/home_controller.dart';
+
 class LeavescreenController extends GetxController {
   TextEditingController numberOfDays = TextEditingController(text: "1");
   TextEditingController reasonOfLeave = TextEditingController();
@@ -41,6 +43,11 @@ class LeavescreenController extends GetxController {
       update();
       await Repository().requestLeaveType(employeeId: userId).then((value) {
         print(value);
+
+        if (value['result'].toString().contains("Username And password Not")) {
+          Get.put(HomeController());
+          Get.find<HomeController>().requestSignOut();
+        }
         if (value != null && value['value'] != null && value['value'] != []) {
           List<dynamic> leaves = value['value'] ?? [];
           leaveType.clear();

@@ -4,6 +4,7 @@ import 'package:attendance/app/api/repository/repository.dart';
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/data/globals/app_colors.dart';
+import 'package:attendance/app/modules/sync/checkinoutsync.dart';
 import 'package:attendance/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -246,6 +247,28 @@ class HomeController extends GetxController {
     }
   }
 
+  RxInt offlineCheckInCount = 0.obs;
+  RxInt offlineCheckOutCount = 0.obs;
+
+  offlineSyncDataCounter() {
+    List<dynamic> inData = Pref.readData(key: Pref.CHECK_IN_BACKUP) ?? [];
+    List<dynamic> outData = Pref.readData(key: Pref.CHECK_OUT_BACKUP) ?? [];
+    offlineCheckInCount.value = inData.length;
+    offlineCheckOutCount.value = outData.length;
+    update();
+  }
+
+  RxBool isSyncing = false.obs;
+
+  offlineDataSync() async {
+    isSyncing.value = true;
+    update();
+    await CHECKINOUTSYNC().CheckInOutSync();
+    isSyncing.value = false;
+    update();
+    offlineSyncDataCounter();
+  }
+
   // requestSignOut() {
   //   Pref.removeData(key: Pref.USER_ID);
   //   Pref.removeData(key: Pref.USER_PASSWORD);
@@ -264,7 +287,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     dynamic data = Get.arguments;
-
+    offlineSyncDataCounter();
     dynamic allData = data['data'];
     print(allData);
     dataBinder(data: allData);
