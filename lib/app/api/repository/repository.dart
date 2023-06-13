@@ -1,4 +1,5 @@
 import 'package:attendance/app/api/url/app_url.dart';
+import 'package:dio/dio.dart';
 
 import '../provider/provider.dart';
 import '../service/api_service.dart';
@@ -61,13 +62,21 @@ class Repository extends Providers {
       map: {}).then((value) => value);
 
   Future<dynamic> requestWeather(
-          {required double lattitude, required double longitude}) async =>
-      await commonApiCall(
-          endPoint:
-              // "https://api.open-meteo.com/v1/forecast?latitude=${lattitude}&longitude=${longitude}&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m",
-              // "https://api.open-meteo.com/v1/forecast?latitude=${lattitude}&longitude=${longitude}&hourly=temperature_2m,apparent_temperature,precipitation_probability&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,sunrise,sunset,precipitation_probability_max&current_weather=true&timezone=auto",
-              "https://api.open-meteo.com/v1/forecast?latitude=${lattitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,precipitation,visibility&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,uv_index_max,uv_index_clear_sky_max,precipitation_hours&current_weather=true&timezone=auto",
-          // "https://api.openweathermap.org/data/2.5/weather?lat=${lattitude}&lon=${longitude}&units=imperial&appid=${AppString.apiKey}",
-          method: Method.GET,
-          map: {}).then((value) => value);
+      {required double lattitude, required double longitude}) async {
+    final apiUrl =
+        'https://api.open-meteo.com/v1/forecast?latitude=${lattitude}&longitude=${longitude}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation_probability,precipitation,visibility&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,uv_index_max,uv_index_clear_sky_max,precipitation_hours&current_weather=true&timezone=auto';
+
+    final dio = Dio();
+
+    try {
+      final response = await dio.get(apiUrl);
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to fetch weather forecast');
+      }
+    } catch (e) {
+      throw Exception('Failed to fetch weather forecast: $e');
+    }
+  }
 }
