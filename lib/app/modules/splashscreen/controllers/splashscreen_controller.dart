@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../api/service/prefrences.dart';
 import '../../../routes/app_pages.dart';

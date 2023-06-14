@@ -17,7 +17,7 @@ abstract class Providers implements CallBack {
     finalMap['version_code'] =
         await PackageInfo.fromPlatform().then((value) => value.buildNumber);
     // finalMap['macAdds'] = "c295f3a8cebb9807";
-    finalMap['macAdds'] = !kDebugMode
+    finalMap['macAdds'] = kDebugMode
         ? "c295f3a8cebb9807"
         : Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
     finalMap['os'] = Platform.isAndroid ? 'android' : 'ios';
@@ -42,7 +42,7 @@ abstract class Providers implements CallBack {
     finalMap['version_code'] =
         await PackageInfo.fromPlatform().then((value) => value.buildNumber);
     // finalMap['macAdds'] = "c295f3a8cebb9807";
-    finalMap['macAdds'] = !kDebugMode
+    finalMap['macAdds'] = kDebugMode
         ? "c295f3a8cebb9807"
         : Pref.readData(key: Pref.DEVICE_IDENTITY).toString();
     // finalMap['macAdds'] = Pref.readData(key: Pref.DEVICE_IDENTITY).toString();

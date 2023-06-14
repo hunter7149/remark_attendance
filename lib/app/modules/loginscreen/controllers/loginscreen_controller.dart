@@ -1,14 +1,11 @@
-import 'dart:io';
 
 import 'package:attendance/app/api/service/connection_checker.dart';
 import 'package:attendance/app/api/service/prefrences.dart';
 import 'package:attendance/app/routes/app_pages.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../api/repository/repository.dart';
-import '../../../firebase/pushnotificationservice.dart';
 
 class LoginscreenController extends GetxController {
   RxBool obsecure = true.obs;
