@@ -198,60 +198,68 @@ class HomeController extends GetxController {
   RxBool isSignOut = false.obs;
   requestSignOut() async {
     String UserId = Pref.readData(key: Pref.USER_ID).toString();
-    if (await IEchecker.checker()) {
-      try {
-        isSignOut.value = true;
-        update();
-        await Repository().requestLogOut(map: {
-          "HrCrEmp": "${UserId}",
-        }).then((value) {
-          if (value["result"]!
-              .toString()
-              .toLowerCase()
-              .contains("Sucessfuly Logout.".toLowerCase())) {
-            isSignOut.value = false;
-            update();
-            Get.snackbar("Success", "${value['result']}",
-                colorText: Colors.white,
-                borderRadius: 0,
-                animationDuration: Duration(seconds: 0),
-                backgroundColor: Colors.green,
-                snackPosition: SnackPosition.BOTTOM);
 
-            Pref.removeData(key: Pref.USER_ID);
-            Pref.removeData(key: Pref.USER_PASSWORD);
-            Pref.removeData(key: Pref.LOGIN_INFORMATION);
-            Get.offNamed(Routes.LOGINSCREEN);
-          } else {
-            isSignOut.value = false;
-            update();
-            Get.snackbar("Failed", "${value['result']}",
-                colorText: Colors.white,
-                borderRadius: 0,
-                animationDuration: Duration(seconds: 0),
-                backgroundColor: Colors.red,
-                snackPosition: SnackPosition.BOTTOM);
-          }
-        });
-      } on Exception {
+    if (UserId == "playtester123") {
+      Pref.removeData(key: Pref.USER_ID);
+      Pref.removeData(key: Pref.USER_PASSWORD);
+      Pref.removeData(key: Pref.LOGIN_INFORMATION);
+      Get.offNamed(Routes.LOGINSCREEN);
+    } else {
+      if (await IEchecker.checker()) {
+        try {
+          isSignOut.value = true;
+          update();
+          await Repository().requestLogOut(map: {
+            "HrCrEmp": "${UserId}",
+          }).then((value) {
+            if (value["result"]!
+                .toString()
+                .toLowerCase()
+                .contains("Sucessfuly Logout.".toLowerCase())) {
+              isSignOut.value = false;
+              update();
+              Get.snackbar("Success", "${value['result']}",
+                  colorText: Colors.white,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
+                  backgroundColor: Colors.green,
+                  snackPosition: SnackPosition.BOTTOM);
+
+              Pref.removeData(key: Pref.USER_ID);
+              Pref.removeData(key: Pref.USER_PASSWORD);
+              Pref.removeData(key: Pref.LOGIN_INFORMATION);
+              Get.offNamed(Routes.LOGINSCREEN);
+            } else {
+              isSignOut.value = false;
+              update();
+              Get.snackbar("Failed", "${value['result']}",
+                  colorText: Colors.white,
+                  borderRadius: 0,
+                  animationDuration: Duration(seconds: 0),
+                  backgroundColor: Colors.red,
+                  snackPosition: SnackPosition.BOTTOM);
+            }
+          });
+        } on Exception {
+          isSignOut.value = false;
+          update();
+          Get.snackbar("FAILED", "SERVER ERROR",
+              colorText: Colors.white,
+              backgroundColor: Colors.red,
+              borderRadius: 0,
+              animationDuration: Duration(seconds: 0),
+              snackPosition: SnackPosition.BOTTOM);
+        }
+      } else {
         isSignOut.value = false;
         update();
-        Get.snackbar("FAILED", "SERVER ERROR",
+        Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
             colorText: Colors.white,
-            backgroundColor: Colors.red,
             borderRadius: 0,
             animationDuration: Duration(seconds: 0),
+            backgroundColor: Colors.red,
             snackPosition: SnackPosition.BOTTOM);
       }
-    } else {
-      isSignOut.value = false;
-      update();
-      Get.snackbar("NO INTERNET", "PLEASE ENABLE INTERNET",
-          colorText: Colors.white,
-          borderRadius: 0,
-          animationDuration: Duration(seconds: 0),
-          backgroundColor: Colors.red,
-          snackPosition: SnackPosition.BOTTOM);
     }
   }
 
@@ -356,7 +364,7 @@ class HomeController extends GetxController {
 
       // Compare the versions
 
-      if (_packageInfo != null && latestVersion.value != 'd') {
+      if (_packageInfo != null && latestVersion.value != '') {
         final installedVersion = _packageInfo!.version;
 
         final isNewVersionAvailable =
