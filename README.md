@@ -1,6 +1,7 @@
 # attendance
 
-A new Flutter project.
+A project by Mohammad Khalid Bin Oalid for Remark HB Limited
+
 
 ## Getting Started
 
